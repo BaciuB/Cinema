@@ -13,7 +13,7 @@ public class Seat {
         this.price = price;
     }
 
-    // Getters and Setters
+
     public String getSeatNumber() { return seatNumber; }
     public void setSeatNumber(String seatNumber) { this.seatNumber = seatNumber; }
 
