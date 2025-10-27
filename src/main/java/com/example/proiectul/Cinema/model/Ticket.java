@@ -1,6 +1,4 @@
-package com.example.proiectul.Cinema.Model;
-
-import java.time.LocalDateTime;
+package com.example.proiectul.Cinema.model;
 
 public class Ticket {
     private String Id;

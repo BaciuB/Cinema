@@ -1,4 +1,4 @@
-package com.example.proiectul.Cinema.Model;
+package com.example.proiectul.Cinema.model;
 
 public abstract class Staff {
     private String Id;

@@ -1,4 +1,4 @@
-package com.example.proiectul.Cinema.Model;
+package com.example.proiectul.Cinema.model;
 
 import java.util.List;
 
