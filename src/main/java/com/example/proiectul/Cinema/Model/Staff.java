@@ -1,10 +1,6 @@
 package com.example.proiectul.Cinema.Model;
 
-import java.util.List;
-
-public class Customer {
+public abstract class Staff {
     private String Id;
     private String name;
-    private List<Ticket> tickets;
 }
-
