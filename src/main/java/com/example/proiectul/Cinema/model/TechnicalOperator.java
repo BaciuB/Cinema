@@ -13,9 +13,5 @@ public class TechnicalOperator extends Staff {
     public String getspecialization() {return specialization; }
     public void setspecialization(String specialization) {this.specialization = specialization;}
 
-    @Override
-    public String toString() {
-        return super.toString() + ", specialization = '" + specialization +"'";
-    }
 }
 

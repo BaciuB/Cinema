@@ -22,12 +22,4 @@ public class StaffAssignment {
     public String getStaffId() { return staffId; }
     public void setStaffId(String staffId) { this.staffId = staffId; }
 
-    @Override
-    public String toString() {
-        return "StaffAssignment{" +
-                "id = '" + Id + '\'' +
-                ", screeningId = '" + screeningId + '\'' +
-                ", staffId = '" + staffId + '\'' +
-                '}';
-    }
 }
