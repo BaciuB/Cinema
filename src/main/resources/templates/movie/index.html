@@ -14,7 +14,7 @@
     <tr>
         <th>ID</th>
         <th>Title</th>
-        <th>Genre</th>
+        <th>Duration (min)</th>
         <th>Actions</th>
     </tr>
     </thead>
@@ -22,7 +22,7 @@
     <tr th:each="m : ${movies}">
         <td th:text="${m.id}">1</td>
         <td th:text="${m.title}">Inception</td>
-        <td th:text="${m.genre}">Sci-Fi</td>
+        <td th:text="${m.durationMinutes}">120</td>
         <td>
             <form th:action="@{'/movies/' + ${m.id} + '/delete'}" method="post">
                 <button type="submit">Delete</button>
