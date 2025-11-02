@@ -1,3 +1,4 @@
+// java
 package com.example.proiectul.Cinema.controller;
 
 import com.example.proiectul.Cinema.model.Screening;
@@ -7,8 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/screenings")
+@RequestMapping("/screening")
 public class ScreeningController {
+
     private final ScreeningService screeningService;
 
     public ScreeningController(ScreeningService screeningService) {
@@ -16,26 +18,26 @@ public class ScreeningController {
     }
 
     @GetMapping
-    public String list(Model model) {
+    public String index(Model model) {
         model.addAttribute("screenings", screeningService.findAll());
-        return "screenings/index";
+        return "screening/index";
     }
 
     @GetMapping("/new")
-    public String newForm(Model model) {
+    public String newScreeningForm(Model model) {
         model.addAttribute("screening", new Screening());
-        return "screenings/form";
+        return "screening/form";
     }
 
-    @PostMapping("/save")
-    public String save(@ModelAttribute Screening screening) {
+    @PostMapping
+    public String create(@ModelAttribute Screening screening) {
         screeningService.save(screening);
-        return "redirect:/screenings";
+        return "redirect:/screening";
     }
 
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable String id) {
         screeningService.deleteById(id);
-        return "redirect:/screenings";
+        return "redirect:/screening";
     }
 }

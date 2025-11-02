@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class Screening {
-    private String Id;
+    private String id;
     private String hallId;
     private String movieId;
     private LocalDate dateTime;
@@ -14,7 +14,7 @@ public class Screening {
     public Screening() { }
 
     public Screening(String id, String hallId, String movieId, LocalDate dateTime) {
-        this.Id = id;
+        this.id = id;
         this.hallId = hallId;
         this.movieId = movieId;
         this.dateTime = dateTime;
@@ -23,8 +23,8 @@ public class Screening {
     public LocalDate getDateTime() { return dateTime; }
     public void setDateTime(LocalDate dateTime) { this.dateTime = dateTime; }
 
-    public String getId() { return Id; }
-    public void setId(String id) { this.Id = id; }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
     public String getHallId() { return hallId; }
     public void setHallId(String hallId) { this.hallId = hallId; }
