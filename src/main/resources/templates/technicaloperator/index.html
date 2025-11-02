@@ -1,0 +1,34 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"/><title>Technical Operators</title></head>
+<body>
+<h1>Technical Operators</h1>
+
+<p><a th:href="@{/operators/new}">Add Operator</a></p>
+
+<table border="1" cellpadding="6">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Salary</th>
+        <th>Specialization</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="o : ${operators}">
+        <td th:text="${o.id}">O1</td>
+        <td th:text="${o.name}">Ion</td>
+        <td th:text="${o.salary}">3000</td>
+        <td th:text="${o.specialization}">Sound</td>
+        <td>
+            <form th:action="@{'/operators/' + ${o.id} + '/delete'}" method="post">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

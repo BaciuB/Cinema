@@ -14,7 +14,7 @@ public class StaffAssignment {
     }
 
     public String getId() {return id; }
-    public void setId(String Id) { this.id = id; }
+    public void setId(String id) { this.id = id; }
 
     public String getScreeningId() { return screeningId; }
     public void setScreeningId(String screeningId) { this.screeningId = screeningId; }
