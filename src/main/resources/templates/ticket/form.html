@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Create Ticket</title></head>
+<body>
+<h1>New Ticket</h1>
+<form th:action="@{/tickets/save}" th:object="${ticket}" method="post">
+    <div>
+        <label>ID:</label>
+        <input type="text" th:field="*{id}" />
+    </div>
+    <div>
+        <label>Screening ID:</label>
+        <input type="text" th:field="*{screeningId}" />
+    </div>
+    <div>
+        <label>Price:</label>
+        <input type="number" step="0.01" th:field="*{price}" />
+    </div>
+    <div><button type="submit">Save</button></div>
+</form>
+<a th:href="@{/tickets}">Back</a>
+</body>
+</html>
