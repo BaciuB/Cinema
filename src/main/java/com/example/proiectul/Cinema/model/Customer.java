@@ -8,6 +8,7 @@ public class Customer {
     private String email;
     private List<Ticket> tickets;
 
+
     public Customer() { }
 
     public Customer(String id, String name, String email) {

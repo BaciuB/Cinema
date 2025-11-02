@@ -1,0 +1,38 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Customers</title>
+</head>
+<body>
+<h1>Customers</h1>
+
+<p><a th:href="@{/customers/new}">Add Customer</a></p>
+
+<table border="1" cellpadding="6">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Tickets (count)</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="c : ${customers}">
+        <td th:text="${c.id}">C1</td>
+        <td th:text="${c.name}">Alice</td>
+        <td th:text="${c.email}">alice@example.com</td>
+        <!-- numărul de bilete -->
+        <td th:text="${#lists.size(c.tickets)}">0</td>
+        <td>
+            <form th:action="@{'/customers/' + ${c.id} + '/delete'}" method="post">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
