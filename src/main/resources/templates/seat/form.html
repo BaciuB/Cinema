@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Create Seat</title>
 </head>
 <body>
+<h1>New Seat</h1>
 
+<form th:action="@{/seat}" th:object="${seat}" method="post">
+    <div>
+        <label>ID:</label>
+        <input type="text" th:field="*{id}" />
+    </div>
+
+    <div>
+        <label>Hall ID:</label>
+        <input type="text" th:field="*{hallid}" />
+    </div>
+
+    <div>
+        <label>Row:</label>
+        <input type="text" th:field="*{row}" />
+    </div>
+
+    <div>
+        <label>Column:</label>
+        <input type="text" th:field="*{column}" />
+    </div>
+
+    <button type="submit">Save</button>
+</form>
+
+<a th:href="@{/seat}">Back to list</a>
 </body>
 </html>

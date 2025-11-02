@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Create Hall</title>
 </head>
 <body>
+<h1>New Hall</h1>
 
+<form th:action="@{/hall}" th:object="${hall}" method="post">
+    <div>
+        <label>ID:</label>
+        <input type="text" th:field="*{id}" />
+    </div>
+
+    <div>
+        <label>Name:</label>
+        <input type="text" th:field="*{name}" />
+    </div>
+
+    <div>
+        <label>Theatre ID:</label>
+        <input type="text" th:field="*{theatreId}" />
+    </div>
+
+    <div>
+        <label>Capacity:</label>
+        <input type="number" th:field="*{capacity}" />
+    </div>
+
+    <button type="submit">Save</button>
+</form>
+
+<a th:href="@{/hall}">Back to list</a>
 </body>
 </html>

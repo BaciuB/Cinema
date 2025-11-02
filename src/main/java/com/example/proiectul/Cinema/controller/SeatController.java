@@ -6,36 +6,41 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+
 @Controller
-@RequestMapping("/seats")
+@RequestMapping("/seat")
 public class SeatController {
+
     private final SeatService seatService;
 
     public SeatController(SeatService seatService) {
         this.seatService = seatService;
     }
 
+
     @GetMapping
-    public String list(Model model) {
+    public String index(Model model) {
         model.addAttribute("seats", seatService.findAll());
-        return "seats/index";
+        return "seat/index";
     }
+
 
     @GetMapping("/new")
-    public String newForm(Model model) {
+    public String newSeatForm(Model model) {
         model.addAttribute("seat", new Seat());
-        return "seats/form";
+        return "seat/form";
     }
 
-    @PostMapping("/save")
-    public String save(@ModelAttribute Seat seat) {
+
+    @PostMapping
+    public String create(@ModelAttribute Seat seat) {
         seatService.save(seat);
-        return "redirect:/seats";
+        return "redirect:/seat";
     }
 
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable String id) {
         seatService.deleteById(id);
-        return "redirect:/seats";
+        return "redirect:/seat";
     }
 }
