@@ -24,7 +24,6 @@
         <td th:text="${c.id}">C1</td>
         <td th:text="${c.name}">Alice</td>
         <td th:text="${c.email}">alice@example.com</td>
-        <!-- numărul de bilete -->
         <td th:text="${#lists.size(c.tickets)}">0</td>
         <td>
             <form th:action="@{'/customers/' + ${c.id} + '/delete'}" method="post">
