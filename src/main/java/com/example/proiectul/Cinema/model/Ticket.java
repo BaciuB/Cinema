@@ -2,33 +2,33 @@ package com.example.proiectul.Cinema.model;
 
 public class Ticket {
     private String id;
-    private Movie movie;
-    private Seat seat;
-    private Theatre theatre;
-    private Customer customer;
+    private String screeningId;
+    private String customerId;
+    private String seatId;
+    private double price;
 
     public Ticket() { }
 
-    public Ticket(String id, Movie movie, Seat seat, Theatre theatre, Customer customer) {
+    public Ticket(String id, String screeningId, String customerId, String seatId, double price) {
         this.id = id;
-        this.movie = movie;
-        this.seat = seat;
-        this.theatre = theatre;
-        this.customer = customer;
+        this.screeningId = screeningId;
+        this.customerId = customerId;
+        this.seatId = seatId;
+        this.price = price;
     }
-
 
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
 
-    public Movie getMovie() { return movie; }
-    public void setMovie(Movie movie) { this.movie = movie; }
+    public String getScreeningId() { return screeningId; }
+    public void setScreeningId(String screeningId) { this.screeningId = screeningId; }
 
-    public Seat getSeat() { return seat; }
-    public void setSeat(Seat seat) { this.seat = seat; }
-    public Theatre getTheatre() { return theatre; }
-    public void setTheatre(Theatre theater) { this.theatre = theatre; }
+    public String getCustomerId() { return customerId; }
+    public void setCustomerId(String customerId) { this.customerId = customerId; }
 
-    public Customer getCustomer() { return customer; }
-    public void setCustomer(Customer customer) { this.customer = customer; }
+    public String getSeatId() { return seatId; }
+    public void setSeatId(String seatId) { this.seatId = seatId;}
+
+    public double getPrice() { return price; }
+    public void setPrice(double price) { this.price = price; }
 }

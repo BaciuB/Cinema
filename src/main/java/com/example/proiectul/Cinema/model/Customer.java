@@ -6,7 +6,7 @@ public class Customer {
     private String id;
     private String name;
     private String email;
-    private List<Ticket> tickets;//
+    private List<Ticket> tickets;
 
     public Customer() { }
 

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class SeatRepo extends RepoMemory<Seat>{
     public SeatRepo() {
-        super(Seat::getSeatNumber);
+        super(Seat::getId);
     }
 }

@@ -1,25 +1,30 @@
 package com.example.proiectul.Cinema.model;
 
 public class Seat {
-    private String seatNumber;
-    private boolean available;
-    private double price;
+    private String id;
+    private  String hallid;
+    private String row;
+    private String column;
 
     public Seat() { }
 
-    public Seat(String seatNumber, boolean available, double price) {
-        this.seatNumber = seatNumber;
-        this.available = available;
-        this.price = price;
+    public Seat(String id, String hallid, String row, String column) {
+        this.id = id;
+        this.hallid = hallid;
+        this.row = row;
+        this.column = column;
     }
 
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
-    public String getSeatNumber() { return seatNumber; }
-    public void setSeatNumber(String seatNumber) { this.seatNumber = seatNumber; }
+    public String getHallid() { return hallid; }
+    public void setHallid(String hallid) { this.hallid = hallid;}
 
-    public boolean isAvailable() { return available; }
-    public void setAvailable(boolean available) { this.available = available; }
+    public String getRow() { return row; }
+    public void setRow(String row) { this.row = row; }
 
-    public double getPrice() { return price; }
-    public void setPrice(double price) { this.price = price; }
+    public String getColumn() { return column; }
+    public void setColumn(String column) { this.column = column; }
+
 }

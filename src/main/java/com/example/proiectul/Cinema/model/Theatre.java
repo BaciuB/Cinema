@@ -5,15 +5,15 @@ import java.util.List;
 public class Theatre {
     private String id;
     private String name;
-    private String location;
-    private List<Seat> seats;
+    private String city;
+    private List<Hall> halls;
 
     public Theatre() { }
 
     public Theatre(String id, String name, String location) {
         this.id = id;
         this.name = name;
-        this.location = location;
+        this.city = location;
     }
 
 
@@ -23,9 +23,9 @@ public class Theatre {
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
-    public String getLocation() { return location; }
-    public void setLocation(String location) { this.location = location; }
+    public String getCity() { return city; }
+    public void setCity(String city) { this.city = city; }
 
-    public List<Seat> getSeats() { return seats; }
-    public void setSeats(List<Seat> seats) { this.seats = seats; }
+    public List<Hall> getHalls() { return halls; }
+    public void setHalls(List<Hall> halls) { this.halls = halls; }
 }
