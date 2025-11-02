@@ -5,8 +5,8 @@ public class TechnicalOperator extends Staff {
 
     public TechnicalOperator() { }
 
-    public TechnicalOperator( String Id, String name, String specialization) {
-        super(Id, name);
+    public TechnicalOperator( String Id, String name, int salary, String specialization) {
+        super(Id, name, salary);
         this.specialization = specialization;
     }
 

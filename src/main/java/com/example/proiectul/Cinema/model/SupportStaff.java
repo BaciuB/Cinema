@@ -5,8 +5,8 @@ public class SupportStaff extends Staff {
 
     public SupportStaff() { }
 
-    public SupportStaff(String Id, String name, String role) {
-        super(Id, name);
+    public SupportStaff(String Id, String name, int salary, String role) {
+        super(Id, name, salary);
         this.role = role;
     }
 
