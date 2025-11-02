@@ -1,0 +1,35 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Staff Assignments</title>
+</head>
+<body>
+<h1>Staff Assignments</h1>
+
+<p><a th:href="@{/assignments/new}">Add Assignment</a></p>
+
+<table border="1" cellpadding="6">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Screening ID</th>
+        <th>Staff ID</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="a : ${assignments}">
+        <td th:text="${a.id}">A1</td>
+        <td th:text="${a.screeningId}">S1</td>
+        <td th:text="${a.staffId}">ST1</td>
+        <td>
+            <form th:action="@{'/assignments/' + ${a.id} + '/delete'}" method="post">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

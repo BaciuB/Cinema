@@ -1,0 +1,28 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>New Staff Assignment</title>
+</head>
+<body>
+<h1>New Staff Assignment</h1>
+
+<form th:action="@{/assignments}" th:object="${assignment}" method="post">
+    <div>
+        <label>ID</label>
+        <input th:field="*{id}" placeholder="e.g. A1" required />
+    </div>
+    <div>
+        <label>Screening ID</label>
+        <input th:field="*{screeningId}" placeholder="e.g. S1" required />
+    </div>
+    <div>
+        <label>Staff ID</label>
+        <input th:field="*{staffId}" placeholder="e.g. ST1" required />
+    </div>
+    <button type="submit">Save</button>
+</form>
+
+<p><a th:href="@{/assignments}">Back to list</a></p>
+</body>
+</html>

@@ -1,20 +1,20 @@
 package com.example.proiectul.Cinema.model;
 
 public class StaffAssignment {
-    private String Id;
+    private String id;
     private String screeningId;
     private String staffId;
 
     public StaffAssignment() { }
 
-    public StaffAssignment(String Id, String screeningId, String staffId) {
-        this.Id = Id;
+    public StaffAssignment(String id, String screeningId, String staffId) {
+        this.id = id;
         this.screeningId = screeningId;
         this.staffId = staffId;
     }
 
-    public String getId() {return Id; }
-    public void setId(String Id) { this.Id = Id; }
+    public String getId() {return id; }
+    public void setId(String Id) { this.id = id; }
 
     public String getScreeningId() { return screeningId; }
     public void setScreeningId(String screeningId) { this.screeningId = screeningId; }
