@@ -7,7 +7,7 @@
 <body>
 <h1>Seats</h1>
 
-<a th:href="@{/seat/new}">Add new Seat</a>
+<a th:href="@{/seats/new}">Add new Seat</a>
 
 <table border="1" cellpadding="5">
     <tr>
@@ -23,13 +23,11 @@
         <td th:text="${s.row}">row</td>
         <td th:text="${s.column}">column</td>
         <td>
-            <form th:action="@{'/seat/' + ${s.id} + '/delete'}" method="post">
+            <form th:action="@{'/seats/' + ${s.id} + '/delete'}" method="post">
                 <button type="submit">Delete</button>
             </form>
         </td>
     </tr>
 </table>
-
-<a th:href="@{/}">Back to home</a>
 </body>
 </html>

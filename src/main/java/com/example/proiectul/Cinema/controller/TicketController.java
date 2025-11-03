@@ -27,7 +27,7 @@ public class TicketController {
         return "ticket/form";
     }
 
-    @PostMapping("/save")
+    @PostMapping("")
     public String save(@ModelAttribute Ticket ticket) {
         ticketService.save(ticket);
         return "redirect:/tickets";

@@ -7,7 +7,7 @@
 <body>
 <h1>Screenings</h1>
 
-<a th:href="@{/screening/new}">Add new Screening</a>
+<a th:href="@{/screenings/new}">Add new Screening</a>
 
 <table border="1" cellpadding="5">
     <tr>
@@ -23,7 +23,7 @@
         <td th:text="${s.movieId}">movieId</td>
         <td th:text="${s.dateTime}">dateTime</td>
         <td>
-            <form th:action="@{'/screening/' + ${s.id} + '/delete'}" method="post">
+            <form th:action="@{'/screenings/' + ${s.id} + '/delete'}" method="post">
                 <button type="submit">Delete</button>
             </form>
         </td>

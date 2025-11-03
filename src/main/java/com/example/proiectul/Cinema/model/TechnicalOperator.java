@@ -10,8 +10,8 @@ public class TechnicalOperator extends Staff {
         this.specialization = specialization;
     }
 
-    public String getspecialization() {return specialization; }
-    public void setspecialization(String specialization) {this.specialization = specialization;}
+    public String getSpecialization() {return specialization; }
+    public void setSpecialization(String specialization) {this.specialization = specialization;}
 
 }
 

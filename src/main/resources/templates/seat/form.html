@@ -7,7 +7,7 @@
 <body>
 <h1>New Seat</h1>
 
-<form th:action="@{/seat}" th:object="${seat}" method="post">
+<form th:action="@{/seats}" th:object="${seat}" method="post">
     <div>
         <label>ID:</label>
         <input type="text" th:field="*{id}" />
@@ -31,6 +31,6 @@
     <button type="submit">Save</button>
 </form>
 
-<a th:href="@{/seat}">Back to list</a>
+<a th:href="@{/seats}">Back to list</a>
 </body>
 </html>

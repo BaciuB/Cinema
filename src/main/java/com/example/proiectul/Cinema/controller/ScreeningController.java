@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/screening")
+@RequestMapping("/screenings")
 public class ScreeningController {
 
     private final ScreeningService screeningService;
@@ -32,12 +32,12 @@ public class ScreeningController {
     @PostMapping
     public String create(@ModelAttribute Screening screening) {
         screeningService.save(screening);
-        return "redirect:/screening";
+        return "redirect:/screenings";
     }
 
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable String id) {
         screeningService.deleteById(id);
-        return "redirect:/screening";
+        return "redirect:/screenings";
     }
 }

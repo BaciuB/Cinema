@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-@RequestMapping("/seat")
+@RequestMapping("/seats")
 public class SeatController {
 
     private final SeatService seatService;
@@ -35,12 +35,12 @@ public class SeatController {
     @PostMapping
     public String create(@ModelAttribute Seat seat) {
         seatService.save(seat);
-        return "redirect:/seat";
+        return "redirect:/seats";
     }
 
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable String id) {
         seatService.deleteById(id);
-        return "redirect:/seat";
+        return "redirect:/seats";
     }
 }

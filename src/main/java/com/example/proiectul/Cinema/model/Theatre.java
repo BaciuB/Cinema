@@ -1,5 +1,6 @@
 package com.example.proiectul.Cinema.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Theatre {

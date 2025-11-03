@@ -7,7 +7,7 @@
 <body>
 <h1>Halls</h1>
 
-<a th:href="@{/hall/new}">Add new Hall</a>
+<a th:href="@{/halls/new}">Add Hall</a>
 
 <table border="1" cellpadding="5">
     <tr>
@@ -23,7 +23,7 @@
         <td th:text="${h.theatreId}">theatreId</td>
         <td th:text="${h.capacity}">capacity</td>
         <td>
-            <form th:action="@{'/hall/' + ${h.id} + '/delete'}" method="post">
+            <form th:action="@{'/halls/' + ${h.id} + '/delete'}" method="post">
                 <button type="submit">Delete</button>
             </form>
         </td>
