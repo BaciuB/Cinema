@@ -1,7 +1,7 @@
 package com.example.proiectul.Cinema.model;
 
 public class SupportStaff extends Staff {
-    private String role;
+    private String role;//convertim in enum
 
     public SupportStaff() { }
 

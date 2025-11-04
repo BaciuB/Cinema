@@ -1,12 +1,13 @@
 package com.example.proiectul.Cinema.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Customer {
     private String id;
     private String name;
     private String email;
-    private List<Ticket> tickets;
+    private List<Ticket> tickets = new ArrayList<>();
 
 
     public Customer() { }
