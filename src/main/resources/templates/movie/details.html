@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Details</title>
+</head>
+<body>
+<h1>Movie Details</h1>
+
+<p><b>ID:</b> <span th:text="${movie.id}">M1</span></p>
+<p><b>Title:</b> <span th:text="${movie.title}">Inception</span></p>
+<p><b>Duration:</b> <span th:text="${movie.durationMinutes}">148</span> minutes</p>
+<p><b>Release date:</b> <span th:text="${movie.release_date}">2024-07-10</span></p>
+<p><b>Screenings:</b>
+    <span th:text="${movie.screenings != null ? #lists.size(movie.screenings) : 0}">0</span>
+</p>
+
+<p>
+    <a th:href="@{'/movies/' + ${movie.id} + '/edit'}">Edit</a> |
+    <a th:href="@{/movies}">Back to list</a>
+</p>
+</body>
+</html>

@@ -1,7 +1,7 @@
 package com.example.proiectul.Cinema.service;
 
 import com.example.proiectul.Cinema.model.Movie;
-import com.example.proiectul.Cinema.repository.MovieRepo;
+import com.example.proiectul.Cinema.repository.MovieRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,9 +9,9 @@ import java.util.Optional;
 
 @Service
 public class MovieService {
-    private final MovieRepo movieRepo;
+    private final MovieRepository movieRepo;
 
-    public MovieService(MovieRepo movieRepo) {
+    public MovieService(MovieRepository movieRepo) {
         this.movieRepo = movieRepo;
     }
 

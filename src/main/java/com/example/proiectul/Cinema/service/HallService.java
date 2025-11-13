@@ -1,7 +1,7 @@
 package com.example.proiectul.Cinema.service;
 
 import com.example.proiectul.Cinema.model.Hall;
-import com.example.proiectul.Cinema.repository.HallRepo;
+import com.example.proiectul.Cinema.repository.HallRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,10 +9,10 @@ import java.util.Optional;
 
 @Service
 public class HallService {
-    private final HallRepo hallRepo;
+    private final HallRepository hallRepo;
 
-    public HallService(HallRepo hallRepo) {
-        this.hallRepo = hallRepo;
+    public HallService(HallRepository hallRepository) {
+        this.hallRepo = hallRepository;
     }
 
     public List<Hall> findAll() { return hallRepo.findAll(); }

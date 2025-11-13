@@ -1,6 +1,7 @@
 package com.example.proiectul.Cinema.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Movie {
@@ -9,7 +10,7 @@ public class Movie {
     private int durationMinutes;
     private LocalDate release_date;
 
-    private List<Screening> screenings;
+    private List<Screening> screenings = new ArrayList<>();
 
     public Movie() { }
 

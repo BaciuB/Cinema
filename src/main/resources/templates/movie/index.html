@@ -1,35 +1,44 @@
-<!doctype html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8">
     <title>Movies</title>
 </head>
 <body>
 <h1>Movies</h1>
 
-<p><a th:href="@{/movies/new}">Add movie</a></p>
+<p><a th:href="@{/movies/new}">Add new Movie</a></p>
 
-<table border="1" cellpadding="6">
+<table border="1" cellpadding="5" cellspacing="0">
     <thead>
     <tr>
         <th>ID</th>
         <th>Title</th>
         <th>Duration (min)</th>
+        <th>Release Date</th>
+        <th># Screenings</th>
         <th>Actions</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="m : ${movies}">
-        <td th:text="${m.id}">1</td>
+        <td th:text="${m.id}">M1</td>
         <td th:text="${m.title}">Inception</td>
         <td th:text="${m.durationMinutes}">120</td>
+        <td th:text="${m.release_date}">2024-07-10</td>
+        <!-- protejat dacă screenings e null -->
+        <td th:text="${m.screenings != null ? #lists.size(m.screenings) : 0}">0</td>
         <td>
-            <form th:action="@{'/movies/' + ${m.id} + '/delete'}" method="post">
+            <a th:href="@{'/movies/' + ${m.id}}">Details</a> |
+            <a th:href="@{'/movies/' + ${m.id} + '/edit'}">Edit</a>
+            <form th:action="@{'/movies/' + ${m.id} + '/delete'}" method="post" style="display:inline">
                 <button type="submit">Delete</button>
             </form>
         </td>
     </tr>
     </tbody>
 </table>
+
+<p><a th:href="@{/}">Back home</a></p>
 </body>
 </html>

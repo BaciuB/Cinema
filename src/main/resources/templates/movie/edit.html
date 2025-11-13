@@ -2,23 +2,23 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>New Movie</title>
+    <title>Edit Movie</title>
 </head>
 <body>
-<h1>Add New Movie</h1>
+<h1>Edit Movie</h1>
 
-<form th:action="@{/movies}" th:object="${movie}" method="post">
+<form th:action="@{'/movies/' + ${movie.id}}" th:object="${movie}" method="post">
     <div>
         <label>ID:</label><br>
-        <input th:field="*{id}" placeholder="M1" required>
+        <input th:field="*{id}" readonly>
     </div>
     <div>
         <label>Title:</label><br>
-        <input th:field="*{title}" placeholder="Movie title" required>
+        <input th:field="*{title}" required>
     </div>
     <div>
         <label>Duration (minutes):</label><br>
-        <input th:field="*{durationMinutes}" type="number" min="1" placeholder="120" required>
+        <input th:field="*{durationMinutes}" type="number" min="1" required>
     </div>
     <div>
         <label>Release date:</label><br>
@@ -26,7 +26,7 @@
     </div>
 
     <p>
-        <button type="submit">Save</button>
+        <button type="submit">Save Changes</button>
         <a th:href="@{/movies}">Cancel</a>
     </p>
 </form>
