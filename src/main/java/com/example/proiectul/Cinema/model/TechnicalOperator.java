@@ -1,17 +1,17 @@
 package com.example.proiectul.Cinema.model;
 
 public class TechnicalOperator extends Staff {
-    private String specialization;//sa le convertim in enum
+    private Specialization specialization;
 
     public TechnicalOperator() { }
 
-    public TechnicalOperator( String Id, String name, int salary, String specialization) {
+    public TechnicalOperator( String Id, String name, int salary, Specialization specialization) {
         super(Id, name, salary);
         this.specialization = specialization;
     }
 
-    public String getSpecialization() {return specialization; }
-    public void setSpecialization(String specialization) {this.specialization = specialization;}
+    public Specialization getSpecialization() {return specialization; }
+    public void setSpecialization(Specialization specialization) {this.specialization = specialization;}
 
 }
 
