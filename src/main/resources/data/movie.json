@@ -1,1 +1,13 @@
-{}
+[ {
+  "title" : "Titanic",
+  "durationMinutes" : 90,
+  "release_date" : "2025-11-05",
+  "screenings" : [ ],
+  "id" : "M1"
+}, {
+  "title" : "LAla",
+  "durationMinutes" : 120,
+  "release_date" : "2025-11-04",
+  "screenings" : [ ],
+  "id" : "M2"
+} ]

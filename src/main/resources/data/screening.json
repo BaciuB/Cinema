@@ -1,1 +1,15 @@
-{}
+[ {
+  "id" : "SC1",
+  "hallId" : "H1",
+  "movieId" : "M1",
+  "dateTime" : "2025-11-02",
+  "tickets" : [ ],
+  "assignments" : [ ]
+}, {
+  "id" : "SC2",
+  "hallId" : "H2",
+  "movieId" : "M2",
+  "dateTime" : "2024-01-02",
+  "tickets" : [ ],
+  "assignments" : [ ]
+} ]
