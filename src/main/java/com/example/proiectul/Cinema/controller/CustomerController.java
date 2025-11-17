@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/customers")
 public class CustomerController {
+
     private final CustomerService customerService;
+
     public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
     }
@@ -36,5 +38,12 @@ public class CustomerController {
     public String delete(@PathVariable String id) {
         customerService.deleteById(id);
         return "redirect:/customers";
+    }
+
+    @GetMapping("/{id}")
+    public String details(@PathVariable String id, Model model) {
+        Customer c = customerService.findById(id).orElseThrow();
+        model.addAttribute("customer", c);
+        return "customer/details";
     }
 }
