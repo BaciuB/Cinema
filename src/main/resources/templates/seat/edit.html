@@ -1,0 +1,10 @@
+<!doctype html><html xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="utf-8"><title>Edit Seat</title></head><body>
+<h1>Edit Seat</h1>
+<form th:action="@{'/seats/' + ${seat.id}}" th:object="${seat}" method="post">
+    <div><label>ID</label><br><input th:field="*{id}" readonly></div>
+    <div><label>Hall ID</label><br><input th:field="*{hallId}" required></div>
+    <div><label>Row</label><br><input th:field="*{row}" required></div>
+    <div><label>Number</label><br><input th:field="*{number}" type="number" min="1" required></div>
+    <p><button type="submit">Save Changes</button> <a th:href="@{/seats}">Cancel</a></p>
+</form></body></html>

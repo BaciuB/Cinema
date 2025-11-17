@@ -7,9 +7,10 @@
 <body>
 <h1>Halls</h1>
 
-<a th:href="@{/halls/new}">Add Hall</a>
+<p><a th:href="@{/halls/new}">Add Hall</a></p>
 
-<table border="1" cellpadding="5">
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
     <tr>
         <th>ID</th>
         <th>Name</th>
@@ -17,17 +18,24 @@
         <th>Capacity</th>
         <th>Actions</th>
     </tr>
+    </thead>
+    <tbody>
     <tr th:each="h : ${halls}">
-        <td th:text="${h.id}">id</td>
-        <td th:text="${h.name}">name</td>
-        <td th:text="${h.theatreId}">theatreId</td>
-        <td th:text="${h.capacity}">capacity</td>
+        <td th:text="${h.id}">H1</td>
+        <td th:text="${h.name}">Sala Mare</td>
+        <td th:text="${h.theatreId}">T1</td>
+        <td th:text="${h.capacity}">200</td>
         <td>
-            <form th:action="@{'/halls/' + ${h.id} + '/delete'}" method="post">
+            <a th:href="@{'/halls/' + ${h.id}}">Details</a> |
+            <a th:href="@{'/halls/' + ${h.id} + '/edit'}">Edit</a>
+            <form th:action="@{'/halls/' + ${h.id} + '/delete'}" method="post" style="display:inline">
                 <button type="submit">Delete</button>
             </form>
         </td>
     </tr>
+    </tbody>
 </table>
+
+<p><a th:href="@{/}">Back home</a></p>
 </body>
 </html>

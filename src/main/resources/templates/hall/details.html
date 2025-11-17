@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hall Details</title>
+</head>
+<body>
+<h1>Hall Details</h1>
+
+<p><b>ID:</b> <span th:text="${hall.id}">H1</span></p>
+<p><b>Name:</b> <span th:text="${hall.name}">Sala Mare</span></p>
+<p><b>Theatre ID:</b> <span th:text="${hall.theatreId}">T1</span></p>
+<p><b>Capacity:</b> <span th:text="${hall.capacity}">200</span></p>
+
+<p>
+    <a th:href="@{'/halls/' + ${hall.id} + '/edit'}">Edit</a> |
+    <a th:href="@{/halls}">Back to list</a>
+</p>
+</body>
+</html>

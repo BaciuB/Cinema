@@ -1,33 +1,20 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Seats</title>
-</head>
-<body>
+<!doctype html><html xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="utf-8"><title>Seats</title></head><body>
 <h1>Seats</h1>
-
-<a th:href="@{/seats/new}">Add new Seat</a>
-
-<table border="1" cellpadding="5">
-    <tr>
-        <th>ID</th>
-        <th>Hall ID</th>
-        <th>Row</th>
-        <th>Column</th>
-        <th>Actions</th>
-    </tr>
+<p><a th:href="@{/seats/new}">Add Seat</a></p>
+<table border="1" cellpadding="5"><tr>
+    <th>ID</th><th>Hall ID</th><th>Row</th><th>Number</th><th>Actions</th></tr>
     <tr th:each="s : ${seats}">
-        <td th:text="${s.id}">id</td>
-        <td th:text="${s.hallid}">hallid</td>
-        <td th:text="${s.row}">row</td>
-        <td th:text="${s.column}">column</td>
+        <td th:text="${s.id}">S1</td>
+        <td th:text="${s.hallId}">H1</td>
+        <td th:text="${s.row}">A</td>
+        <td th:text="${s.number}">7</td>
         <td>
-            <form th:action="@{'/seats/' + ${s.id} + '/delete'}" method="post">
+            <a th:href="@{'/seats/' + ${s.id}}">Details</a> |
+            <a th:href="@{'/seats/' + ${s.id} + '/edit'}">Edit</a>
+            <form th:action="@{'/seats/' + ${s.id} + '/delete'}" method="post" style="display:inline">
                 <button type="submit">Delete</button>
             </form>
-        </td>
-    </tr>
-</table>
-</body>
-</html>
+        </td></tr></table>
+<p><a th:href="@{/}">Back home</a></p>
+</body></html>

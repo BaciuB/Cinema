@@ -1,1 +1,4 @@
-{}
+[
+  { "id": "H1", "name": "Sala Mare", "theatreId": "T1", "capacity": 200 },
+  { "id": "H2", "name": "Sala 2",   "theatreId": "T1", "capacity": 120 }
+]

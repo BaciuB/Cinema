@@ -11,8 +11,6 @@ public class HallRepository extends InFileRepository<Hall> {
     private static final Path DATA = Paths.get("src/main/resources/data/hall.json");
 
     public HallRepository() {
-
         super(DATA, Hall.class, Hall::getId, Hall::setId);
     }
-
 }

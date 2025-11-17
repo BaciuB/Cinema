@@ -2,35 +2,34 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Create Hall</title>
+    <title>New Hall</title>
 </head>
 <body>
-<h1>New Hall</h1>
+<h1>Add New Hall</h1>
 
+<!-- IMPORTANT: POST la /halls (nu /halls/new) -->
 <form th:action="@{/halls}" th:object="${hall}" method="post">
     <div>
-        <label>ID:</label>
-        <input type="text" th:field="*{id}" />
+        <label>ID</label><br>
+        <input th:field="*{id}" placeholder="H1" required>
     </div>
-
     <div>
-        <label>Name:</label>
-        <input type="text" th:field="*{name}" />
+        <label>Name</label><br>
+        <input th:field="*{name}" placeholder="Sala Mare" required>
     </div>
-
     <div>
-        <label>Theatre ID:</label>
-        <input type="text" th:field="*{theatreId}" />
+        <label>Theatre ID</label><br>
+        <input th:field="*{theatreId}" placeholder="T1" required>
     </div>
-
     <div>
-        <label>Capacity:</label>
-        <input type="number" th:field="*{capacity}" />
+        <label>Capacity</label><br>
+        <input th:field="*{capacity}" type="number" min="1" placeholder="200" required>
     </div>
 
-    <button type="submit">Save</button>
+    <p>
+        <button type="submit">Save</button>
+        <a th:href="@{/halls}">Cancel</a>
+    </p>
 </form>
-
-<a th:href="@{/hall}">Back to list</a>
 </body>
 </html>

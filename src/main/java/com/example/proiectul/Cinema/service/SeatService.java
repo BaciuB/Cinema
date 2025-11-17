@@ -1,7 +1,7 @@
 package com.example.proiectul.Cinema.service;
 
 import com.example.proiectul.Cinema.model.Seat;
-import com.example.proiectul.Cinema.repository.SeatRepo;
+import com.example.proiectul.Cinema.repository.SeatRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,9 +9,9 @@ import java.util.Optional;
 
 @Service
 public class SeatService {
-    private final SeatRepo seatRepo;
+    private final SeatRepository seatRepo;
 
-    public SeatService(SeatRepo seatRepo) {
+    public SeatService(SeatRepository seatRepo) {
         this.seatRepo = seatRepo;
     }
 
