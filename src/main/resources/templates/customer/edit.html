@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Customer</title>
+</head>
+<body>
+<h1>Edit Customer</h1>
+
+<form th:action="@{'/customers/' + ${customer.id}}" th:object="${customer}" method="post">
+    <div>
+        <label>ID</label><br>
+        <input th:field="*{id}" readonly>
+    </div>
+    <div>
+        <label>Name</label><br>
+        <input th:field="*{name}" required>
+    </div>
+    <div>
+        <label>Email</label><br>
+        <input th:field="*{email}" type="email" required>
+    </div>
+
+    <p>
+        <button type="submit">Save Changes</button>
+        <a th:href="@{/customers}">Cancel</a>
+    </p>
+</form>
+</body>
+</html>

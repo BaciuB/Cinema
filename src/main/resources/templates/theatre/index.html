@@ -1,37 +1,22 @@
-<!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Theatres</title>
-</head>
-<body>
+<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="UTF-8"><title>Theatres</title></head><body>
 <h1>Theatres</h1>
-
 <p><a th:href="@{/theatres/new}">Add Theatre</a></p>
-
-<table border="1" cellpadding="6">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>City</th>
-        <th>Halls (count)</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
+<table border="1" cellpadding="5" cellspacing="0">
+    <tr><th>ID</th><th>Name</th><th>City</th><th>Halls (count)</th><th>Actions</th></tr>
     <tr th:each="t : ${theatres}">
         <td th:text="${t.id}">T1</td>
         <td th:text="${t.name}">Cinema Central</td>
         <td th:text="${t.city}">Cluj</td>
-        <td th:text="${#lists.size(t.halls)}">0</td>
+        <td th:text="${t.halls != null ? #lists.size(t.halls) : 0}">0</td>
         <td>
-            <form th:action="@{'/theatres/' + ${t.id} + '/delete'}" method="post">
+            <a th:href="@{'/theatres/' + ${t.id}}">Details</a> |
+            <a th:href="@{'/theatres/' + ${t.id} + '/edit'}">Edit</a>
+            <form th:action="@{'/theatres/' + ${t.id} + '/delete'}" method="post" style="display:inline">
                 <button type="submit">Delete</button>
             </form>
         </td>
     </tr>
-    </tbody>
 </table>
-</body>
-</html>
+<p><a th:href="@{/}">Back home</a></p>
+</body></html>

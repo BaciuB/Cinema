@@ -1,5 +1,6 @@
 package com.example.proiectul.Cinema.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Hall {
@@ -7,8 +8,8 @@ public class Hall {
     private String name;
     private String theatreId;
     private int capacity;
-    private List<Seat> seats;
-    private List<Screening> screenings;
+    private List<Seat> seats = new ArrayList<>();
+    private List<Screening> screenings = new ArrayList<>();
 
     public Hall() { }
 

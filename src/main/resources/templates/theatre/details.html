@@ -1,0 +1,9 @@
+<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="UTF-8"><title>Theatre Details</title></head><body>
+<h1>Theatre Details</h1>
+<p><b>ID:</b> <span th:text="${theatre.id}">T1</span></p>
+<p><b>Name:</b> <span th:text="${theatre.name}">Cinema Central</span></p>
+<p><b>City:</b> <span th:text="${theatre.city}">Cluj</span></p>
+<p><b>Halls:</b> <span th:text="${theatre.halls != null ? #lists.size(theatre.halls) : 0}">0</span></p>
+<p><a th:href="@{'/theatres/' + ${theatre.id} + '/edit'}">Edit</a> | <a th:href="@{/theatres}">Back</a></p>
+</body></html>

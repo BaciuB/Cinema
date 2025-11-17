@@ -1,31 +1,10 @@
-<!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <title>New Theatre</title>
-</head>
-<body>
-<h1>New Theatre</h1>
-
+<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="UTF-8"><title>New Theatre</title></head><body>
+<h1>Add New Theatre</h1>
 <form th:action="@{/theatres}" th:object="${theatre}" method="post">
-    <div>
-        <label>ID</label>
-        <input th:field="*{id}" placeholder="e.g. T1" required />
-    </div>
-
-    <div>
-        <label>Name</label>
-        <input th:field="*{name}" placeholder="e.g. Cinema Central" required />
-    </div>
-
-    <div>
-        <label>City</label>
-        <input th:field="*{city}" placeholder="e.g. Cluj" required />
-    </div>
-
-    <button type="submit">Save</button>
+    <div><label>ID</label><br><input th:field="*{id}" placeholder="T1" required></div>
+    <div><label>Name</label><br><input th:field="*{name}" required></div>
+    <div><label>City</label><br><input th:field="*{city}" required></div>
+    <p><button type="submit">Save</button> <a th:href="@{/theatres}">Cancel</a></p>
 </form>
-
-<p><a th:href="@{/theatres}">Back to list</a></p>
-</body>
-</html>
+</body></html>

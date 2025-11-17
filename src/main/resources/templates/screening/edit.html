@@ -1,0 +1,11 @@
+<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="UTF-8"><title>Edit Screening</title></head><body>
+<h1>Edit Screening</h1>
+<form th:action="@{'/screenings/' + ${screening.id}}" th:object="${screening}" method="post">
+    <div><label>ID</label><br><input th:field="*{id}" readonly></div>
+    <div><label>Hall ID</label><br><input th:field="*{hallId}" required></div>
+    <div><label>Movie ID</label><br><input th:field="*{movieId}" required></div>
+    <div><label>Date</label><br><input th:field="*{dateTime}" type="date" required></div>
+    <p><button type="submit">Save Changes</button> <a th:href="@{/screenings}">Cancel</a></p>
+</form>
+</body></html>

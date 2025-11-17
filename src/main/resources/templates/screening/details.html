@@ -1,0 +1,9 @@
+<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="UTF-8"><title>Screening Details</title></head><body>
+<h1>Screening Details</h1>
+<p><b>ID:</b> <span th:text="${screening.id}">SC1</span></p>
+<p><b>Hall ID:</b> <span th:text="${screening.hallId}">H1</span></p>
+<p><b>Movie ID:</b> <span th:text="${screening.movieId}">M1</span></p>
+<p><b>Date:</b> <span th:text="${screening.dateTime}">2025-11-05</span></p>
+<p><a th:href="@{'/screenings/' + ${screening.id} + '/edit'}">Edit</a> | <a th:href="@{/screenings}">Back</a></p>
+</body></html>

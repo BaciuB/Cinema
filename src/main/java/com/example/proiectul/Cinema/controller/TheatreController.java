@@ -14,9 +14,7 @@ public class TheatreController {
 
     private final TheatreService service;
 
-    public TheatreController(TheatreService service) {
-        this.service = service;
-    }
+    public TheatreController(TheatreService service) { this.service = service; }
 
     @GetMapping
     public String index(Model model) {
@@ -25,15 +23,39 @@ public class TheatreController {
     }
 
     @GetMapping("/new")
-    public String showCreateForm(Model model) {
+    public String newForm(Model model) {
         Theatre t = new Theatre();
-        t.setHalls(new ArrayList<>());
+        if (t.getHalls() == null) t.setHalls(new ArrayList<>());
         model.addAttribute("theatre", t);
         return "theatre/form";
     }
 
     @PostMapping
     public String create(@ModelAttribute Theatre theatre) {
+        if (theatre.getHalls() == null) theatre.setHalls(new ArrayList<>());
+        service.save(theatre);
+        return "redirect:/theatres";
+    }
+
+    @GetMapping("/{id}")
+    public String details(@PathVariable String id, Model model) {
+        Theatre t = service.findById(id).orElseThrow();
+        if (t.getHalls() == null) t.setHalls(new ArrayList<>());
+        model.addAttribute("theatre", t);
+        return "theatre/details";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String editForm(@PathVariable String id, Model model) {
+        Theatre t = service.findById(id).orElseThrow();
+        if (t.getHalls() == null) t.setHalls(new ArrayList<>());
+        model.addAttribute("theatre", t);
+        return "theatre/edit";
+    }
+
+    @PostMapping("/{id}")
+    public String update(@PathVariable String id, @ModelAttribute Theatre theatre) {
+        theatre.setId(id);
         if (theatre.getHalls() == null) theatre.setHalls(new ArrayList<>());
         service.save(theatre);
         return "redirect:/theatres";

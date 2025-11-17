@@ -1,1 +1,4 @@
-{}
+[
+  {"id":"C1","name":"Alice Pop","email":"alice@example.com","tickets":[]},
+  {"id":"C2","name":"Andrei Baciu","email":"andrei@example.com","tickets":[]}
+]

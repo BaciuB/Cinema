@@ -1,7 +1,7 @@
-<!doctype html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8">
     <title>New Customer</title>
 </head>
 <body>
@@ -9,23 +9,22 @@
 
 <form th:action="@{/customers}" th:object="${customer}" method="post">
     <div>
-        <label>ID</label>
-        <input th:field="*{id}" placeholder="e.g. C1" required />
+        <label>ID</label><br>
+        <input th:field="*{id}" placeholder="C1" required>
     </div>
-
     <div>
-        <label>Name</label>
-        <input th:field="*{name}" placeholder="e.g. Alice Doe" required />
+        <label>Name</label><br>
+        <input th:field="*{name}" placeholder="Full name" required>
     </div>
-
     <div>
-        <label>Email</label>
-        <input th:field="*{email}" type="email" placeholder="e.g. alice@example.com" required />
+        <label>Email</label><br>
+        <input th:field="*{email}" type="email" placeholder="name@example.com" required>
     </div>
 
-    <button type="submit">Save</button>
+    <p>
+        <button type="submit">Save</button>
+        <a th:href="@{/customers}">Cancel</a>
+    </p>
 </form>
-
-<p><a th:href="@{/customers}">Back to list</a></p>
 </body>
 </html>

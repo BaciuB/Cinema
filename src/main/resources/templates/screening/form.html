@@ -1,36 +1,11 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Create Screening</title>
-</head>
-<body>
-<h1>New Screening</h1>
-
+<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="UTF-8"><title>New Screening</title></head><body>
+<h1>Add New Screening</h1>
 <form th:action="@{/screenings}" th:object="${screening}" method="post">
-    <div>
-        <label>ID:</label>
-        <input type="text" th:field="*{id}" />
-    </div>
-
-    <div>
-        <label>Hall ID:</label>
-        <input type="text" th:field="*{hallId}" />
-    </div>
-
-    <div>
-        <label>Movie ID:</label>
-        <input type="text" th:field="*{movieId}" />
-    </div>
-
-    <div>
-        <label>Date:</label>
-        <input type="date" th:field="*{dateTime}" />
-    </div>
-
-    <button type="submit">Save</button>
+    <div><label>ID</label><br><input th:field="*{id}" placeholder="SC1" required></div>
+    <div><label>Hall ID</label><br><input th:field="*{hallId}" placeholder="H1" required></div>
+    <div><label>Movie ID</label><br><input th:field="*{movieId}" placeholder="M1" required></div>
+    <div><label>Date</label><br><input th:field="*{dateTime}" type="date" required></div>
+    <p><button type="submit">Save</button> <a th:href="@{/screenings}">Cancel</a></p>
 </form>
-
-<a th:href="@{/screenings}">Back to list</a>
-</body>
-</html>
+</body></html>

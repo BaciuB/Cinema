@@ -1,0 +1,10 @@
+<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="UTF-8"><title>Ticket Details</title></head><body>
+<h1>Ticket Details</h1>
+<p><b>ID:</b> <span th:text="${ticket.id}">T1</span></p>
+<p><b>Screening ID:</b> <span th:text="${ticket.screeningId}">SC1</span></p>
+<p><b>Customer ID:</b> <span th:text="${ticket.customerId}">C1</span></p>
+<p><b>Seat ID:</b> <span th:text="${ticket.seatId}">S1</span></p>
+<p><b>Price:</b> <span th:text="${ticket.price}">35.0</span></p>
+<p><a th:href="@{'/tickets/' + ${ticket.id} + '/edit'}">Edit</a> | <a th:href="@{/tickets}">Back</a></p>
+</body></html>

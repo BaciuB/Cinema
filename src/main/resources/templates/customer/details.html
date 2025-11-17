@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Details</title>
+</head>
+<body>
+<h1>Customer Details</h1>
+
+<p><b>ID:</b> <span th:text="${customer.id}">C1</span></p>
+<p><b>Name:</b> <span th:text="${customer.name}">Alice</span></p>
+<p><b>Email:</b> <span th:text="${customer.email}">alice@example.com</span></p>
+<p><b>Tickets:</b>
+    <span th:text="${customer.tickets != null ? #lists.size(customer.tickets) : 0}">0</span>
+</p>
+
+<p>
+    <a th:href="@{'/customers/' + ${customer.id} + '/edit'}">Edit</a> |
+    <a th:href="@{/customers}">Back to list</a>
+</p>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="UTF-8"><title>Edit Ticket</title></head><body>
+<h1>Edit Ticket</h1>
+<form th:action="@{'/tickets/' + ${ticket.id}}" th:object="${ticket}" method="post">
+    <div><label>ID</label><br><input th:field="*{id}" readonly></div>
+    <div><label>Screening ID</label><br><input th:field="*{screeningId}" required></div>
+    <div><label>Customer ID</label><br><input th:field="*{customerId}" required></div>
+    <div><label>Seat ID</label><br><input th:field="*{seatId}" required></div>
+    <div><label>Price</label><br><input th:field="*{price}" type="number" min="0" step="0.01" required></div>
+    <p><button type="submit">Save Changes</button> <a th:href="@{/tickets}">Cancel</a></p>
+</form>
+</body></html>

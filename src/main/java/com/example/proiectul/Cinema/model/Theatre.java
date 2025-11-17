@@ -7,7 +7,7 @@ public class Theatre {
     private String id;
     private String name;
     private String city;
-    private List<Hall> halls;
+    private List<Hall> halls = new ArrayList<>();
 
     public Theatre() { }
 

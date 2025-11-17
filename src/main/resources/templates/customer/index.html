@@ -1,7 +1,7 @@
-<!doctype html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8">
     <title>Customers</title>
 </head>
 <body>
@@ -9,7 +9,7 @@
 
 <p><a th:href="@{/customers/new}">Add Customer</a></p>
 
-<table border="1" cellpadding="6">
+<table border="1" cellpadding="5" cellspacing="0">
     <thead>
     <tr>
         <th>ID</th>
@@ -24,14 +24,18 @@
         <td th:text="${c.id}">C1</td>
         <td th:text="${c.name}">Alice</td>
         <td th:text="${c.email}">alice@example.com</td>
-        <td th:text="${#lists.size(c.tickets)}">0</td>
+        <td th:text="${c.tickets != null ? #lists.size(c.tickets) : 0}">0</td>
         <td>
-            <form th:action="@{'/customers/' + ${c.id} + '/delete'}" method="post">
+            <a th:href="@{'/customers/' + ${c.id}}">Details</a> |
+            <a th:href="@{'/customers/' + ${c.id} + '/edit'}">Edit</a>
+            <form th:action="@{'/customers/' + ${c.id} + '/delete'}" method="post" style="display:inline">
                 <button type="submit">Delete</button>
             </form>
         </td>
     </tr>
     </tbody>
 </table>
+
+<p><a th:href="@{/}">Back home</a></p>
 </body>
 </html>

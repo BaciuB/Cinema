@@ -1,35 +1,23 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Tickets</title>
-</head>
-<body>
+<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="UTF-8"><title>Tickets</title></head><body>
 <h1>Tickets</h1>
-
-<a th:href="@{/tickets/new}">Add new Ticket</a>
-
-<table border="1" cellpadding="5">
-    <tr>
-        <th>ID</th>
-        <th>Screening ID</th>
-        <th>Customer ID</th>
-        <th>Seat ID</th>
-        <th>Price</th>
-        <th>Actions</th>
-    </tr>
+<p><a th:href="@{/tickets/new}">Add Ticket</a></p>
+<table border="1" cellpadding="5" cellspacing="0">
+    <tr><th>ID</th><th>Screening ID</th><th>Customer ID</th><th>Seat ID</th><th>Price</th><th>Actions</th></tr>
     <tr th:each="t : ${tickets}">
-        <td th:text="${t.id}">id</td>
-        <td th:text="${t.screeningId}">screeningId</td>
-        <td th:text="${t.customerId}">customerId</td>
-        <td th:text="${t.seatId}">seatId</td>
-        <td th:text="${t.price}">price</td>
+        <td th:text="${t.id}">T1</td>
+        <td th:text="${t.screeningId}">SC1</td>
+        <td th:text="${t.customerId}">C1</td>
+        <td th:text="${t.seatId}">S1</td>
+        <td th:text="${t.price}">35.0</td>
         <td>
-            <form th:action="@{'/tickets/' + ${t.id} + '/delete'}" method="post">
+            <a th:href="@{'/tickets/' + ${t.id}}">Details</a> |
+            <a th:href="@{'/tickets/' + ${t.id} + '/edit'}">Edit</a>
+            <form th:action="@{'/tickets/' + ${t.id} + '/delete'}" method="post" style="display:inline">
                 <button type="submit">Delete</button>
             </form>
         </td>
     </tr>
 </table>
-</body>
-</html>
+<p><a th:href="@{/}">Back home</a></p>
+</body></html>

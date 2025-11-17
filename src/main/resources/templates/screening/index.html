@@ -1,33 +1,24 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Screenings</title>
-</head>
-<body>
+<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="UTF-8"><title>Screenings</title></head><body>
 <h1>Screenings</h1>
-
-<a th:href="@{/screenings/new}">Add new Screening</a>
-
-<table border="1" cellpadding="5">
-    <tr>
-        <th>ID</th>
-        <th>Hall ID</th>
-        <th>Movie ID</th>
-        <th>Date</th>
-        <th>Actions</th>
-    </tr>
+<p><a th:href="@{/screenings/new}">Add Screening</a></p>
+<table border="1" cellpadding="5" cellspacing="0">
+    <tr><th>ID</th><th>Hall ID</th><th>Movie ID</th><th>Date</th><th>Tickets</th><th>Assignments</th><th>Actions</th></tr>
     <tr th:each="s : ${screenings}">
-        <td th:text="${s.id}">id</td>
-        <td th:text="${s.hallId}">hallId</td>
-        <td th:text="${s.movieId}">movieId</td>
-        <td th:text="${s.dateTime}">dateTime</td>
+        <td th:text="${s.id}">SC1</td>
+        <td th:text="${s.hallId}">H1</td>
+        <td th:text="${s.movieId}">M1</td>
+        <td th:text="${s.dateTime}">2025-11-05</td>
+        <td th:text="${s.tickets != null ? #lists.size(s.tickets) : 0}">0</td>
+        <td th:text="${s.assignments != null ? #lists.size(s.assignments) : 0}">0</td>
         <td>
-            <form th:action="@{'/screenings/' + ${s.id} + '/delete'}" method="post">
+            <a th:href="@{'/screenings/' + ${s.id}}">Details</a> |
+            <a th:href="@{'/screenings/' + ${s.id} + '/edit'}">Edit</a>
+            <form th:action="@{'/screenings/' + ${s.id} + '/delete'}" method="post" style="display:inline">
                 <button type="submit">Delete</button>
             </form>
         </td>
     </tr>
 </table>
-</body>
-</html>
+<p><a th:href="@{/}">Back home</a></p>
+</body></html>
