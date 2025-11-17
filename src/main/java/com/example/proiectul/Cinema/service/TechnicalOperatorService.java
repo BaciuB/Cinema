@@ -1,7 +1,7 @@
 package com.example.proiectul.Cinema.service;
 
 import com.example.proiectul.Cinema.model.TechnicalOperator;
-import com.example.proiectul.Cinema.repository.TechnicalOperatorRepo;
+import com.example.proiectul.Cinema.repository.TechnicalOperatorRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,9 +9,9 @@ import java.util.Optional;
 
 @Service
 public class TechnicalOperatorService {
-    private final TechnicalOperatorRepo repo;
+    private final TechnicalOperatorRepository repo;
 
-    public TechnicalOperatorService(TechnicalOperatorRepo repo) {
+    public TechnicalOperatorService(TechnicalOperatorRepository repo) {
         this.repo = repo;
     }
 

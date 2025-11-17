@@ -1,0 +1,9 @@
+<!doctype html><html xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="utf-8"><title>Technical Operator Details</title></head><body>
+<h1>Technical Operator Details</h1>
+<p><b>ID:</b> <span th:text="${technicaloperator.id}">TO1</span></p>
+<p><b>Name:</b> <span th:text="${technicaloperator.name}">Dan</span></p>
+<p><b>Salary:</b> <span th:text="${technicaloperator.salary}">5000</span></p>
+<p><b>Specialization:</b> <span th:text="${technicaloperator.specialization}">Projection</span></p>
+<p><a th:href="@{'/technicaloperators/' + ${technicaloperator.id} + '/edit'}">Edit</a> | <a th:href="@{/technicaloperators}">Back</a></p>
+</body></html>

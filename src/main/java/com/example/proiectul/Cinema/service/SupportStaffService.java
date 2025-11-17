@@ -1,7 +1,7 @@
 package com.example.proiectul.Cinema.service;
 
 import com.example.proiectul.Cinema.model.SupportStaff;
-import com.example.proiectul.Cinema.repository.SupportStaffRepo;
+import com.example.proiectul.Cinema.repository.SupportStaffRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,9 +9,9 @@ import java.util.Optional;
 
 @Service
 public class SupportStaffService {
-    private final SupportStaffRepo repo;
+    private final SupportStaffRepository repo;
 
-    public SupportStaffService(SupportStaffRepo repo) {
+    public SupportStaffService(SupportStaffRepository repo) {
         this.repo = repo;
     }
 

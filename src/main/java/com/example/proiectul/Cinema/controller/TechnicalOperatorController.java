@@ -6,37 +6,51 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping("/operators")
+@Controller @RequestMapping("/technicaloperators")
 public class TechnicalOperatorController {
-
     private final TechnicalOperatorService service;
-
-    public TechnicalOperatorController(TechnicalOperatorService service) {
-        this.service = service;
-    }
+    public TechnicalOperatorController(TechnicalOperatorService s){ this.service = s; }
 
     @GetMapping
-    public String index(Model model) {
-        model.addAttribute("operators", service.findAll());
+    public String index(Model m){
+        m.addAttribute("technicaloperators", service.findAll());
         return "technicaloperator/index";
     }
 
     @GetMapping("/new")
-    public String showCreateForm(Model model) {
-        model.addAttribute("operator", new TechnicalOperator());
+    public String newForm(Model m){
+        m.addAttribute("technicaloperator", new TechnicalOperator());
         return "technicaloperator/form";
     }
 
     @PostMapping
-    public String create(@ModelAttribute TechnicalOperator operator) {
-        service.save(operator);
-        return "redirect:/operators";
+    public String create(@ModelAttribute TechnicalOperator o){
+        service.save(o);
+        return "redirect:/technicaloperators";
+    }
+
+    @GetMapping("/{id}")
+    public String details(@PathVariable String id, Model m){
+        m.addAttribute("technicaloperator", service.findById(id).orElseThrow());
+        return "technicaloperator/details";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String editForm(@PathVariable String id, Model m){
+        m.addAttribute("technicaloperator", service.findById(id).orElseThrow());
+        return "technicaloperator/edit";
+    }
+
+    @PostMapping("/{id}")
+    public String update(@PathVariable String id, @ModelAttribute TechnicalOperator o){
+        o.setId(id); service.save(o);
+        return "redirect:/technicaloperators";
     }
 
     @PostMapping("/{id}/delete")
-    public String delete(@PathVariable String id) {
+    public String delete(@PathVariable String id){
         service.deleteById(id);
-        return "redirect:/operators";
+        return "redirect:/technicaloperators";
     }
+
 }

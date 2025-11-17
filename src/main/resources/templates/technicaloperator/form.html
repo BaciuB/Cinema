@@ -1,29 +1,10 @@
-<!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"/><title>New Technical Operator</title></head>
-<body>
+<!doctype html><html xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="utf-8"><title>New Technical Operator</title></head><body>
 <h1>New Technical Operator</h1>
-
-<form th:action="@{/operators}" th:object="${operator}" method="post">
-    <div>
-        <label>ID</label>
-        <input th:field="*{id}" placeholder="e.g. O1" required />
-    </div>
-    <div>
-        <label>Name</label>
-        <input th:field="*{name}" placeholder="e.g. Ion Popescu" required />
-    </div>
-    <div>
-        <label>Salary</label>
-        <input th:field="*{salary}" type="number" placeholder="e.g. 3000" required />
-    </div>
-    <div>
-        <label>Specialization</label>
-        <input th:field="*{specialization}" placeholder="e.g. Sound" required />
-    </div>
-    <button type="submit">Save</button>
-</form>
-
-<p><a th:href="@{/operators}">Back to list</a></p>
-</body>
-</html>
+<form th:action="@{/technicaloperators}" th:object="${technicaloperator}" method="post">
+    <div><label>ID</label><br><input th:field="*{id}" placeholder="TO1" required></div>
+    <div><label>Name</label><br><input th:field="*{name}" required></div>
+    <div><label>Salary</label><br><input th:field="*{salary}" type="number" min="0" required></div>
+    <div><label>Specialization</label><br><input th:field="*{specialization}" required></div>
+    <p><button type="submit">Save</button> <a th:href="@{/technicaloperators}">Cancel</a></p>
+</form></body></html>

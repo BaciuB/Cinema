@@ -1,0 +1,9 @@
+<!doctype html><html xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="utf-8"><title>Edit Assignment</title></head><body>
+<h1>Edit Assignment</h1>
+<form th:action="@{'/assignments/' + ${assignment.id}}" th:object="${assignment}" method="post">
+    <div><label>ID</label><br><input th:field="*{id}" readonly></div>
+    <div><label>Screening ID</label><br><input th:field="*{screeningId}" required></div>
+    <div><label>Staff ID</label><br><input th:field="*{staffId}" required></div>
+    <p><button type="submit">Save Changes</button> <a th:href="@{/assignments}">Cancel</a></p>
+</form></body></html>

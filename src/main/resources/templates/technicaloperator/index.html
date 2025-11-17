@@ -1,34 +1,21 @@
-<!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"/><title>Technical Operators</title></head>
-<body>
+<!doctype html><html xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="utf-8"><title>Technical Operators</title></head><body>
 <h1>Technical Operators</h1>
-
-<p><a th:href="@{/operators/new}">Add Operator</a></p>
-
-<table border="1" cellpadding="6">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Salary</th>
-        <th>Specialization</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="o : ${operators}">
-        <td th:text="${o.id}">O1</td>
-        <td th:text="${o.name}">Ion</td>
-        <td th:text="${o.salary}">3000</td>
-        <td th:text="${o.specialization}">Sound</td>
+<p><a th:href="@{/technicaloperators/new}">Add Technical Operator</a></p>
+<table border="1" cellpadding="5">
+    <tr><th>ID</th><th>Name</th><th>Salary</th><th>Specialization</th><th>Actions</th></tr>
+    <tr th:each="o : ${technicaloperators}">
+        <td th:text="${o.id}">OP1</td>
+        <td th:text="${o.name}">Dan</td>
+        <td th:text="${o.salary}">5000</td>
+        <td th:text="${o.specialization}">Projection</td>
         <td>
-            <form th:action="@{'/operators/' + ${o.id} + '/delete'}" method="post">
+            <a th:href="@{'/technicaloperators/' + ${o.id}}">Details</a> |
+            <a th:href="@{'/technicaloperators/' + ${o.id} + '/edit'}">Edit</a>
+            <form th:action="@{'/technicaloperators/' + ${o.id} + '/delete'}" method="post" style="display:inline">
                 <button type="submit">Delete</button>
             </form>
         </td>
-    </tr>
-    </tbody>
-</table>
-</body>
-</html>
+    </tr></table>
+<p><a th:href="@{/}">Back home</a></p>
+</body></html>
