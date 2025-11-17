@@ -3,8 +3,9 @@
 <h1>New Seat</h1>
 <form th:action="@{/seats}" th:object="${seat}" method="post">
     <div><label>ID</label><br><input th:field="*{id}" placeholder="S1" required></div>
-    <div><label>Hall ID</label><br><input th:field="*{hallId}" placeholder="H1" required></div>
+    <div><label>Hall ID</label><br><input th:field="*{hallid}" placeholder="H1" required></div>
     <div><label>Row</label><br><input th:field="*{row}" placeholder="A" required></div>
-    <div><label>Number</label><br><input th:field="*{number}" type="number" min="1" required></div>
+    <div><label>Column</label><br><input th:field="*{column}" placeholder="5" required></div>
     <p><button type="submit">Save</button> <a th:href="@{/seats}">Cancel</a></p>
-</form></body></html>
+</form>
+</body></html>
