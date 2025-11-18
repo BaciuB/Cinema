@@ -1,15 +1,82 @@
-[ {
-  "id" : "SC1",
-  "hallId" : "H1",
-  "movieId" : "M1",
-  "dateTime" : "2025-11-02",
-  "tickets" : [ ],
-  "assignments" : [ ]
-}, {
-  "id" : "SC2",
-  "hallId" : "H2",
-  "movieId" : "M2",
-  "dateTime" : "2024-01-02",
-  "tickets" : [ ],
-  "assignments" : [ ]
-} ]
+[
+    {
+      "id": "scr1",
+      "hallId": "h1",
+      "movieId": "mov-001",
+      "dateTime": "2025-11-20",
+      "tickets": [],
+      "assignments": []
+    },
+    {
+      "id": "scr2",
+      "hallId": "h2",
+      "movieId": "mov-002",
+      "dateTime": "2025-11-20",
+      "tickets": [],
+      "assignments": []
+    },
+    {
+      "id": "scr3",
+      "hallId": "h1",
+      "movieId": "m3",
+      "dateTime": "2025-11-21",
+      "tickets": [],
+      "assignments": []
+    },
+    {
+      "id": "scr4",
+      "hallId": "h3",
+      "movieId": "m1",
+      "dateTime": "2025-11-21",
+      "tickets": [],
+      "assignments": []
+    },
+    {
+      "id": "scr5",
+      "hallId": "h2",
+      "movieId": "m4",
+      "dateTime": "2025-11-22",
+      "tickets": [],
+      "assignments": []
+    },
+    {
+      "id": "scr6",
+      "hallId": "h4",
+      "movieId": "m5",
+      "dateTime": "2025-11-22",
+      "tickets": [],
+      "assignments": []
+    },
+    {
+      "id": "scr7",
+      "hallId": "h1",
+      "movieId": "m2",
+      "dateTime": "2025-11-23",
+      "tickets": [],
+      "assignments": []
+    },
+    {
+      "id": "scr8",
+      "hallId": "h3",
+      "movieId": "m6",
+      "dateTime": "2025-11-23",
+      "tickets": [],
+      "assignments": []
+    },
+    {
+      "id": "scr9",
+      "hallId": "h4",
+      "movieId": "m7",
+      "dateTime": "2025-11-24",
+      "tickets": [],
+      "assignments": []
+    },
+    {
+      "id": "scr1",
+      "hallId": "h2",
+      "movieId": "m1",
+      "dateTime": "2025-11-24",
+      "tickets": [],
+      "assignments": []
+    }
+]
