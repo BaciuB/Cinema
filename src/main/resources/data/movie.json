@@ -10,4 +10,52 @@
   "release_date" : "2025-11-04",
   "screenings" : [ ],
   "id" : "M2"
-} ]
+}, {
+  "title" : "Lili",
+  "durationMinutes" : 100,
+  "release_date" : "2024-10-14",
+  "screenings" : [ ],
+  "id" : "M3"
+}, {
+  "title" : "Lala Land",
+  "durationMinutes" : 150,
+  "release_date" : "2025-01-07",
+  "screenings" : [ ],
+  "id" : "M4"
+},{
+  "title" : "Ceva",
+  "durationMinutes" : 90,
+  "release_date" : "2024-03-05",
+  "screenings" : [ ],
+  "id" : "M5"
+}, {
+  "title" : "Ceva2",
+  "durationMinutes" : 120,
+  "release_date" : "2010-11-04",
+  "screenings" : [ ],
+  "id" : "M6"
+}, {
+  "title" : "Ceva3",
+  "durationMinutes" : 100,
+  "release_date" : "2023-10-14",
+  "screenings" : [ ],
+  "id" : "M7"
+}, {
+  "title" : "Ceva4",
+  "durationMinutes" : 150,
+  "release_date" : "2006-01-07",
+  "screenings" : [ ],
+  "id" : "M8"
+}, {
+  "title" : "Ceva5",
+  "durationMinutes" : 100,
+  "release_date" : "2023-10-14",
+  "screenings" : [ ],
+  "id" : "M9"
+}, {
+  "title" : "Ceva6",
+  "durationMinutes" : 80,
+  "release_date" : "2022-01-07",
+  "screenings" : [ ],
+  "id" : "M10"
+}    ]
