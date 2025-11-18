@@ -70,3 +70,6 @@ public class MovieController {
     }
 
 }
+//sa o pun partea cu screening in movie service
+//baze de date si asa mai departe
+//sa populez in .json ce nu e populat
