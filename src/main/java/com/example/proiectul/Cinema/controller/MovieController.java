@@ -1,19 +1,25 @@
 package com.example.proiectul.Cinema.controller;
 
 import com.example.proiectul.Cinema.model.Movie;
+import com.example.proiectul.Cinema.model.Screening;
 import com.example.proiectul.Cinema.service.MovieService;
+import com.example.proiectul.Cinema.service.ScreeningService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/movies")
 public class MovieController {
 
     private final MovieService movieService;
+    private final ScreeningService screeningService;
 
-    public MovieController(MovieService movieService) {
+    public MovieController(MovieService movieService, ScreeningService screeningService) {
         this.movieService = movieService;
+        this.screeningService = screeningService;
     }
 
     @GetMapping
@@ -43,7 +49,9 @@ public class MovieController {
     @GetMapping("/{id}")
     public String details(@PathVariable String id, Model model) {
         Movie m = movieService.findById(id).orElseThrow();
+        List<Screening> screenings = screeningService.findByMovieId(id);
         model.addAttribute("movie", m);
+        model.addAttribute("screenings", screenings);
         return "movie/details";
     }
 

@@ -5,18 +5,29 @@
     <title>Movie Details</title>
 </head>
 <body>
-<h1>Movie Details</h1>
+<h1 th:text="${movie.title}">Movie Title</h1>
 
 <p><b>ID:</b> <span th:text="${movie.id}">M1</span></p>
-<p><b>Title:</b> <span th:text="${movie.title}">Inception</span></p>
 <p><b>Duration:</b> <span th:text="${movie.durationMinutes}">148</span> minutes</p>
 <p><b>Release date:</b> <span th:text="${movie.release_date}">2024-07-10</span></p>
-<p><b>Screenings:</b>
-    <span th:text="${movie.screenings != null ? #lists.size(movie.screenings) : 0}">0</span>
-</p>
+<h2> Screenings for this movie</h2>
+<table border="1" cellpadding="5">
+    <tr>
+        <th>ID</th>
+        <th>Hall ID</th>
+        <th>Date</th>
+    </tr>
+    <tr th:each="s : ${screenings}">
+        <td th:text="${s.id}">SC1</td>
+        <td th:text="${s.hallId}">H1</td>
+        <td th:text="${s.dateTime}">2024-07-15</td>
+    </tr>
+    <tr th:if="${#lists.isEmpty(screenings)}">
+        <td colspan="3">No screenings for this movie yet.</td>
+    </tr>
+</table>
 
 <p>
-    <a th:href="@{'/movies/' + ${movie.id} + '/edit'}">Edit</a> |
     <a th:href="@{/movies}">Back to list</a>
 </p>
 </body>
