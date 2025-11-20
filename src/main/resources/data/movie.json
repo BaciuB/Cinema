@@ -1,7 +1,7 @@
 [ {
   "title" : "Titanic",
   "durationMinutes" : 90,
-  "release_date" : "2025-11-05",
+  "release_date" : "2025-11-07",
   "screenings" : [ ],
   "id" : "m1"
 }, {
@@ -22,7 +22,7 @@
   "release_date" : "2025-01-07",
   "screenings" : [ ],
   "id" : "m4"
-},{
+}, {
   "title" : "Ceva",
   "durationMinutes" : 90,
   "release_date" : "2024-03-05",
@@ -58,4 +58,4 @@
   "release_date" : "2022-01-07",
   "screenings" : [ ],
   "id" : "m10"
-}    ]
+} ]
