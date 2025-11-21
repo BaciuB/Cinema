@@ -1,10 +1,47 @@
-<!doctype html><html xmlns:th="http://www.thymeleaf.org"><head>
-    <meta charset="utf-8"><title>New Technical Operator</title></head><body>
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>New Technical Operator</title>
+</head>
+<body>
+
 <h1>New Technical Operator</h1>
-<form th:action="@{/technicaloperators}" th:object="${technicaloperator}" method="post">
-    <div><label>ID</label><br><input th:field="*{id}" placeholder="TO1" required></div>
-    <div><label>Name</label><br><input th:field="*{name}" required></div>
-    <div><label>Salary</label><br><input th:field="*{salary}" type="number" min="0" required></div>
-    <div><label>Specialization</label><br><input th:field="*{specialization}" required></div>
-    <p><button type="submit">Save</button> <a th:href="@{/technicaloperators}">Cancel</a></p>
-</form></body></html>
+
+<form th:action="@{/technicaloperators}"
+      th:object="${technicaloperator}"
+      method="post">
+
+    <div>
+        <label>ID</label><br>
+        <input th:field="*{id}" placeholder="TO1" required>
+    </div>
+
+    <div>
+        <label>Name</label><br>
+        <input th:field="*{name}" required>
+    </div>
+
+    <div>
+        <label>Salary</label><br>
+        <input th:field="*{salary}" type="number" min="0" required>
+    </div>
+
+    <div>
+        <label>Specialization</label><br>
+        <select th:field="*{specialization}" required>
+            <option value="">-- select --</option>
+            <option value="SOUND">Sound</option>
+            <option value="PROJECTION">Projection</option>
+        </select>
+    </div>
+
+    <p>
+        <button type="submit">Save</button>
+        <a th:href="@{/technicaloperators}">Cancel</a>
+    </p>
+
+</form>
+
+</body>
+</html>
