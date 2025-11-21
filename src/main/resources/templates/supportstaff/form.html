@@ -1,11 +1,44 @@
-<!-- templates/supportstaff/form.html -->
-<!doctype html><html xmlns:th="http://www.thymeleaf.org"><head>
-    <meta charset="utf-8"><title>New Support Staff</title></head><body>
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>New Support Staff</title>
+</head>
+<body>
 <h1>New Support Staff</h1>
-<form th:action="@{/supportstaff}" th:object="${support}" method="post">
-    <div><label>ID</label><br><input th:field="*{id}" placeholder="SS1" required></div>
-    <div><label>Name</label><br><input th:field="*{name}" required></div>
-    <div><label>Salary</label><br><input th:field="*{salary}" type="number" min="0" required></div>
-    <div><label>Role</label><br><input th:field="*{role}" required></div>
-    <p><button type="submit">Save</button> <a th:href="@{/supportstaff}">Cancel</a></p>
-</form></body></html>
+<form th:action="@{/supportstaff}"
+      th:object="${support}"
+      method="post">
+
+    <div>
+        <label>ID</label><br>
+        <input th:field="*{id}" placeholder="SS1" required>
+    </div>
+
+    <div>
+        <label>Name</label><br>
+        <input th:field="*{name}" required>
+    </div>
+
+    <div>
+        <label>Salary</label><br>
+        <input th:field="*{salary}" type="number" min="0" required>
+    </div>
+
+    <div>
+        <label>Role</label><br>
+        <select th:field="*{role}" required>
+            <option value="">-- select --</option>
+            <option value="CLEANING">Cleaning</option>
+            <option value="USHER">Usher</option>
+            <option value="SECURITY">Security</option>
+        </select>
+    </div>
+
+    <p>
+        <button type="submit">Save</button>
+        <a th:href="@{/supportstaff}">Cancel</a>
+    </p>
+</form>
+</body>
+</html>
