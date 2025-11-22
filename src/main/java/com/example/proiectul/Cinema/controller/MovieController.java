@@ -1,25 +1,19 @@
 package com.example.proiectul.Cinema.controller;
 
 import com.example.proiectul.Cinema.model.Movie;
-import com.example.proiectul.Cinema.model.Screening;
 import com.example.proiectul.Cinema.service.MovieService;
-import com.example.proiectul.Cinema.service.ScreeningService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/movies")
 public class MovieController {
 
     private final MovieService movieService;
-    private final ScreeningService screeningService;
 
-    public MovieController(MovieService movieService, ScreeningService screeningService) {
+    public MovieController(MovieService movieService) {
         this.movieService = movieService;
-        this.screeningService = screeningService;
     }
 
     @GetMapping
@@ -48,17 +42,15 @@ public class MovieController {
 
     @GetMapping("/{id}")
     public String details(@PathVariable String id, Model model) {
-        Movie m = movieService.findById(id).orElseThrow();
-        List<Screening> screenings = screeningService.findByMovieId(id);
-        model.addAttribute("movie", m);
-        model.addAttribute("screenings", screenings);
+        Movie movie = movieService.findMovieWithScreenings(id);
+        model.addAttribute("movie", movie);
+        model.addAttribute("screenings", movie.getScreenings());
         return "movie/details";
     }
 
     @GetMapping("/{id}/edit")
     public String editForm(@PathVariable String id, Model model) {
-        Movie m = movieService.findById(id).orElseThrow();
-        model.addAttribute("movie", m);
+        model.addAttribute("movie", movieService.findById(id).orElseThrow());
         return "movie/edit";
     }
 
@@ -68,8 +60,4 @@ public class MovieController {
         movieService.save(movie);
         return "redirect:/movies";
     }
-
 }
-//sa o pun partea cu screening in movie service
-//baze de date si asa mai departe
-//sa populez in .json ce nu e populat
