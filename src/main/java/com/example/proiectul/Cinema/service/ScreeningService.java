@@ -1,8 +1,8 @@
 package com.example.proiectul.Cinema.service;
 
 import com.example.proiectul.Cinema.model.Screening;
+import com.example.proiectul.Cinema.repository.MovieRepository;
 import com.example.proiectul.Cinema.repository.ScreeningRepository;
-import com.example.proiectul.Cinema.service.MovieService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,11 +12,11 @@ import java.util.Optional;
 public class ScreeningService {
 
     private final ScreeningRepository repo;
-    private final MovieService movieService;
+    private final MovieRepository movieRepository;
 
-    public ScreeningService(ScreeningRepository repo, MovieService movieService) {
+    public ScreeningService(ScreeningRepository repo, MovieRepository movierepo) {
         this.repo = repo;
-        this.movieService = movieService;
+        this.movieRepository = movierepo;
     }
 
     public List<Screening> findAll() {
@@ -34,10 +34,11 @@ public class ScreeningService {
     }
 
     public Screening save(Screening screening) {
-        movieService.findById(screening.getMovieId())
+        movieRepository.findById(screening.getMovieId())
                 .orElseThrow(() -> new IllegalArgumentException("Movie does not exist"));
         return repo.save(screening);
     }
+
 
     public void deleteById(String id) {
         repo.deleteById(id);
