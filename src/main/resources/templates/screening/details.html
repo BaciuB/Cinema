@@ -1,9 +1,62 @@
-<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org"><head>
-    <meta charset="UTF-8"><title>Screening Details</title></head><body>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Screening Details</title>
+</head>
+<body>
+
 <h1>Screening Details</h1>
-<p><b>ID:</b> <span th:text="${screening.id}">SC1</span></p>
-<p><b>Hall ID:</b> <span th:text="${screening.hallId}">H1</span></p>
-<p><b>Movie ID:</b> <span th:text="${screening.movieId}">M1</span></p>
-<p><b>Date:</b> <span th:text="${screening.dateTime}">2025-11-05</span></p>
-<p><a th:href="@{'/screenings/' + ${screening.id} + '/edit'}">Edit</a> | <a th:href="@{/screenings}">Back</a></p>
-</body></html>
+
+<p><strong>ID:</strong> <span th:text="${screening.id}"></span></p>
+<p><strong>Movie ID:</strong> <span th:text="${screening.movieId}"></span></p>
+<p><strong>Hall ID:</strong> <span th:text="${screening.hallId}"></span></p>
+<p><strong>Date:</strong> <span th:text="${screening.dateTime}"></span></p>
+<hr>
+
+<h2>Tickets for this Screening</h2>
+<table border="1">
+    <tr>
+        <th>Ticket ID</th>
+        <th>Customer ID</th>
+        <th>Seat ID</th>
+        <th>Price</th>
+    </tr>
+
+    <tr th:each="t : ${screening.tickets}">
+        <td th:text="${t.id}"></td>
+        <td th:text="${t.customerId}"></td>
+        <td th:text="${t.seatId}"></td>
+        <td th:text="${t.price}"></td>
+    </tr>
+</table>
+
+<hr>
+
+<h2>Staff Assignments</h2>
+<table border="1">
+    <tr>
+        <th>Assignment ID</th>
+        <th>Staff ID</th>
+        <th>Role</th>
+    </tr>
+
+    <tr th:each="sa : ${screening.assignments}">
+        <td th:text="${sa.id}"></td>
+        <td th:text="${sa.staffId}"></td>
+        <td th:text="${sa.role}"></td>
+    </tr>
+</table>
+
+<hr>
+
+<p>
+    <a th:href="@{/screenings}">← Back to List</a>
+</p>
+
+<p>
+    <a th:href="@{'/screenings/' + ${screening.id} + '/edit'}">✎ Edit</a>
+</p>
+
+</body>
+</html>

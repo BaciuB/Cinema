@@ -24,5 +24,14 @@ public class TicketService {
         return ticketRepo.findAll().stream()
                 .filter(t -> t.getCustomerId().equals(customerId))
                 .toList();
+
+
+
+    }
+
+    public List<Ticket> findByScreeningId(String screeningId) {
+        return ticketRepo.findAll().stream()
+                .filter(t -> t.getScreeningId().equals(screeningId))
+                .toList();
     }
 }

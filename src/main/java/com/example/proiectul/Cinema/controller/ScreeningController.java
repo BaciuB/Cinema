@@ -41,7 +41,7 @@ public class ScreeningController {
 
     @GetMapping("/{id}")
     public String details(@PathVariable String id, Model model) {
-        Screening s = service.findById(id).orElseThrow();
+        Screening s = service.findScreeningWithRelations(id);
         model.addAttribute("screening", s);
         return "screening/details";
     }

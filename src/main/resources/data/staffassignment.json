@@ -1,1 +1,5 @@
-[]
+[ {
+  "id" : "a1",
+  "screeningId" : "scr1",
+  "staffId" : "to1"
+} ]

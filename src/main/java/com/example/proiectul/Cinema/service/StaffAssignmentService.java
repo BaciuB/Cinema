@@ -19,4 +19,10 @@ public class StaffAssignmentService {
     public Optional<StaffAssignment> findById(String id) { return repo.findById(id); }
     public StaffAssignment save(StaffAssignment assignment) { return repo.save(assignment); }
     public void deleteById(String id) { repo.deleteById(id); }
+
+    public List<StaffAssignment> findByScreeningId(String screeningId) {
+        return repo.findAll().stream()
+                .filter(sa -> sa.getScreeningId().equals(screeningId))
+                .toList();
+    }
 }
