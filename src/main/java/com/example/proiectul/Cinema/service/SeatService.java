@@ -19,4 +19,10 @@ public class SeatService {
     public Optional<Seat> findById(String id) { return seatRepo.findById(id); } // id == seatNumber
     public Seat save(Seat seat) { return seatRepo.save(seat); }
     public void deleteById(String id) { seatRepo.deleteById(id); }
+
+    public List<Seat> findByHallId(String hallId) {
+        return seatRepo.findAll().stream()
+                .filter(s -> s.getHallid().equals(hallId))  // atenție: getHallid(), nu getHallId()
+                .toList();
+    }
 }

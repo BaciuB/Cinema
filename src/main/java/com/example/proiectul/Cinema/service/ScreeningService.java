@@ -63,4 +63,10 @@ public class ScreeningService {
         return s;
     }
 
+    public List<Screening> findByHallId(String hallId) {
+        return repo.findAll().stream()
+                .filter(s -> s.getHallId().equals(hallId))
+                .toList();
+    }
+
 }

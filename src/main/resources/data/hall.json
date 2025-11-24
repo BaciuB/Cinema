@@ -1,12 +1,145 @@
-[
-  {"id":"h1","name":"Hall 1","theatreId":"t1","capacity":100},
-  {"id":"h2","name":"Hall 2","theatreId":"t1","capacity":80},
-  {"id":"h3","name":"Hall 3","theatreId":"t1","capacity":50},
-  {"id":"h4","name":"Hall 4","theatreId":"t2","capacity":120},
-  {"id":"h5","name":"Hall 5","theatreId":"t2","capacity":60},
-  {"id":"h6","name":"Hall 6","theatreId":"t3","capacity":70},
-  {"id":"h7","name":"Hall 7","theatreId":"t3","capacity":40},
-  {"id":"h8","name":"Hall 8","theatreId":"t3","capacity":90},
-  {"id":"h9","name":"Hall 9","theatreId":"t4","capacity":110},
-  {"id":"h10","name":"Hall 10","theatreId":"t4","capacity":30}
-]
+[ {
+  "id" : "h1",
+  "name" : "Hall 1",
+  "theatreId" : "t1",
+  "capacity" : 90,
+  "seats" : [ ],
+  "screenings" : [ ]
+}, {
+  "id" : "h2",
+  "name" : "Hall 2",
+  "theatreId" : "t1",
+  "capacity" : 80,
+  "seats" : [ {
+    "id" : "s1",
+    "hallid" : "h2",
+    "row" : "A",
+    "column" : "1"
+  }, {
+    "id" : "s6",
+    "hallid" : "h2",
+    "row" : "A",
+    "column" : "1"
+  }, {
+    "id" : "s7",
+    "hallid" : "h2",
+    "row" : "A",
+    "column" : "2"
+  }, {
+    "id" : "s8",
+    "hallid" : "h2",
+    "row" : "B",
+    "column" : "1"
+  }, {
+    "id" : "s9",
+    "hallid" : "h2",
+    "row" : "B",
+    "column" : "2"
+  } ],
+  "screenings" : [ {
+    "id" : "scr1",
+    "hallId" : "h2",
+    "movieId" : "m1",
+    "dateTime" : "2025-11-24",
+    "tickets" : [ ],
+    "assignments" : [ ]
+  }, {
+    "id" : "scr2",
+    "hallId" : "h2",
+    "movieId" : "mov-002",
+    "dateTime" : "2025-11-20",
+    "tickets" : [ ],
+    "assignments" : [ ]
+  }, {
+    "id" : "scr5",
+    "hallId" : "h2",
+    "movieId" : "m4",
+    "dateTime" : "2025-11-22",
+    "tickets" : [ ],
+    "assignments" : [ ]
+  } ]
+}, {
+  "id" : "h3",
+  "name" : "Hall 3",
+  "theatreId" : "t1",
+  "capacity" : 50,
+  "seats" : [ ],
+  "screenings" : [ {
+    "id" : "scr4",
+    "hallId" : "h3",
+    "movieId" : "m1",
+    "dateTime" : "2025-11-21",
+    "tickets" : [ ],
+    "assignments" : [ ]
+  }, {
+    "id" : "scr8",
+    "hallId" : "h3",
+    "movieId" : "m6",
+    "dateTime" : "2025-11-23",
+    "tickets" : [ ],
+    "assignments" : [ ]
+  } ]
+}, {
+  "id" : "h4",
+  "name" : "Hall 4",
+  "theatreId" : "t2",
+  "capacity" : 120,
+  "seats" : [ ],
+  "screenings" : [ {
+    "id" : "scr6",
+    "hallId" : "h4",
+    "movieId" : "m5",
+    "dateTime" : "2025-11-22",
+    "tickets" : [ ],
+    "assignments" : [ ]
+  }, {
+    "id" : "scr9",
+    "hallId" : "h4",
+    "movieId" : "m7",
+    "dateTime" : "2025-11-24",
+    "tickets" : [ ],
+    "assignments" : [ ]
+  } ]
+}, {
+  "id" : "h5",
+  "name" : "Hall 5",
+  "theatreId" : "t2",
+  "capacity" : 60,
+  "seats" : [ ],
+  "screenings" : [ ]
+}, {
+  "id" : "h6",
+  "name" : "Hall 6",
+  "theatreId" : "t3",
+  "capacity" : 70,
+  "seats" : [ ],
+  "screenings" : [ ]
+}, {
+  "id" : "h7",
+  "name" : "Hall 7",
+  "theatreId" : "t3",
+  "capacity" : 40,
+  "seats" : [ ],
+  "screenings" : [ ]
+}, {
+  "id" : "h8",
+  "name" : "Hall 8",
+  "theatreId" : "t3",
+  "capacity" : 90,
+  "seats" : [ ],
+  "screenings" : [ ]
+}, {
+  "id" : "h9",
+  "name" : "Hall 9",
+  "theatreId" : "t4",
+  "capacity" : 110,
+  "seats" : [ ],
+  "screenings" : [ ]
+}, {
+  "id" : "h10",
+  "name" : "Hall 10",
+  "theatreId" : "t4",
+  "capacity" : 30,
+  "seats" : [ ],
+  "screenings" : [ ]
+} ]

@@ -9,8 +9,42 @@
 
 <p><b>ID:</b> <span th:text="${hall.id}">H1</span></p>
 <p><b>Name:</b> <span th:text="${hall.name}">Sala Mare</span></p>
-<p><b>Theatre ID:</b> <span th:text="${hall.theatreId}">T1</span></p>
+<p><b>Theatre ID:</b> <span th:text="${hall.theatreId}">th1</span></p>
 <p><b>Capacity:</b> <span th:text="${hall.capacity}">200</span></p>
+
+<hr>
+
+<h2>Seats in this Hall</h2>
+<table border="1">
+    <tr>
+        <th>Seat ID</th>
+        <th>Row</th>
+        <th>Column</th>
+    </tr>
+    <tr th:each="s : ${hall.seats}">
+        <td th:text="${s.id}">S1</td>
+        <td th:text="${s.row}">A</td>
+        <td th:text="${s.column}">1</td>
+    </tr>
+</table>
+
+<hr>
+
+<h2>Screenings in this Hall</h2>
+<table border="1">
+    <tr>
+        <th>Screening ID</th>
+        <th>Movie ID</th>
+        <th>Date</th>
+    </tr>
+    <tr th:each="sc : ${hall.screenings}">
+        <td th:text="${sc.id}">SC1</td>
+        <td th:text="${sc.movieId}">M1</td>
+        <td th:text="${sc.dateTime}">2025-11-05</td>
+    </tr>
+</table>
+
+<hr>
 
 <p>
     <a th:href="@{'/halls/' + ${hall.id} + '/edit'}">Edit</a> |

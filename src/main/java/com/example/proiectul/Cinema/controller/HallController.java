@@ -36,10 +36,11 @@ public class HallController {
 
     @GetMapping("/{id}")
     public String details(@PathVariable String id, Model model) {
-        Hall h = service.findById(id).orElseThrow();
-        model.addAttribute("hall", h);
+        Hall hall = service.findHallWithRelations(id);   // 🔥
+        model.addAttribute("hall", hall);
         return "hall/details";
     }
+
 
     @GetMapping("/{id}/edit")
     public String editForm(@PathVariable String id, Model model) {
