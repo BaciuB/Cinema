@@ -2,12 +2,24 @@
   "id" : "c2",
   "name" : "Bob",
   "email" : "bob@example.com",
-  "tickets" : [ ]
+  "tickets" : [ {
+    "id" : "t2",
+    "screeningId" : "sc1",
+    "customerId" : "c2",
+    "seatId" : "s2",
+    "price" : 10.5
+  } ]
 }, {
   "id" : "c3",
   "name" : "Carol",
   "email" : "carol@example.com",
-  "tickets" : [ ]
+  "tickets" : [ {
+    "id" : "t3",
+    "screeningId" : "sc2",
+    "customerId" : "c3",
+    "seatId" : "s3",
+    "price" : 12.0
+  } ]
 }, {
   "id" : "c4",
   "name" : "David",
@@ -44,8 +56,8 @@
   "email" : "judy@example.com",
   "tickets" : [ ]
 }, {
-  "id" : "C1",
-  "name" : "Noua entitate",
-  "email" : "bla@gmail.com",
+  "id" : "c1",
+  "name" : "Wow",
+  "email" : "bogdan@gmail.com",
   "tickets" : [ ]
 } ]

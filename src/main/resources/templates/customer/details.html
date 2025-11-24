@@ -5,18 +5,40 @@
     <title>Customer Details</title>
 </head>
 <body>
+
 <h1>Customer Details</h1>
 
-<p><b>ID:</b> <span th:text="${customer.id}">C1</span></p>
-<p><b>Name:</b> <span th:text="${customer.name}">Alice</span></p>
-<p><b>Email:</b> <span th:text="${customer.email}">alice@example.com</span></p>
-<p><b>Tickets:</b>
-    <span th:text="${customer.tickets != null ? #lists.size(customer.tickets) : 0}">0</span>
+<p><strong>ID:</strong> <span th:text="${customer.id}"></span></p>
+<p><strong>Name:</strong> <span th:text="${customer.name}"></span></p>
+<p><strong>Email:</strong> <span th:text="${customer.email}"></span></p>
+
+<hr>
+
+<h2>Tickets</h2>
+
+<table border="1">
+    <tr>
+        <th>Ticket ID</th>
+        <th>Screening ID</th>
+        <th>Seat ID</th>
+        <th>Price</th>
+    </tr>
+
+    <tr th:each="t : ${customer.tickets}">
+        <td th:text="${t.id}"></td>
+        <td th:text="${t.screeningId}"></td>
+        <td th:text="${t.seatId}"></td>
+        <td th:text="${t.price}"></td>
+    </tr>
+</table>
+
+<hr>
+<p>
+    <a th:href="@{/customers}">Back to List</a>
+</p>
+<p>
+    <a th:href="@{'/customers/' + ${customer.id} + '/edit'}">Edit</a>
 </p>
 
-<p>
-    <a th:href="@{'/customers/' + ${customer.id} + '/edit'}">Edit</a> |
-    <a th:href="@{/customers}">Back to list</a>
-</p>
 </body>
 </html>

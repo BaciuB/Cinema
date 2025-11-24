@@ -19,4 +19,10 @@ public class TicketService {
     public Optional<Ticket> findById(String id) { return ticketRepo.findById(id); }
     public Ticket save(Ticket ticket) { return ticketRepo.save(ticket); }
     public void deleteById(String id) { ticketRepo.deleteById(id); }
+
+    public List<Ticket> findByCustomerId(String customerId) {
+        return ticketRepo.findAll().stream()
+                .filter(t -> t.getCustomerId().equals(customerId))
+                .toList();
+    }
 }

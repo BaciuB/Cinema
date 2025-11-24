@@ -42,11 +42,11 @@ public class CustomerController {
 
     @GetMapping("/{id}")
     public String details(@PathVariable String id, Model model) {
-        Customer c = service.findById(id).orElseThrow();
-        if (c.getTickets() == null) c.setTickets(new ArrayList<>());
-        model.addAttribute("customer", c);
+        Customer customer = service.findCustomerWithTickets(id);
+        model.addAttribute("customer", customer);
         return "customer/details";
     }
+
 
     @GetMapping("/{id}/edit")
     public String editForm(@PathVariable String id, Model model) {
