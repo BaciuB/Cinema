@@ -32,4 +32,10 @@ public class HallService {
 
         return h;
     }
+
+    public List<Hall> findByTheatreId(String theatreId) {
+        return hallRepo.findAll().stream()
+                .filter(h -> h.getTheatreId().equals(theatreId))
+                .toList();
+    }
 }

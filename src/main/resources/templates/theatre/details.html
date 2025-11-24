@@ -1,9 +1,42 @@
-<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org"><head>
-    <meta charset="UTF-8"><title>Theatre Details</title></head><body>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Theatre Details</title>
+</head>
+<body>
+
 <h1>Theatre Details</h1>
+
 <p><b>ID:</b> <span th:text="${theatre.id}">T1</span></p>
 <p><b>Name:</b> <span th:text="${theatre.name}">Cinema Central</span></p>
 <p><b>City:</b> <span th:text="${theatre.city}">Cluj</span></p>
-<p><b>Halls:</b> <span th:text="${theatre.halls != null ? #lists.size(theatre.halls) : 0}">0</span></p>
-<p><a th:href="@{'/theatres/' + ${theatre.id} + '/edit'}">Edit</a> | <a th:href="@{/theatres}">Back</a></p>
-</body></html>
+<p><b>Number of halls:</b>
+    <span th:text="${theatre.halls != null ? #lists.size(theatre.halls) : 0}">0</span>
+</p>
+
+<hr>
+
+<h2>Halls in this Theatre</h2>
+<table border="1">
+    <tr>
+        <th>Hall ID</th>
+        <th>Name</th>
+        <th>Capacity</th>
+    </tr>
+    <tr th:each="h : ${theatre.halls}">
+        <td th:text="${h.id}">H1</td>
+        <td th:text="${h.name}">Sala 1</td>
+        <td th:text="${h.capacity}">200</td>
+    </tr>
+</table>
+
+<hr>
+
+<p>
+    <a th:href="@{'/theatres/' + ${theatre.id} + '/edit'}">Edit</a> |
+    <a th:href="@{/theatres}">Back</a>
+</p>
+
+</body>
+</html>

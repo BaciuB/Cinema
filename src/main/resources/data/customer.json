@@ -1,63 +1,12 @@
-[ {
-  "id" : "c2",
-  "name" : "Bob",
-  "email" : "bob@example.com",
-  "tickets" : [ {
-    "id" : "t2",
-    "screeningId" : "sc1",
-    "customerId" : "c2",
-    "seatId" : "s2",
-    "price" : 10.5
-  } ]
-}, {
-  "id" : "c3",
-  "name" : "Carol",
-  "email" : "carol@example.com",
-  "tickets" : [ {
-    "id" : "t3",
-    "screeningId" : "sc2",
-    "customerId" : "c3",
-    "seatId" : "s3",
-    "price" : 12.0
-  } ]
-}, {
-  "id" : "c4",
-  "name" : "David",
-  "email" : "david@example.com",
-  "tickets" : [ ]
-}, {
-  "id" : "c5",
-  "name" : "Eve",
-  "email" : "eve@example.com",
-  "tickets" : [ ]
-}, {
-  "id" : "c6",
-  "name" : "Frank",
-  "email" : "frank@example.com",
-  "tickets" : [ ]
-}, {
-  "id" : "c7",
-  "name" : "Grace",
-  "email" : "grace@example.com",
-  "tickets" : [ ]
-}, {
-  "id" : "c8",
-  "name" : "Heidi",
-  "email" : "heidi@example.com",
-  "tickets" : [ ]
-}, {
-  "id" : "c9",
-  "name" : "Ivan",
-  "email" : "ivan@example.com",
-  "tickets" : [ ]
-}, {
-  "id" : "c10",
-  "name" : "Judy",
-  "email" : "judy@example.com",
-  "tickets" : [ ]
-}, {
-  "id" : "c1",
-  "name" : "Wow",
-  "email" : "bogdan@gmail.com",
-  "tickets" : [ ]
-} ]
+[
+  {"id":"c1","name":"Alice","email":"alice@example.com"},
+  {"id":"c2","name":"Bob","email":"bob@example.com"},
+  {"id":"c3","name":"Carol","email":"carol@example.com"},
+  {"id":"c4","name":"David","email":"david@example.com"},
+  {"id":"c5","name":"Eve","email":"eve@example.com"},
+  {"id":"c6","name":"Frank","email":"frank@example.com"},
+  {"id":"c7","name":"Grace","email":"grace@example.com"},
+  {"id":"c8","name":"Heidi","email":"heidi@example.com"},
+  {"id":"c9","name":"Ivan","email":"ivan@example.com"},
+  {"id":"c10","name":"Judy","email":"judy@example.com"}
+]
