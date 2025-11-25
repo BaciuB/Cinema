@@ -1,15 +1,29 @@
 package com.example.proiectul.Cinema.model;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name="movies")
+
 public class Movie {
+    @Id
+    @Column(length = 50)
     private String Id;
+
+    @Column(nullable = false, length = 200)
     private String title;
+
+    @Column(name = "duration_minutes", nullable = false)
     private int durationMinutes;
+
+    @Column(name = "release_date")
     private LocalDate release_date;
 
+    @Transient
     private List<Screening> screenings = new ArrayList<>();
 
     public Movie() { }

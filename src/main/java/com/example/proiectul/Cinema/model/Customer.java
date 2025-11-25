@@ -1,16 +1,27 @@
 package com.example.proiectul.Cinema.model;
 
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "customers")
 public class Customer {
+
+    @Id
+    @Column(length = 50)
     private String id;
+
+    @Column(nullable = false, length = 100)
     private String name;
+
+    @Column(nullable = false, length = 150)
     private String email;
+
+    @Transient
     private List<Ticket> tickets = new ArrayList<>();
 
-
-    public Customer() { }
+    public Customer() {}
 
     public Customer(String id, String name, String email) {
         this.id = id;
@@ -18,15 +29,15 @@ public class Customer {
         this.email = email;
     }
 
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public String getId() {return id;}
+    public void setId(String id) {this.id = id;}
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public String getName() {return name;}
+    public void setName(String name) {this.name = name;}
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public String getEmail() {return email;}
+    public void setEmail(String email) {this.email = email;}
 
-    public List<Ticket> getTickets() { return tickets; }
-    public void setTickets(List<Ticket> tickets) { this.tickets = tickets; }
+    public List<Ticket> getTickets() {return tickets;}
+    public void setTickets(List<Ticket> tickets) {this.tickets = tickets;}
 }
