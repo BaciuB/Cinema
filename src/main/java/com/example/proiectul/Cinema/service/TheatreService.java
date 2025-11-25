@@ -11,7 +11,7 @@ import java.util.Optional;
 @Service
 public class TheatreService {
     private final TheatreRepository theatreRepo;
-    private final HallService hallService;   // 🔹 nou
+    private final HallService hallService;
 
     public TheatreService(TheatreRepository theatreRepo, HallService hallService) {
         this.theatreRepo = theatreRepo;
