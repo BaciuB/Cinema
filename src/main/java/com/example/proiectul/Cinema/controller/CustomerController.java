@@ -27,7 +27,6 @@ public class CustomerController {
     @GetMapping("/new")
     public String newForm(Model model) {
         Customer c = new Customer();
-        // protecție null pentru Thymeleaf
         if (c.getTickets() == null) c.setTickets(new ArrayList<>());
         model.addAttribute("customer", c);
         return "customer/form";

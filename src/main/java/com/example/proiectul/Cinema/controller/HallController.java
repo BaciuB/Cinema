@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/halls") // plural!
+@RequestMapping("/halls")
 public class HallController {
 
     private final HallService service;
@@ -36,7 +36,7 @@ public class HallController {
 
     @GetMapping("/{id}")
     public String details(@PathVariable String id, Model model) {
-        Hall hall = service.findHallWithRelations(id);   // 🔥
+        Hall hall = service.findHallWithRelations(id);
         model.addAttribute("hall", hall);
         return "hall/details";
     }
@@ -51,7 +51,7 @@ public class HallController {
 
     @PostMapping("/{id}")
     public String update(@PathVariable String id, @ModelAttribute Hall hall) {
-        hall.setId(id); // păstrează ID din URL
+        hall.setId(id);
         service.save(hall);
         return "redirect:/halls";
     }
