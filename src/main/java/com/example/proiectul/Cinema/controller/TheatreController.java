@@ -39,9 +39,8 @@ public class TheatreController {
 
     @GetMapping("/{id}")
     public String details(@PathVariable String id, Model model) {
-        Theatre t = service.findById(id).orElseThrow();
-        if (t.getHalls() == null) t.setHalls(new ArrayList<>());
-        model.addAttribute("theatre", t);
+        Theatre theatre = service.findTheatreWithHalls(id);
+        model.addAttribute("theatre", theatre);
         return "theatre/details";
     }
 
