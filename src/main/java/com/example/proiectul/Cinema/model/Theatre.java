@@ -1,12 +1,23 @@
 package com.example.proiectul.Cinema.model;
 
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "theatres")
 public class Theatre {
+    @Id
+    @Column(length = 50)
     private String id;
+
+    @Column(nullable = false, length = 100)
     private String name;
+
+    @Column(nullable = false, length = 100)
     private String city;
+
+    @Transient
     private List<Hall> halls = new ArrayList<>();
 
     public Theatre() { }
