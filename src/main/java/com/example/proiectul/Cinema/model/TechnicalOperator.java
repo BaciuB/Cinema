@@ -1,6 +1,12 @@
 package com.example.proiectul.Cinema.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "technical_operators")
 public class TechnicalOperator extends Staff {
+    @Enumerated(EnumType.STRING)
+    @Column(length = 50, nullable = false)
     private Specialization specialization;
 
     public TechnicalOperator() { }

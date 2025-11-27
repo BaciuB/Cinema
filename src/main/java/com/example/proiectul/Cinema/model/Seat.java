@@ -1,9 +1,21 @@
 package com.example.proiectul.Cinema.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "seats")
 public class Seat {
+    @Id
+    @Column(length = 50)
     private String id;
+
+    @Column(name = "hall_id", nullable = false, length = 50)
     private  String hallid;
+
+    @Column(nullable = false, length = 10)
     private String row;
+
+    @Column(nullable = false, length = 10)
     private String column;
 
     public Seat() { }

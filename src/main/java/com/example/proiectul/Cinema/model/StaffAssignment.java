@@ -1,8 +1,18 @@
 package com.example.proiectul.Cinema.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "staff_assignments")
 public class StaffAssignment {
+    @Id
+    @Column(length = 50)
     private String id;
+
+    @Column(name = "screening_id", nullable = false, length = 50)
     private String screeningId;
+
+    @Column(name = "staff_id", nullable = false, length = 50)
     private String staffId;
 
     public StaffAssignment() { }

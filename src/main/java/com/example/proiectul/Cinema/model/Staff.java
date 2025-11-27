@@ -1,8 +1,21 @@
 package com.example.proiectul.Cinema.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "staff")
+@Inheritance(strategy = InheritanceType.JOINED)
+//Poate trebe DiscriminatorColumn dar nu sunt sigur (uita-te la seminarul 8)
 public abstract class Staff {
+
+    @Id
+    @Column(length = 50)
     private String Id;
+
+    @Column(length = 100, nullable = false)
     private String name;
+
+    @Column(length = 20, nullable = false)
     private int salary;
 
     public Staff() { }
