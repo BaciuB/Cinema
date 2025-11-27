@@ -12,10 +12,13 @@ public class Screening {
     @Id
     @Column(length = 50)
     private String id;
+
     @Column(name = "hall_id", nullable = false, length = 50)
     private String hallId;
+
     @Column(name = "movie_id", nullable = false, length = 50)
     private String movieId;
+
     @Column(name = "date_time", nullable = false)
     private LocalDate dateTime;
 

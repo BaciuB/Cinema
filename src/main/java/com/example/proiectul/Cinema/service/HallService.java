@@ -26,7 +26,6 @@ public class HallService {
 
     public Hall findHallWithRelations(String id) {
         Hall h = hallRepo.findById(id).orElseThrow();
-
         h.setSeats(seatService.findByHallId(id));
         h.setScreenings(screeningService.findByHallId(id));
 

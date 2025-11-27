@@ -1,10 +1,24 @@
 package com.example.proiectul.Cinema.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "tickets")
 public class Ticket {
+    @Id
+    @Column(length = 50)
     private String id;
+
+    @Column(name = "screening_id", nullable = false, length = 50)
     private String screeningId;
+
+    @Column(name = "customer_id", nullable = false, length = 50)
     private String customerId;
+
+    @Column(name = "seat_id", nullable = false, length = 50)
     private String seatId;
+
+    @Column(nullable = false)
     private double price;
 
     public Ticket() { }
