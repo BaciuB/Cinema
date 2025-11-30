@@ -33,29 +33,33 @@
 
 <hr>
 
-<h2>Staff Assignments</h2>
-<table border="1">
+<h2>Staff assignments</h2>
+<table>
+    <thead>
     <tr>
         <th>Assignment ID</th>
         <th>Staff ID</th>
-        <th>Role</th>
+        <th>Screening ID</th>
     </tr>
-
-    <tr th:each="sa : ${screening.assignments}">
-        <td th:text="${sa.id}"></td>
-        <td th:text="${sa.staffId}"></td>
-        <td th:text="${sa.role}"></td>
+    </thead>
+    <tbody>
+    <tr th:each="sa : ${staffAssignments}">
+        <td th:text="${sa.id}">A1</td>
+        <td th:text="${sa.staffId}">S1</td>
+        <td th:text="${sa.screeningId}">SC1</td>
     </tr>
+    </tbody>
 </table>
+
 
 <hr>
 
 <p>
-    <a th:href="@{/screenings}">← Back to List</a>
+    <a th:href="@{/screenings}">Back to List</a>
 </p>
 
 <p>
-    <a th:href="@{'/screenings/' + ${screening.id} + '/edit'}">✎ Edit</a>
+    <a th:href="@{'/screenings/' + ${screening.id} + '/edit'}">Edit</a>
 </p>
 
 </body>

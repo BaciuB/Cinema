@@ -12,10 +12,10 @@ public class Seat {
     @Column(name = "hall_id", nullable = false, length = 50)
     private  String hallid;
 
-    @Column(nullable = false, length = 10)
+    @Column(name = "seat_row", nullable = false, length = 10)
     private String row;
 
-    @Column(nullable = false, length = 10)
+    @Column(name = "seat_column", nullable = false, length = 10)
     private String column;
 
     public Seat() { }
