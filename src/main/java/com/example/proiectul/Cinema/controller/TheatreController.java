@@ -1,68 +1,102 @@
 package com.example.proiectul.Cinema.controller;
 
 import com.example.proiectul.Cinema.model.Theatre;
+import com.example.proiectul.Cinema.service.HallService;
 import com.example.proiectul.Cinema.service.TheatreService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/theatres")
 public class TheatreController {
 
-    private final TheatreService service;
+    private final TheatreService theatreService;
+    private final HallService hallService;
 
-    public TheatreController(TheatreService service) { this.service = service; }
+    public TheatreController(TheatreService theatreService, HallService hallService) {
+        this.theatreService = theatreService;
+        this.hallService = hallService;
+    }
 
     @GetMapping
     public String index(Model model) {
-        model.addAttribute("theatres", service.findAll());
+        model.addAttribute("theatres", theatreService.findAll());
         return "theatre/index";
     }
 
     @GetMapping("/new")
-    public String newForm(Model model) {
-        Theatre t = new Theatre();
-        if (t.getHalls() == null) t.setHalls(new ArrayList<>());
-        model.addAttribute("theatre", t);
+    public String showCreateForm(Model model) {
+        model.addAttribute("theatre", new Theatre());
         return "theatre/form";
     }
 
     @PostMapping
-    public String create(@ModelAttribute Theatre theatre) {
-        if (theatre.getHalls() == null) theatre.setHalls(new ArrayList<>());
-        service.save(theatre);
+    public String create(
+            @Valid @ModelAttribute("theatre") Theatre theatre,
+            BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "theatre/form";
+        }
+
+        theatreService.save(theatre);
         return "redirect:/theatres";
     }
 
     @GetMapping("/{id}")
-    public String details(@PathVariable String id, Model model) {
-        Theatre theatre = service.findTheatreWithHalls(id);
-        model.addAttribute("theatre", theatre);
-        return "theatre/details";
+    public String details(@PathVariable String id, Model model, RedirectAttributes ra) {
+        return theatreService.findById(id)
+                .map(theatre -> {
+                    model.addAttribute("theatre", theatre);
+                    model.addAttribute("halls", hallService.findByTheatreId(id));
+                    return "theatre/details";
+                })
+                .orElseGet(() -> {
+                    ra.addFlashAttribute("globalError", "Theatre not found");
+                    return "redirect:/theatres";
+                });
     }
 
     @GetMapping("/{id}/edit")
-    public String editForm(@PathVariable String id, Model model) {
-        Theatre t = service.findById(id).orElseThrow();
-        if (t.getHalls() == null) t.setHalls(new ArrayList<>());
-        model.addAttribute("theatre", t);
-        return "theatre/edit";
+    public String showEditForm(@PathVariable String id, Model model, RedirectAttributes ra) {
+        return theatreService.findById(id)
+                .map(theatre -> {
+                    model.addAttribute("theatre", theatre);
+                    return "theatre/edit";
+                })
+                .orElseGet(() -> {
+                    ra.addFlashAttribute("globalError", "Theatre not found");
+                    return "redirect:/theatres";
+                });
     }
 
     @PostMapping("/{id}")
-    public String update(@PathVariable String id, @ModelAttribute Theatre theatre) {
+    public String update(
+            @PathVariable String id,
+            @Valid @ModelAttribute("theatre") Theatre theatre,
+            BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "theatre/edit";
+        }
+
         theatre.setId(id);
-        if (theatre.getHalls() == null) theatre.setHalls(new ArrayList<>());
-        service.save(theatre);
+        theatreService.save(theatre);
         return "redirect:/theatres";
     }
 
     @PostMapping("/{id}/delete")
-    public String delete(@PathVariable String id) {
-        service.deleteById(id);
+    public String delete(@PathVariable String id, RedirectAttributes ra) {
+        try {
+            theatreService.deleteById(id);
+            ra.addFlashAttribute("successMessage", "Theatre deleted successfully.");
+        } catch (Exception e) {
+            ra.addFlashAttribute("globalError", "Could not delete theatre.");
+        }
         return "redirect:/theatres";
     }
 }

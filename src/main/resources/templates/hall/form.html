@@ -3,32 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <title>New Hall</title>
+
+    <style>
+        .field-error {
+            color: red;
+            font-weight: bold;
+            margin-top: 4px;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
 <body>
+
 <h1>Add New Hall</h1>
 
 <form th:action="@{/halls}" th:object="${hall}" method="post">
+
     <div>
-        <label>ID</label><br>
-        <input th:field="*{id}" placeholder="H1" required>
+        <label>ID:</label><br>
+        <input th:field="*{id}" placeholder="H1">
     </div>
+
     <div>
-        <label>Name</label><br>
-        <input th:field="*{name}" placeholder="Sala Mare" required>
+        <label>Name:</label><br>
+        <input th:field="*{name}">
+        <div th:if="${#fields.hasErrors('name')}"
+             th:errors="*{name}"
+             class="field-error"></div>
     </div>
+
     <div>
-        <label>Theatre ID</label><br>
-        <input th:field="*{theatreId}" placeholder="T1" required>
+        <label>Capacity:</label><br>
+        <input type="number" th:field="*{capacity}">
+        <div th:if="${#fields.hasErrors('capacity')}"
+             th:errors="*{capacity}"
+             class="field-error"></div>
     </div>
+
     <div>
-        <label>Capacity</label><br>
-        <input th:field="*{capacity}" type="number" min="1" placeholder="200" required>
+        <label>Theatre:</label><br>
+        <select th:field="*{theatre.id}">
+            <option value="" disabled selected>Choose theatre</option>
+            <option th:each="t : ${theatres}"
+                    th:value="${t.id}"
+                    th:text="${t.name + ' (' + t.city + ')'}">
+            </option>
+        </select>
+        <div th:if="${#fields.hasErrors('theatre')}"
+             th:errors="*{theatre}"
+             class="field-error"></div>
     </div>
 
     <p>
         <button type="submit">Save</button>
         <a th:href="@{/halls}">Cancel</a>
     </p>
+
 </form>
+
 </body>
 </html>

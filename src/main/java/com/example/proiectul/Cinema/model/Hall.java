@@ -1,6 +1,9 @@
 package com.example.proiectul.Cinema.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,35 +15,39 @@ public class Hall {
     @Column(length = 50)
     private String id;
 
-    @Column(name = "theatre_id", nullable = false, length = 50)
-    private String theatreId;
+    @ManyToOne
+    @JoinColumn(name = "theatre_id", nullable = false)
+    private Theatre theatre;
 
+    @NotBlank(message = "Name is required")
+    @Size(max = 100, message = "Name must be at most 100 characters")
     @Column(nullable = false, length = 100)
     private String name;
 
     @Column(nullable = false)
     private int capacity;
 
-    @Transient
+    @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL)
     private List<Seat> seats = new ArrayList<>();
 
-    @Transient
+    @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL)
     private List<Screening> screenings = new ArrayList<>();
 
     public Hall() {
     }
 
-    public Hall(String id, String theatreId, String name) {
+    public Hall(String id, Theatre theatre, String name, int capacity) {
         this.id = id;
-        this.theatreId = theatreId;
+        this.theatre = theatre;
         this.name = name;
+        this.capacity = capacity;
     }
 
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
 
-    public String getTheatreId() { return theatreId; }
-    public void setTheatreId(String theatreId) { this.theatreId = theatreId; }
+    public Theatre getTheatre() { return theatre; }
+    public void setTheatre(Theatre theatre) { this.theatre = theatre; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
@@ -48,7 +55,7 @@ public class Hall {
     public int getCapacity() { return capacity; }
     public void setCapacity(int capacity) { this.capacity = capacity; }
 
-    public  List<Seat> getSeats() { return seats; }
+    public List<Seat> getSeats() { return seats; }
     public void setSeats(List<Seat> seats) { this.seats = seats; }
 
     public List<Screening> getScreenings() { return screenings; }

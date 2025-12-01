@@ -13,8 +13,9 @@ public class Screening {
     @Column(length = 50)
     private String id;
 
-    @Column(name = "hall_id", nullable = false, length = 50)
-    private String hallId;
+    @ManyToOne
+    @JoinColumn(name = "hall_id", nullable = false)
+    private Hall hall;
 
     @ManyToOne
     @JoinColumn(name = "movie_id", nullable = false)
@@ -32,58 +33,28 @@ public class Screening {
     public Screening() {
     }
 
-    public Screening(String id, String hallId, Movie movie, LocalDate dateTime) {
+    public Screening(String id, Hall hall, Movie movie, LocalDate dateTime) {
         this.id = id;
-        this.hallId = hallId;
+        this.hall = hall;
         this.movie = movie;
         this.dateTime = dateTime;
     }
 
-    public String getId() {
-        return id;
-    }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    public Hall getHall() { return hall; }
+    public void setHall(Hall hall) { this.hall = hall; }
 
-    public String getHallId() {
-        return hallId;
-    }
+    public Movie getMovie() { return movie; }
+    public void setMovie(Movie movie) { this.movie = movie; }
 
-    public void setHallId(String hallId) {
-        this.hallId = hallId;
-    }
+    public LocalDate getDateTime() { return dateTime; }
+    public void setDateTime(LocalDate dateTime) { this.dateTime = dateTime; }
 
-    public Movie getMovie() {
-        return movie;
-    }
+    public List<Ticket> getTickets() { return tickets; }
+    public void setTickets(List<Ticket> tickets) { this.tickets = tickets; }
 
-    public void setMovie(Movie movie) {
-        this.movie = movie;
-    }
-
-    public LocalDate getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(LocalDate dateTime) {
-        this.dateTime = dateTime;
-    }
-
-    public List<Ticket> getTickets() {
-        return tickets;
-    }
-
-    public void setTickets(List<Ticket> tickets) {
-        this.tickets = tickets;
-    }
-
-    public List<StaffAssignment> getAssignments() {
-        return assignments;
-    }
-
-    public void setAssignments(List<StaffAssignment> assignments) {
-        this.assignments = assignments;
-    }
+    public List<StaffAssignment> getAssignments() { return assignments; }
+    public void setAssignments(List<StaffAssignment> assignments) { this.assignments = assignments; }
 }

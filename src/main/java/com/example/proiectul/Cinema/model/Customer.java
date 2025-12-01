@@ -18,7 +18,7 @@ public class Customer {
     @Column(nullable = false, length = 150)
     private String email;
 
-    @Transient
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Ticket> tickets = new ArrayList<>();
 
     public Customer() {}

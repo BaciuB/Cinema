@@ -1,23 +1,64 @@
-<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org"><head>
-    <meta charset="UTF-8"><title>Tickets</title></head><body>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tickets</title>
+    <style>
+        .field-error {
+            color: red;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .success-message {
+            color: green;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
 <h1>Tickets</h1>
-<p><a th:href="@{/tickets/new}">Add Ticket</a></p>
+
+<div th:if="${globalError}" class="field-error" th:text="${globalError}"></div>
+<div th:if="${successMessage}" class="success-message" th:text="${successMessage}"></div>
+
+<p><a th:href="@{/tickets/new}">Add new Ticket</a></p>
+
 <table border="1" cellpadding="5" cellspacing="0">
-    <tr><th>ID</th><th>Screening ID</th><th>Customer ID</th><th>Seat ID</th><th>Price</th><th>Actions</th></tr>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Screening</th>
+        <th>Customer</th>
+        <th>Seat</th>
+        <th>Price</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
     <tr th:each="t : ${tickets}">
-        <td th:text="${t.id}">T1</td>
-        <td th:text="${t.screeningId}">SC1</td>
-        <td th:text="${t.customerId}">C1</td>
-        <td th:text="${t.seatId}">S1</td>
-        <td th:text="${t.price}">35.0</td>
+        <td th:text="${t.id}"></td>
+        <td th:text="${t.screening.id}"></td>
+        <td th:text="${t.customer.name}"></td>
+        <td th:text="${t.seat.id}"></td>
+        <td th:text="${t.price}"></td>
         <td>
             <a th:href="@{'/tickets/' + ${t.id}}">Details</a> |
             <a th:href="@{'/tickets/' + ${t.id} + '/edit'}">Edit</a>
-            <form th:action="@{'/tickets/' + ${t.id} + '/delete'}" method="post" style="display:inline">
+            <form th:action="@{'/tickets/' + ${t.id} + '/delete'}"
+                  method="post"
+                  style="display:inline">
                 <button type="submit">Delete</button>
             </form>
         </td>
     </tr>
+    </tbody>
 </table>
+
 <p><a th:href="@{/}">Back home</a></p>
-</body></html>
+
+</body>
+</html>

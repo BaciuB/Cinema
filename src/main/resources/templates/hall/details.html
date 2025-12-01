@@ -5,50 +5,48 @@
     <title>Hall Details</title>
 </head>
 <body>
-<h1>Hall Details</h1>
 
-<p><b>ID:</b> <span th:text="${hall.id}">h1</span></p>
-<p><b>Name:</b> <span th:text="${hall.name}">Sala Mare</span></p>
-<p><b>Theatre ID:</b> <span th:text="${hall.theatreId}">th1</span></p>
-<p><b>Capacity:</b> <span th:text="${hall.capacity}">200</span></p>
+<h1 th:text="${hall.name}">Hall Name</h1>
 
-<hr>
+<p>ID: <span th:text="${hall.id}"></span></p>
+<p>Capacity: <span th:text="${hall.capacity}"></span></p>
+<p>
+    Theatre:
+    <span th:text="${hall.theatre != null ? hall.theatre.name : 'N/A'}"></span>
+    (<span th:text="${hall.theatre != null ? hall.theatre.city : ''}"></span>)
+</p>
 
-<h2>Seats in this Hall</h2>
-<table border="1">
+<h2>Seats</h2>
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
     <tr>
         <th>Seat ID</th>
-        <th>Row</th>
-        <th>Column</th>
     </tr>
-    <tr th:each="s : ${hall.seats}">
-        <td th:text="${s.id}">S1</td>
-        <td th:text="${s.row}">A</td>
-        <td th:text="${s.column}">1</td>
+    </thead>
+    <tbody>
+    <tr th:each="s : ${seats}">
+        <td th:text="${s.id}"></td>
     </tr>
+    </tbody>
 </table>
 
-<hr>
-
-<h2>Screenings in this Hall</h2>
-<table border="1">
+<h2>Screenings</h2>
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
     <tr>
         <th>Screening ID</th>
-        <th>Movie ID</th>
         <th>Date</th>
     </tr>
-    <tr th:each="sc : ${hall.screenings}">
-        <td th:text="${sc.id}">SC1</td>
-        <td th:text="${sc.movieId}">M1</td>
-        <td th:text="${sc.dateTime}">2025-11-05</td>
+    </thead>
+    <tbody>
+    <tr th:each="sc : ${screenings}">
+        <td th:text="${sc.id}"></td>
+        <td th:text="${sc.dateTime}"></td>
     </tr>
+    </tbody>
 </table>
 
-<hr>
+<p><a th:href="@{/halls}">Back to list</a></p>
 
-<p>
-    <a th:href="@{'/halls/' + ${hall.id} + '/edit'}">Edit</a> |
-    <a th:href="@{/halls}">Back to list</a>
-</p>
 </body>
 </html>

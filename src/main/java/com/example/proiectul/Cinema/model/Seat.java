@@ -5,38 +5,40 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "seats")
 public class Seat {
+
     @Id
     @Column(length = 50)
     private String id;
 
-    @Column(name = "hall_id", nullable = false, length = 50)
-    private  String hallid;
+    @ManyToOne
+    @JoinColumn(name = "hall_id", nullable = false)
+    private Hall hall;
 
-    @Column(name = "seat_row", nullable = false, length = 10)
-    private String row;
+    @Column(nullable = false)
+    private int rowNumber;
 
-    @Column(name = "seat_column", nullable = false, length = 10)
-    private String column;
+    @Column(nullable = false)
+    private int seatNumber;
 
-    public Seat() { }
+    public Seat() {
+    }
 
-    public Seat(String id, String hallid, String row, String column) {
+    public Seat(String id, Hall hall, int rowNumber, int seatNumber) {
         this.id = id;
-        this.hallid = hallid;
-        this.row = row;
-        this.column = column;
+        this.hall = hall;
+        this.rowNumber = rowNumber;
+        this.seatNumber = seatNumber;
     }
 
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
 
-    public String getHallid() { return hallid; }
-    public void setHallid(String hallid) { this.hallid = hallid;}
+    public Hall getHall() { return hall; }
+    public void setHall(Hall hall) { this.hall = hall; }
 
-    public String getRow() { return row; }
-    public void setRow(String row) { this.row = row; }
+    public int getRowNumber() { return rowNumber; }
+    public void setRowNumber(int rowNumber) { this.rowNumber = rowNumber; }
 
-    public String getColumn() { return column; }
-    public void setColumn(String column) { this.column = column; }
-
+    public int getSeatNumber() { return seatNumber; }
+    public void setSeatNumber(int seatNumber) { this.seatNumber = seatNumber; }
 }

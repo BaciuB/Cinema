@@ -3,32 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit Hall</title>
+
+    <style>
+        .field-error {
+            color: red;
+            font-weight: bold;
+            margin-top: 4px;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
 <body>
+
 <h1>Edit Hall</h1>
 
 <form th:action="@{'/halls/' + ${hall.id}}" th:object="${hall}" method="post">
+
     <div>
-        <label>ID</label><br>
+        <label>ID:</label><br>
         <input th:field="*{id}" readonly>
     </div>
+
     <div>
-        <label>Name</label><br>
-        <input th:field="*{name}" required>
+        <label>Name:</label><br>
+        <input th:field="*{name}">
+        <div th:if="${#fields.hasErrors('name')}"
+             th:errors="*{name}"
+             class="field-error"></div>
     </div>
+
     <div>
-        <label>Theatre ID</label><br>
-        <input th:field="*{theatreId}" required>
+        <label>Capacity:</label><br>
+        <input type="number" th:field="*{capacity}">
+        <div th:if="${#fields.hasErrors('capacity')}"
+             th:errors="*{capacity}"
+             class="field-error"></div>
     </div>
+
     <div>
-        <label>Capacity</label><br>
-        <input th:field="*{capacity}" type="number" min="1" required>
+        <label>Theatre:</label><br>
+        <select th:field="*{theatre.id}">
+            <option th:each="t : ${theatres}"
+                    th:value="${t.id}"
+                    th:text="${t.name + ' (' + t.city + ')'}">
+            </option>
+        </select>
+        <div th:if="${#fields.hasErrors('theatre')}"
+             th:errors="*{theatre}"
+             class="field-error"></div>
     </div>
 
     <p>
-        <button type="submit">Save Changes</button>
+        <button type="submit">Save changes</button>
         <a th:href="@{/halls}">Cancel</a>
     </p>
+
 </form>
+
 </body>
 </html>

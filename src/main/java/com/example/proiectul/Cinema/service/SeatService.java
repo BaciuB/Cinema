@@ -22,7 +22,7 @@ public class SeatService {
 
     public List<Seat> findByHallId(String hallId) {
         return seatRepo.findAll().stream()
-                .filter(s -> s.getHallid().equals(hallId))
+                .filter(s -> s.getHall().getId().equals(hallId))
                 .toList();
     }
 }

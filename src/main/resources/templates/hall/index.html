@@ -3,32 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <title>Halls</title>
+
+    <style>
+        .field-error {
+            color: red;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .success-message {
+            color: green;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+    </style>
 </head>
 <body>
+
 <h1>Halls</h1>
 
-<p><a th:href="@{/halls/new}">Add Hall</a></p>
+<div th:if="${globalError}" class="field-error" th:text="${globalError}"></div>
+<div th:if="${successMessage}" class="success-message" th:text="${successMessage}"></div>
+
+<p><a th:href="@{/halls/new}">Add new Hall</a></p>
 
 <table border="1" cellpadding="5" cellspacing="0">
     <thead>
     <tr>
         <th>ID</th>
         <th>Name</th>
-        <th>Theatre ID</th>
         <th>Capacity</th>
+        <th>Theatre</th>
         <th>Actions</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="h : ${halls}">
-        <td th:text="${h.id}">H1</td>
-        <td th:text="${h.name}">Sala Mare</td>
-        <td th:text="${h.theatreId}">T1</td>
-        <td th:text="${h.capacity}">200</td>
+        <td th:text="${h.id}"></td>
+        <td th:text="${h.name}"></td>
+        <td th:text="${h.capacity}"></td>
+        <td th:text="${h.theatre != null ? h.theatre.name : 'N/A'}"></td>
         <td>
             <a th:href="@{'/halls/' + ${h.id}}">Details</a> |
             <a th:href="@{'/halls/' + ${h.id} + '/edit'}">Edit</a>
-            <form th:action="@{'/halls/' + ${h.id} + '/delete'}" method="post" style="display:inline">
+            <form th:action="@{'/halls/' + ${h.id} + '/delete'}"
+                  method="post"
+                  style="display:inline">
                 <button type="submit">Delete</button>
             </form>
         </td>
@@ -37,5 +58,6 @@
 </table>
 
 <p><a th:href="@{/}">Back home</a></p>
+
 </body>
 </html>

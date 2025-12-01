@@ -1,48 +1,80 @@
 package com.example.proiectul.Cinema.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Positive;
 
 @Entity
 @Table(name = "tickets")
 public class Ticket {
+
     @Id
     @Column(length = 50)
     private String id;
 
-    @Column(name = "screening_id", nullable = false, length = 50)
-    private String screeningId;
+    @ManyToOne
+    @JoinColumn(name = "screening_id", nullable = false)
+    private Screening screening;
 
-    @Column(name = "customer_id", nullable = false, length = 50)
-    private String customerId;
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Customer customer;
 
-    @Column(name = "seat_id", nullable = false, length = 50)
-    private String seatId;
+    @ManyToOne
+    @JoinColumn(name = "seat_id", nullable = false)
+    private Seat seat;
 
+    @Positive(message = "Price must be positive")
     @Column(nullable = false)
     private double price;
 
-    public Ticket() { }
+    public Ticket() {
+    }
 
-    public Ticket(String id, String screeningId, String customerId, String seatId, double price) {
+    public Ticket(String id, Screening screening, Customer customer, Seat seat, double price) {
         this.id = id;
-        this.screeningId = screeningId;
-        this.customerId = customerId;
-        this.seatId = seatId;
+        this.screening = screening;
+        this.customer = customer;
+        this.seat = seat;
         this.price = price;
     }
 
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public String getId() {
+        return id;
+    }
 
-    public String getScreeningId() { return screeningId; }
-    public void setScreeningId(String screeningId) { this.screeningId = screeningId; }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-    public String getCustomerId() { return customerId; }
-    public void setCustomerId(String customerId) { this.customerId = customerId; }
+    public Screening getScreening() {
+        return screening;
+    }
 
-    public String getSeatId() { return seatId; }
-    public void setSeatId(String seatId) { this.seatId = seatId;}
+    public void setScreening(Screening screening) {
+        this.screening = screening;
+    }
 
-    public double getPrice() { return price; }
-    public void setPrice(double price) { this.price = price; }
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Seat getSeat() {
+        return seat;
+    }
+
+    public void setSeat(Seat seat) {
+        this.seat = seat;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 }
