@@ -14,20 +14,20 @@ public class Seat {
     @JoinColumn(name = "hall_id", nullable = false)
     private Hall hall;
 
-    @Column(nullable = false)
+    @Column(name = "number_row",nullable = false)
     private int rowNumber;
 
-    @Column(nullable = false)
-    private int seatNumber;
+    @Column(name = "number_column", nullable = false)
+    private int columnNumber;
 
     public Seat() {
     }
 
-    public Seat(String id, Hall hall, int rowNumber, int seatNumber) {
+    public Seat(String id, Hall hall, int rowNumber, int columnNumber) {
         this.id = id;
         this.hall = hall;
         this.rowNumber = rowNumber;
-        this.seatNumber = seatNumber;
+        this.columnNumber = columnNumber;
     }
 
     public String getId() { return id; }
@@ -39,6 +39,6 @@ public class Seat {
     public int getRowNumber() { return rowNumber; }
     public void setRowNumber(int rowNumber) { this.rowNumber = rowNumber; }
 
-    public int getSeatNumber() { return seatNumber; }
-    public void setSeatNumber(int seatNumber) { this.seatNumber = seatNumber; }
+    public int getColumnNumber() { return columnNumber; }
+    public void setColumnNumber(int columnNumber) { this.columnNumber = columnNumber; }
 }

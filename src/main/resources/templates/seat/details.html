@@ -2,8 +2,8 @@
     <meta charset="utf-8"><title>Seat Details</title></head><body>
 <h1>Seat Details</h1>
 <p><b>ID:</b> <span th:text="${seat.id}">S1</span></p>
-<p><b>Hall ID:</b> <span th:text="${seat.hallid}">H1</span></p>
-<p><b>Row:</b> <span th:text="${seat.row}">A</span></p>
-<p><b>Column:</b> <span th:text="${seat.column}">7</span></p>
+<p><b>Hall ID:</b> <span th:text="${seat.hall}">H1</span></p>
+<p><b>Row:</b> <span th:text="${seat.rowNumber}">A</span></p>
+<p><b>Column:</b> <span th:text="${seat.columnNumber}">7</span></p>
 <p><a th:href="@{'/seats/' + ${seat.id} + '/edit'}">Edit</a> | <a th:href="@{/seats}">Back</a></p>
 </body></html>
