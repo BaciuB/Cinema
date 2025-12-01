@@ -2,9 +2,12 @@ package com.example.proiectul.Cinema.controller;
 
 import com.example.proiectul.Cinema.model.Movie;
 import com.example.proiectul.Cinema.service.MovieService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/movies")
@@ -29,33 +32,76 @@ public class MovieController {
     }
 
     @PostMapping
-    public String create(@ModelAttribute Movie movie) {
+    public String create(
+            @Valid @ModelAttribute("movie") Movie movie,
+            BindingResult bindingResult,
+            Model model) {
+
+        if (movieService.existsByTitle(movie.getTitle())) {
+            bindingResult.rejectValue("title", "duplicate", "A movie with this title already exists");
+        }
+
+        if (bindingResult.hasErrors()) {
+            return "movie/form";
+        }
+
         movieService.save(movie);
         return "redirect:/movies";
     }
 
     @PostMapping("/{id}/delete")
-    public String delete(@PathVariable String id) {
-        movieService.deleteById(id);
+    public String delete(@PathVariable String id, RedirectAttributes redirectAttributes) {
+        try {
+            movieService.deleteById(id);
+            redirectAttributes.addFlashAttribute("successMessage", "Movie deleted successfully.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("globalError", "Could not delete movie.");
+        }
         return "redirect:/movies";
     }
 
     @GetMapping("/{id}")
-    public String details(@PathVariable String id, Model model) {
-        Movie movie = movieService.findMovieWithScreenings(id);
-        model.addAttribute("movie", movie);
-        model.addAttribute("screenings", movie.getScreenings());
-        return "movie/details";
+    public String details(@PathVariable String id, Model model, RedirectAttributes redirectAttributes) {
+        return movieService.findById(id)
+                .map(movie -> {
+                    model.addAttribute("movie", movie);
+                    model.addAttribute("screenings", movie.getScreenings());
+                    return "movie/details";
+                })
+                .orElseGet(() -> {
+                    redirectAttributes.addFlashAttribute("globalError", "Movie not found.");
+                    return "redirect:/movies";
+                });
     }
 
     @GetMapping("/{id}/edit")
-    public String editForm(@PathVariable String id, Model model) {
-        model.addAttribute("movie", movieService.findById(id).orElseThrow());
-        return "movie/edit";
+    public String editForm(@PathVariable String id, Model model, RedirectAttributes redirectAttributes) {
+        return movieService.findById(id)
+                .map(movie -> {
+                    model.addAttribute("movie", movie);
+                    return "movie/edit";
+                })
+                .orElseGet(() -> {
+                    redirectAttributes.addFlashAttribute("globalError", "Movie not found.");
+                    return "redirect:/movies";
+                });
     }
 
     @PostMapping("/{id}")
-    public String update(@PathVariable String id, @ModelAttribute Movie movie) {
+    public String update(
+            @PathVariable String id,
+            @Valid @ModelAttribute("movie") Movie movie,
+            BindingResult bindingResult,
+            Model model) {
+
+        if (movieService.existsAnotherWithTitle(id, movie.getTitle())) {
+            bindingResult.rejectValue("title", "duplicate", "Another movie with this title already exists");
+        }
+
+        if (bindingResult.hasErrors()) {
+            return "movie/edit";
+        }
+
         movie.setId(id);
         movieService.save(movie);
         return "redirect:/movies";

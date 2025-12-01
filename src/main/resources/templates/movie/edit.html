@@ -3,32 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit Movie</title>
+
+    <style>
+        .field-error {
+            color: red;
+            font-weight: bold;
+            margin-top: 4px;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
 <body>
+
 <h1>Edit Movie</h1>
 
 <form th:action="@{'/movies/' + ${movie.id}}" th:object="${movie}" method="post">
+
     <div>
         <label>ID:</label><br>
         <input th:field="*{id}" readonly>
     </div>
+
     <div>
         <label>Title:</label><br>
-        <input th:field="*{title}" required>
+        <input th:field="*{title}">
+        <div th:if="${#fields.hasErrors('title')}"
+             th:errors="*{title}"
+             class="field-error"></div>
     </div>
+
     <div>
         <label>Duration (minutes):</label><br>
-        <input th:field="*{durationMinutes}" type="number" min="1" required>
+        <input th:field="*{durationMinutes}" type="number">
+        <div th:if="${#fields.hasErrors('durationMinutes')}"
+             th:errors="*{durationMinutes}"
+             class="field-error"></div>
     </div>
+
     <div>
         <label>Release date:</label><br>
-        <input th:field="*{release_date}" type="date" required>
+        <input th:field="*{release_date}" type="date">
+        <div th:if="${#fields.hasErrors('release_date')}"
+             th:errors="*{release_date}"
+             class="field-error"></div>
     </div>
 
     <p>
         <button type="submit">Save Changes</button>
         <a th:href="@{/movies}">Cancel</a>
     </p>
+
 </form>
+
 </body>
 </html>

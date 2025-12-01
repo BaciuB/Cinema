@@ -3,9 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Movies</title>
+
+    <style>
+        .field-error {
+            color: red;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .success-message {
+            color: green;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+    </style>
 </head>
 <body>
+
 <h1>Movies</h1>
+
+<div th:if="${globalError}" class="field-error" th:text="${globalError}"></div>
+<div th:if="${successMessage}" class="success-message" th:text="${successMessage}"></div>
 
 <p><a th:href="@{/movies/new}">Add new Movie</a></p>
 
@@ -22,15 +41,18 @@
     </thead>
     <tbody>
     <tr th:each="m : ${movies}">
-        <td th:text="${m.id}">M1</td>
-        <td th:text="${m.title}">Inception</td>
-        <td th:text="${m.durationMinutes}">120</td>
-        <td th:text="${m.release_date}">2024-07-10</td>
-        <td th:text="${m.screenings != null ? #lists.size(m.screenings) : 0}">0</td>
+        <td th:text="${m.id}"></td>
+        <td th:text="${m.title}"></td>
+        <td th:text="${m.durationMinutes}"></td>
+        <td th:text="${m.release_date}"></td>
+        <td th:text="${m.screenings != null ? #lists.size(m.screenings) : 0}"></td>
         <td>
             <a th:href="@{'/movies/' + ${m.id}}">Details</a> |
             <a th:href="@{'/movies/' + ${m.id} + '/edit'}">Edit</a>
-            <form th:action="@{'/movies/' + ${m.id} + '/delete'}" method="post" style="display:inline">
+
+            <form th:action="@{'/movies/' + ${m.id} + '/delete'}"
+                  method="post"
+                  style="display:inline">
                 <button type="submit">Delete</button>
             </form>
         </td>
@@ -39,5 +61,6 @@
 </table>
 
 <p><a th:href="@{/}">Back home</a></p>
+
 </body>
 </html>

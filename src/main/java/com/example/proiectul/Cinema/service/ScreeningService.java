@@ -36,15 +36,16 @@ public class ScreeningService {
 
     public List<Screening> findByMovieId(String movieId) {
         return repo.findAll().stream()
-                .filter(s -> s.getMovieId().equals(movieId))
+                .filter(s -> s.getMovie() != null && movieId.equals(s.getMovie().getId()))
                 .toList();
     }
 
     public Screening save(Screening screening) {
-        movieRepository.findById(screening.getMovieId())
+        movieRepository.findById(screening.getMovie().getId())
                 .orElseThrow(() -> new IllegalArgumentException("Movie does not exist"));
         return repo.save(screening);
     }
+
 
 
     public void deleteById(String id) {

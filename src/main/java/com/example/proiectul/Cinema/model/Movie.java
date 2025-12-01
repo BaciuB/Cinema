@@ -1,7 +1,9 @@
 package com.example.proiectul.Cinema.model;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,16 +16,19 @@ public class Movie {
     @Column(length = 50)
     private String Id;
 
+    @NotBlank(message = "Title is required")
     @Column(nullable = false, length = 200)
     private String title;
 
+    @Positive(message = "Duration must be positive")
     @Column(name = "duration_minutes", nullable = false)
     private int durationMinutes;
 
+    @PastOrPresent(message = "Release date cannot be in the future")
     @Column(name = "release_date")
     private LocalDate release_date;
 
-    @Transient
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private List<Screening> screenings = new ArrayList<>();
 
     public Movie() { }
