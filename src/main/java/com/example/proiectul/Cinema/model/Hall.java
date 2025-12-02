@@ -1,6 +1,8 @@
 package com.example.proiectul.Cinema.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
@@ -22,7 +24,8 @@ public class Hall {
     @Column(nullable = false, length = 100)
     private String name;
 
-    @Size(max = 250, message = "Maximum capacity is 250")
+    @Min(value = 1, message = "Capacity must be at least 1")
+    @Max(value = 250, message = "Capacity must be at most 250")
     @Column(nullable = false)
     private int capacity;
 
