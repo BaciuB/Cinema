@@ -1,6 +1,8 @@
 package com.example.proiectul.Cinema.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,23 +17,25 @@ public class Screening {
 
     @ManyToOne
     @JoinColumn(name = "hall_id", nullable = false)
+    @NotNull(message = "Hall is required")
     private Hall hall;
 
     @ManyToOne
     @JoinColumn(name = "movie_id", nullable = false)
+    @NotNull(message = "Movie is required")
     private Movie movie;
 
     @Column(name = "date_time", nullable = false)
+    @NotNull(message = "Date is required")
     private LocalDate dateTime;
 
-    @Transient
+    @OneToMany(mappedBy = "screening", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ticket> tickets = new ArrayList<>();
 
-    @Transient
+    @OneToMany(mappedBy = "screening", cascade = CascadeType.ALL)
     private List<StaffAssignment> assignments = new ArrayList<>();
 
-    public Screening() {
-    }
+    public Screening() {}
 
     public Screening(String id, Hall hall, Movie movie, LocalDate dateTime) {
         this.id = id;

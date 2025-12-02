@@ -22,7 +22,7 @@ public class StaffAssignmentService {
 
     public List<StaffAssignment> findByScreeningId(String screeningId) {
         return repo.findAll().stream()
-                .filter(sa -> sa.getScreeningId().equals(screeningId))
+                .filter(sa -> sa.getScreening().getId().equals(screeningId))
                 .toList();
     }
 }

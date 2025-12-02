@@ -1,10 +1,58 @@
-<!doctype html><html xmlns:th="http://www.thymeleaf.org"><head>
-    <meta charset="utf-8"><title>Edit Seat</title></head><body>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Seat</title>
+
+    <style>
+        .field-error {
+            color: red;
+            font-weight: bold;
+            margin-top: 4px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
 <h1>Edit Seat</h1>
+
 <form th:action="@{'/seats/' + ${seat.id}}" th:object="${seat}" method="post">
-    <div><label>ID</label><br><input th:field="*{id}" readonly></div>
-    <div><label>Hall ID</label><br><input th:field="*{hall}" required></div>
-    <div><label>Row</label><br><input th:field="*{rowNumber}" required></div>
-    <div><label>Number</label><br><input th:field="*{columnNumber}" placeholder="5" required></div>
-    <p><button type="submit">Save Changes</button> <a th:href="@{/seats}">Cancel</a></p>
-</form></body></html>
+
+    <div>
+        <label>ID:</label><br>
+        <input th:field="*{id}" readonly>
+    </div>
+
+    <div>
+        <label>Hall:</label><br>
+        <select th:field="*{hall.id}">
+            <option th:each="h : ${halls}"
+                    th:value="${h.id}"
+                    th:text="${h.name}">
+            </option>
+        </select>
+        <div th:if="${#fields.hasErrors('hall')}"
+             th:errors="*{hall}"
+             class="field-error"></div>
+    </div>
+
+    <div>
+        <label>Row:</label><br>
+        <input type="number" th:field="*{rowNumber}">
+    </div>
+
+    <div>
+        <label>Column:</label><br>
+        <input type="number" th:field="*{columnNumber}">
+    </div>
+
+    <p>
+        <button type="submit">Save changes</button>
+        <a th:href="@{/seats}">Cancel</a>
+    </p>
+
+</form>
+
+</body>
+</html>

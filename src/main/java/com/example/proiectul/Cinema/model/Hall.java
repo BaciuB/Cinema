@@ -2,6 +2,7 @@ package com.example.proiectul.Cinema.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
@@ -24,13 +25,15 @@ public class Hall {
     @Column(nullable = false, length = 100)
     private String name;
 
+    @Positive(message = "Capacity must be positive")
+    @Size(max = 500, message = "Capacity must be at most 500")
     @Column(nullable = false)
     private int capacity;
 
-    @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Seat> seats = new ArrayList<>();
 
-    @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Screening> screenings = new ArrayList<>();
 
     public Hall() {

@@ -6,61 +6,19 @@
 </head>
 <body>
 
-<h1>Screening Details</h1>
+<h1>Screening <span th:text="${screening.id}"></span></h1>
 
-<p><strong>ID:</strong> <span th:text="${screening.id}"></span></p>
-<p><strong>Movie ID:</strong> <span th:text="${screening.movieId}"></span></p>
-<p><strong>Hall ID:</strong> <span th:text="${screening.hallId}"></span></p>
-<p><strong>Date:</strong> <span th:text="${screening.dateTime}"></span></p>
-<hr>
-
-<h2>Tickets for this Screening</h2>
-<table border="1">
-    <tr>
-        <th>Ticket ID</th>
-        <th>Customer ID</th>
-        <th>Seat ID</th>
-        <th>Price</th>
-    </tr>
-
-    <tr th:each="t : ${screening.tickets}">
-        <td th:text="${t.id}"></td>
-        <td th:text="${t.customerId}"></td>
-        <td th:text="${t.seatId}"></td>
-        <td th:text="${t.price}"></td>
-    </tr>
-</table>
-
-<hr>
-
-<h2>Staff assignments</h2>
-<table>
-    <thead>
-    <tr>
-        <th>Assignment ID</th>
-        <th>Staff ID</th>
-        <th>Screening ID</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="sa : ${staffAssignments}">
-        <td th:text="${sa.id}">A1</td>
-        <td th:text="${sa.staffId}">S1</td>
-        <td th:text="${sa.screeningId}">SC1</td>
-    </tr>
-    </tbody>
-</table>
-
-
-<hr>
-
-<p>
-    <a th:href="@{/screenings}">Back to List</a>
+<p>Hall:
+    <span th:text="${screening.hall != null ? screening.hall.name : 'N/A'}"></span>
 </p>
 
-<p>
-    <a th:href="@{'/screenings/' + ${screening.id} + '/edit'}">Edit</a>
+<p>Movie:
+    <span th:text="${screening.movie != null ? screening.movie.title : 'N/A'}"></span>
 </p>
+
+<p>Date: <span th:text="${screening.dateTime}"></span></p>
+
+<p><a th:href="@{/screenings}">Back to list</a></p>
 
 </body>
 </html>

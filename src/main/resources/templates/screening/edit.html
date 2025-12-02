@@ -1,11 +1,66 @@
-<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org"><head>
-    <meta charset="UTF-8"><title>Edit Screening</title></head><body>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Screening</title>
+
+    <style>
+        .field-error {
+            color: red;
+            font-weight: bold;
+            margin-top: 4px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
 <h1>Edit Screening</h1>
+
 <form th:action="@{'/screenings/' + ${screening.id}}" th:object="${screening}" method="post">
-    <div><label>ID</label><br><input th:field="*{id}" readonly></div>
-    <div><label>Hall ID</label><br><input th:field="*{hallId}" required></div>
-    <div><label>Movie ID</label><br><input th:field="*{movieId}" required></div>
-    <div><label>Date</label><br><input th:field="*{dateTime}" type="date" required></div>
-    <p><button type="submit">Save Changes</button> <a th:href="@{/screenings}">Cancel</a></p>
+
+    <div>
+        <label>ID:</label><br>
+        <input th:field="*{id}" readonly>
+    </div>
+
+    <div>
+        <label>Hall:</label><br>
+        <select th:field="*{hall.id}">
+            <option th:each="h : ${halls}"
+                    th:value="${h.id}"
+                    th:text="${h.name}">
+            </option>
+        </select>
+        <div th:if="${#fields.hasErrors('hall')}"
+             th:errors="*{hall}"
+             class="field-error"></div>
+    </div>
+
+    <div>
+        <label>Movie:</label><br>
+        <select th:field="*{movie.id}">
+            <option th:each="m : ${movies}"
+                    th:value="${m.id}"
+                    th:text="${m.title}">
+            </option>
+        </select>
+        <div th:if="${#fields.hasErrors('movie')}"
+             th:errors="*{movie}"
+             class="field-error"></div>
+    </div>
+
+    <div>
+        <label>Date:</label><br>
+        <input type="date" th:field="*{dateTime}">
+    </div>
+
+    <p>
+        <button type="submit">Save changes</button>
+        <a th:href="@{/screenings}">Cancel</a>
+    </p>
+
 </form>
-</body></html>
+
+</body>
+</html>

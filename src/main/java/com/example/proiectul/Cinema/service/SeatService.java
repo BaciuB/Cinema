@@ -9,20 +9,30 @@ import java.util.Optional;
 
 @Service
 public class SeatService {
+
     private final SeatRepository seatRepo;
 
     public SeatService(SeatRepository seatRepo) {
         this.seatRepo = seatRepo;
     }
 
-    public List<Seat> findAll() { return seatRepo.findAll(); }
-    public Optional<Seat> findById(String id) { return seatRepo.findById(id); }
-    public Seat save(Seat seat) { return seatRepo.save(seat); }
-    public void deleteById(String id) { seatRepo.deleteById(id); }
+    public List<Seat> findAll() {
+        return seatRepo.findAll();
+    }
+
+    public Optional<Seat> findById(String id) {
+        return seatRepo.findById(id);
+    }
+
+    public Seat save(Seat seat) {
+        return seatRepo.save(seat);
+    }
+
+    public void deleteById(String id) {
+        seatRepo.deleteById(id);
+    }
 
     public List<Seat> findByHallId(String hallId) {
-        return seatRepo.findAll().stream()
-                .filter(s -> s.getHall().getId().equals(hallId))
-                .toList();
+        return seatRepo.findByHall_Id(hallId);
     }
 }

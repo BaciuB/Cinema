@@ -1,24 +1,63 @@
-<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org"><head>
-    <meta charset="UTF-8"><title>Screenings</title></head><body>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Screenings</title>
+
+    <style>
+        .field-error {
+            color: red;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .success-message {
+            color: green;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
 <h1>Screenings</h1>
-<p><a th:href="@{/screenings/new}">Add Screening</a></p>
+
+<div th:if="${globalError}" class="field-error" th:text="${globalError}"></div>
+<div th:if="${successMessage}" class="success-message" th:text="${successMessage}"></div>
+
+<p><a th:href="@{/screenings/new}">Add new Screening</a></p>
+
 <table border="1" cellpadding="5" cellspacing="0">
-    <tr><th>ID</th><th>Hall ID</th><th>Movie ID</th><th>Date</th><th>Tickets</th><th>Assignments</th><th>Actions</th></tr>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Hall</th>
+        <th>Movie</th>
+        <th>Date</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
     <tr th:each="s : ${screenings}">
-        <td th:text="${s.id}">SC1</td>
-        <td th:text="${s.hallId}">H1</td>
-        <td th:text="${s.movieId}">M1</td>
-        <td th:text="${s.dateTime}">2025-11-05</td>
-        <td th:text="${s.tickets != null ? #lists.size(s.tickets) : 0}">0</td>
-        <td th:text="${s.assignments != null ? #lists.size(s.assignments) : 0}">0</td>
+        <td th:text="${s.id}"></td>
+        <td th:text="${s.hall != null ? s.hall.name : 'N/A'}"></td>
+        <td th:text="${s.movie != null ? s.movie.title : 'N/A'}"></td>
+        <td th:text="${s.dateTime}"></td>
         <td>
             <a th:href="@{'/screenings/' + ${s.id}}">Details</a> |
             <a th:href="@{'/screenings/' + ${s.id} + '/edit'}">Edit</a>
-            <form th:action="@{'/screenings/' + ${s.id} + '/delete'}" method="post" style="display:inline">
+            <form th:action="@{'/screenings/' + ${s.id} + '/delete'}"
+                  method="post"
+                  style="display:inline">
                 <button type="submit">Delete</button>
             </form>
         </td>
     </tr>
+    </tbody>
 </table>
+
 <p><a th:href="@{/}">Back home</a></p>
-</body></html>
+
+</body>
+</html>

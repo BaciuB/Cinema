@@ -1,20 +1,63 @@
-<!doctype html><html xmlns:th="http://www.thymeleaf.org"><head>
-    <meta charset="utf-8"><title>Seats</title></head><body>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Seats</title>
+
+    <style>
+        .field-error {
+            color: red;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .success-message {
+            color: green;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
 <h1>Seats</h1>
-<p><a th:href="@{/seats/new}">Add Seat</a></p>
-<table border="1" cellpadding="5"><tr>
-    <th>ID</th><th>Hall ID</th><th>Row</th><th>Column</th><th>Actions</th></tr>
+
+<div th:if="${globalError}" class="field-error" th:text="${globalError}"></div>
+<div th:if="${successMessage}" class="success-message" th:text="${successMessage}"></div>
+
+<p><a th:href="@{/seats/new}">Add new Seat</a></p>
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Hall</th>
+        <th>Row</th>
+        <th>Column</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
     <tr th:each="s : ${seats}">
-        <td th:text="${s.id}">S1</td>
-        <td th:text="${s.hall}">H1</td>
-        <td th:text="${s.rowNumber}">A</td>
-        <td th:text="${s.columnNumber}">7</td>
+        <td th:text="${s.id}"></td>
+        <td th:text="${s.hall != null ? s.hall.name : 'N/A'}"></td>
+        <td th:text="${s.rowNumber}"></td>
+        <td th:text="${s.columnNumber}"></td>
         <td>
             <a th:href="@{'/seats/' + ${s.id}}">Details</a> |
             <a th:href="@{'/seats/' + ${s.id} + '/edit'}">Edit</a>
-            <form th:action="@{'/seats/' + ${s.id} + '/delete'}" method="post" style="display:inline">
+            <form th:action="@{'/seats/' + ${s.id} + '/delete'}"
+                  method="post"
+                  style="display:inline">
                 <button type="submit">Delete</button>
             </form>
-        </td></tr></table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
 <p><a th:href="@{/}">Back home</a></p>
-</body></html>
+
+</body>
+</html>
