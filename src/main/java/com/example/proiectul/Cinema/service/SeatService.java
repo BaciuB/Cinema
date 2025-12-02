@@ -35,4 +35,5 @@ public class SeatService {
     public List<Seat> findByHallId(String hallId) {
         return seatRepo.findByHall_Id(hallId);
     }
+
 }
