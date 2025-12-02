@@ -26,8 +26,8 @@
 
     <tr th:each="t : ${customer.tickets}">
         <td th:text="${t.id}"></td>
-        <td th:text="${t.screeningId}"></td>
-        <td th:text="${t.seatId}"></td>
+        <td th:text="${t.screening.id}"></td>
+        <td th:text="${t.seat.id}"></td>
         <td th:text="${t.price}"></td>
     </tr>
 </table>
