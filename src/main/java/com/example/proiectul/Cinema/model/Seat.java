@@ -1,6 +1,7 @@
 package com.example.proiectul.Cinema.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
@@ -22,10 +23,14 @@ public class Seat {
 
     @Column(name = "number_row", nullable = false)
     @Min(value = 1, message = "Row must be >= 1")
+    @Max(value = 100, message = "Row must be <= 100")
+    @NotNull(message = "Row is required")
     private int rowNumber;
 
     @Column(name = "number_column", nullable = false)
     @Min(value = 1, message = "Column must be >= 1")
+    @Max(value = 100, message = "Column must be <= 100")
+    @NotNull(message = "Column is required")
     private int columnNumber;
 
     @OneToMany(mappedBy = "seat", cascade = CascadeType.ALL, orphanRemoval = true)
