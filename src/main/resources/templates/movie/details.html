@@ -19,7 +19,7 @@
     </tr>
     <tr th:each="s : ${screenings}">
         <td th:text="${s.id}">SC1</td>
-        <td th:text="${s.hallId}">H1</td>
+        <td th:text="${s.hall.id}">H1</td>
         <td th:text="${s.dateTime}">2024-07-15</td>
     </tr>
     <tr th:if="${#lists.isEmpty(screenings)}">
