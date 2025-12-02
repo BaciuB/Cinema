@@ -11,8 +11,8 @@ public class TechnicalOperator extends Staff {
 
     public TechnicalOperator() { }
 
-    public TechnicalOperator( String Id, String name, int salary, Specialization specialization) {
-        super(Id, name, salary);
+    public TechnicalOperator(String id, String name, int salary, Specialization specialization) {
+        super(id, name, salary);
         this.specialization = specialization;
     }
 

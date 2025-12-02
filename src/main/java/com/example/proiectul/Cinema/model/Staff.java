@@ -10,7 +10,7 @@ public abstract class Staff {
 
     @Id
     @Column(length = 50)
-    private String Id;
+    private String id;
 
     @Column(length = 100, nullable = false)
     private String name;
@@ -21,12 +21,12 @@ public abstract class Staff {
     public Staff() { }
 
     public Staff(String id, String name, int salary) {
-        this.Id = id;
+        this.id = id;
         this.name = name;
         this.salary = salary;
     }
-    public String getId() {return Id; }
-    public void setId(String id) { this.Id = id; }
+    public String getId() {return id; }
+    public void setId(String id) { this.id = id; }
 
     public String getName() {return name;}
     public void setName(String name) { this.name = name; }

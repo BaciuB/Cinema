@@ -36,7 +36,7 @@ public class HallService {
         return hallRepo.findById(id).orElseThrow();
     }
 
-    public List<Hall> findByTheatreId(String theatreId) {
+    public List<Hall> findByTheatreId( String theatreId) {
         return hallRepo.findByTheatre_Id(theatreId);
     }
 }

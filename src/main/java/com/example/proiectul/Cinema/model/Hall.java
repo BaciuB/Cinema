@@ -1,8 +1,6 @@
 package com.example.proiectul.Cinema.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
@@ -20,24 +18,21 @@ public class Hall {
     @JoinColumn(name = "theatre_id", nullable = false)
     private Theatre theatre;
 
-    @NotBlank(message = "Name is required")
     @Size(max = 100, message = "Name must be at most 100 characters")
     @Column(nullable = false, length = 100)
     private String name;
 
-    @Positive(message = "Capacity must be positive")
-    @Size(max = 500, message = "Capacity must be at most 500")
+    @Size(max = 250, message = "Maximum capacity is 250")
     @Column(nullable = false)
     private int capacity;
 
-    @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL)
     private List<Seat> seats = new ArrayList<>();
 
-    @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL)
     private List<Screening> screenings = new ArrayList<>();
 
-    public Hall() {
-    }
+    public Hall() {}
 
     public Hall(String id, Theatre theatre, String name, int capacity) {
         this.id = id;

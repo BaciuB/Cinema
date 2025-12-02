@@ -11,8 +11,8 @@ public class SupportStaff extends Staff {
 
     public SupportStaff() { }
 
-    public SupportStaff(String Id, String name, int salary, Role role) {
-        super(Id, name, salary);
+    public SupportStaff(String id, String name, int salary, Role role) {
+        super(id, name, salary);
         this.role = role;
     }
 

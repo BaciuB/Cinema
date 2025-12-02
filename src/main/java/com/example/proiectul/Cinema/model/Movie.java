@@ -14,7 +14,7 @@ import java.util.List;
 public class Movie {
     @Id
     @Column(length = 50)
-    private String Id;
+    private String id;
 
     @NotBlank(message = "Title is required")
     @Column(nullable = false, length = 200)
@@ -34,7 +34,7 @@ public class Movie {
     public Movie() { }
 
     public Movie(String id, String title, int durationMinutes, LocalDate release_date) {
-        this.Id = id;
+        this.id = id;
         this.title = title;
         this.durationMinutes = durationMinutes;
         this.release_date = release_date;
@@ -42,8 +42,8 @@ public class Movie {
     public LocalDate getRelease_date() {return release_date;}
     public void setRelease_date(LocalDate release_date) {this.release_date = release_date;}
 
-    public String getId() { return Id; }
-    public void setId(String id) { this.Id = id; }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
