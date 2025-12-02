@@ -7,7 +7,7 @@
     <tr th:each="a : ${assignments}">
         <td th:text="${a.id}">A1</td>
         <td th:text="${a.screening.id}">SC1</td>
-        <td th:text="${a.staff.name}">TO1</td>
+        <td th:text="${a.staff.id}">TO1</td>
         <td>
             <a th:href="@{'/assignments/' + ${a.id}}">Details</a> |
             <a th:href="@{'/assignments/' + ${a.id} + '/edit'}">Edit</a>

@@ -3,7 +3,7 @@
 <h1>New Assignment</h1>
 <form th:action="@{/assignments}" th:object="${assignment}" method="post">
     <div><label>ID</label><br><input th:field="*{id}" placeholder="A1" required></div>
-    <div><label>Screening ID</label><br><input th:field="*{screeningId}" placeholder="SC1" required></div>
-    <div><label>Staff ID</label><br><input th:field="*{staffId}" placeholder="TO1/SS1" required></div>
+    <div><label>Screening ID</label><br><input th:field="*{screening.id}" placeholder="SC1" required></div>
+    <div><label>Staff ID</label><br><input th:field="*{staff.id}" placeholder="TO1/SS1" required></div>
     <p><button type="submit">Save</button> <a th:href="@{/assignments}">Cancel</a></p>
 </form></body></html>
