@@ -40,3 +40,6 @@ public class MovieService {
         return movieRepo.existsByTitleAndIdNot(title, id);
     }
 }
+
+
+//pe backend sa facem si validari pentru a verifica daca exista un anumit seat sau asa mai departe
