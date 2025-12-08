@@ -3,6 +3,7 @@ package com.example.proiectul.Cinema.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
@@ -14,12 +15,15 @@ public class Hall {
 
     @Id
     @Column(length = 50)
+    @NotBlank(message = "ID is required")
+    @Size(max = 50, message = "ID must be at most 50 characters")
     private String id;
 
     @ManyToOne
     @JoinColumn(name = "theatre_id", nullable = false)
     private Theatre theatre;
 
+    @NotBlank(message = "Name is required")
     @Size(max = 100, message = "Name must be at most 100 characters")
     @Column(nullable = false, length = 100)
     private String name;
@@ -38,20 +42,24 @@ public class Hall {
     public Hall() {}
 
     public Hall(String id, Theatre theatre, String name, int capacity) {
-        this.id = id;
+        this.setId(id);
         this.theatre = theatre;
-        this.name = name;
+        this.setName(name);
         this.capacity = capacity;
     }
 
     public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public void setId(String id) {
+        this.id = (id != null ? id.trim() : null);
+    }
 
     public Theatre getTheatre() { return theatre; }
     public void setTheatre(Theatre theatre) { this.theatre = theatre; }
 
     public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public void setName(String name) {
+        this.name = (name != null ? name.trim() : null);
+    }
 
     public int getCapacity() { return capacity; }
     public void setCapacity(int capacity) { this.capacity = capacity; }

@@ -7,6 +7,10 @@
 <body>
 <h1>Customers</h1>
 
+<!-- Mesaje globale -->
+<div th:if="${errorMessage}" style="color:red;" th:text="${errorMessage}"></div>
+<div th:if="${successMessage}" style="color:green;" th:text="${successMessage}"></div>
+
 <p><a th:href="@{/customers/new}">Add Customer</a></p>
 
 <table border="1" cellpadding="5" cellspacing="0">
@@ -28,7 +32,8 @@
         <td>
             <a th:href="@{'/customers/' + ${c.id}}">Details</a> |
             <a th:href="@{'/customers/' + ${c.id} + '/edit'}">Edit</a>
-            <form th:action="@{'/customers/' + ${c.id} + '/delete'}" method="post" style="display:inline">
+            <form th:action="@{'/customers/' + ${c.id} + '/delete'}"
+                  method="post" style="display:inline">
                 <button type="submit">Delete</button>
             </form>
         </td>

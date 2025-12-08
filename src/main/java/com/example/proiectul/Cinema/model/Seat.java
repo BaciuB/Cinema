@@ -1,19 +1,18 @@
 package com.example.proiectul.Cinema.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
-
-import java.util.ArrayList;
-import java.util.List;
+import jakarta.validation.constraints.*;
 
 @Entity
-@Table(name = "seats")
+@Table(
+        name = "seats"
+)
 public class Seat {
 
     @Id
     @Column(length = 50)
+    @NotBlank(message = "Seat ID is required")
+    @Size(max = 50, message = "Seat ID must be at most 50 characters")
     private String id;
 
     @ManyToOne
@@ -22,21 +21,17 @@ public class Seat {
     private Hall hall;
 
     @Column(name = "number_row", nullable = false)
-    @Min(value = 1, message = "Row must be >= 1")
-    @Max(value = 100, message = "Row must be <= 100")
-    @NotNull(message = "Row is required")
+    @Min(value = 1, message = "Row number must be at least 1")
+    @Max(value = 100, message = "Row number must be at most 100")
     private int rowNumber;
 
     @Column(name = "number_column", nullable = false)
-    @Min(value = 1, message = "Column must be >= 1")
-    @Max(value = 100, message = "Column must be <= 100")
-    @NotNull(message = "Column is required")
+    @Min(value = 1, message = "Column number must be at least 1")
+    @Max(value = 100, message = "Column number must be at most 100")
     private int columnNumber;
 
-    @OneToMany(mappedBy = "seat", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Ticket> tickets = new ArrayList<>();
-
-    public Seat() {}
+    public Seat() {
+    }
 
     public Seat(String id, Hall hall, int rowNumber, int columnNumber) {
         this.id = id;
@@ -56,7 +51,4 @@ public class Seat {
 
     public int getColumnNumber() { return columnNumber; }
     public void setColumnNumber(int columnNumber) { this.columnNumber = columnNumber; }
-
-    public List<Ticket> getTickets() { return tickets; }
-    public void setTickets(List<Ticket> tickets) { this.tickets = tickets; }
 }

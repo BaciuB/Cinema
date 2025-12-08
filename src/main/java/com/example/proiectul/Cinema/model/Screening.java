@@ -1,7 +1,7 @@
 package com.example.proiectul.Cinema.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,6 +13,8 @@ public class Screening {
 
     @Id
     @Column(length = 50)
+    @NotBlank(message = "Screening ID is required")
+    @Size(max = 50, message = "Screening ID must be at most 50 characters")
     private String id;
 
     @ManyToOne
@@ -26,16 +28,18 @@ public class Screening {
     private Movie movie;
 
     @Column(name = "date_time", nullable = false)
-    @NotNull(message = "Date is required")
+    @NotNull(message = "Screening date is required")
+    @FutureOrPresent(message = "Screening date cannot be in the past")
     private LocalDate dateTime;
 
     @OneToMany(mappedBy = "screening", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ticket> tickets = new ArrayList<>();
 
-    @OneToMany(mappedBy = "screening", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "screening", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StaffAssignment> assignments = new ArrayList<>();
 
-    public Screening() {}
+    public Screening() {
+    }
 
     public Screening(String id, Hall hall, Movie movie, LocalDate dateTime) {
         this.id = id;

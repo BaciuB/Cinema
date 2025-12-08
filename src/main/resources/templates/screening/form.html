@@ -17,17 +17,30 @@
 
 <h1>Add New Screening</h1>
 
-<form th:action="@{/screenings}" th:object="${screening}" method="post">
+<form th:action="@{/screenings}" th:object="${screening}" method="post" novalidate>
+
+    <!-- REZUMAT GLOBAL AL ERORILOR -->
+    <div th:if="${#fields.hasErrors()}" class="field-error" style="margin-bottom: 12px;">
+        <p>Please correct the following errors:</p>
+        <ul>
+            <li th:each="err : ${#fields.errors('*')}"
+                th:text="${err}">Error</li>
+        </ul>
+    </div>
 
     <div>
         <label>ID:</label><br>
         <input th:field="*{id}" placeholder="SC1">
+        <div th:if="${#fields.hasErrors('id')}"
+             th:errors="*{id}"
+             class="field-error"></div>
     </div>
 
     <div>
         <label>Hall:</label><br>
         <select th:field="*{hall.id}">
-            <option value="" disabled selected>Choose hall</option>
+            <!-- placeholder, selectat când screening.hall este null -->
+            <option value="">Choose hall</option>
             <option th:each="h : ${halls}"
                     th:value="${h.id}"
                     th:text="${h.name}">
@@ -41,7 +54,8 @@
     <div>
         <label>Movie:</label><br>
         <select th:field="*{movie.id}">
-            <option value="" disabled selected>Choose movie</option>
+            <!-- placeholder, selectat când screening.movie este null -->
+            <option value="">Choose movie</option>
             <option th:each="m : ${movies}"
                     th:value="${m.id}"
                     th:text="${m.title}">
@@ -55,6 +69,9 @@
     <div>
         <label>Date:</label><br>
         <input type="date" th:field="*{dateTime}">
+        <div th:if="${#fields.hasErrors('dateTime')}"
+             th:errors="*{dateTime}"
+             class="field-error"></div>
     </div>
 
     <p>

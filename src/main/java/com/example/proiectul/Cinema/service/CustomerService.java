@@ -19,10 +19,26 @@ public class CustomerService {
         this.ticketService = ticketService;
     }
 
-    public List<Customer> findAll() { return customerRepo.findAll(); }
-    public Optional<Customer> findById(String id) { return customerRepo.findById(id); }
-    public Customer save(Customer customer) { return customerRepo.save(customer); }
-    public void deleteById(String id) { customerRepo.deleteById(id); }
+    public List<Customer> findAll() {
+        return customerRepo.findAll();
+    }
+
+    public Optional<Customer> findById(String id) {
+        return customerRepo.findById(id);
+    }
+
+    // 🔹 nou – folosit în controller pentru validarea de business (email unic)
+    public Optional<Customer> findByEmail(String email) {
+        return customerRepo.findByEmail(email);
+    }
+
+    public Customer save(Customer customer) {
+        return customerRepo.save(customer);
+    }
+
+    public void deleteById(String id) {
+        customerRepo.deleteById(id);
+    }
 
     public Customer findCustomerWithTickets(String id) {
         Customer c = customerRepo.findById(id).orElseThrow();
