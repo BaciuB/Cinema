@@ -3,22 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit Customer</title>
+
+    <style>
+        .field-error {
+            color: red;
+            font-weight: bold;
+            margin-top: 4px;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
 <body>
 <h1>Edit Customer</h1>
 
-<form th:action="@{'/customers/' + ${customer.id}}" th:object="${customer}" method="post">
+<form th:action="@{'/customers/' + ${customer.id}}" th:object="${customer}" method="post" novalidate>
+
+    <!-- REZUMAT GLOBAL AL ERORILOR -->
+    <div th:if="${#fields.hasErrors()}" class="field-error" style="margin-bottom: 12px;">
+        <p>Please correct the following errors:</p>
+        <ul>
+            <li th:each="err : ${#fields.errors('*')}"
+                th:text="${err}">Error</li>
+        </ul>
+    </div>
+
     <div>
         <label>ID</label><br>
         <input th:field="*{id}" readonly>
+        <div th:if="${#fields.hasErrors('id')}"
+             th:errors="*{id}"
+             class="field-error"></div>
     </div>
+
     <div>
         <label>Name</label><br>
-        <input th:field="*{name}" required>
+        <input th:field="*{name}">
+        <div th:if="${#fields.hasErrors('name')}"
+             th:errors="*{name}"
+             class="field-error"></div>
     </div>
+
     <div>
         <label>Email</label><br>
-        <input th:field="*{email}" type="email" required>
+        <input th:field="*{email}" type="email">
+        <div th:if="${#fields.hasErrors('email')}"
+             th:errors="*{email}"
+             class="field-error"></div>
     </div>
 
     <p>

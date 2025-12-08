@@ -17,11 +17,23 @@
 
 <h1>Edit Hall</h1>
 
-<form th:action="@{'/halls/' + ${hall.id}}" th:object="${hall}" method="post">
+<form th:action="@{'/halls/' + ${hall.id}}" th:object="${hall}" method="post" novalidate>
+
+    <!-- REZUMAT GLOBAL AL ERORILOR -->
+    <div th:if="${#fields.hasErrors()}" class="field-error" style="margin-bottom: 12px;">
+        <p>Please correct the following errors:</p>
+        <ul>
+            <li th:each="err : ${#fields.errors('*')}"
+                th:text="${err}">Error</li>
+        </ul>
+    </div>
 
     <div>
         <label>ID:</label><br>
         <input th:field="*{id}" readonly>
+        <div th:if="${#fields.hasErrors('id')}"
+             th:errors="*{id}"
+             class="field-error"></div>
     </div>
 
     <div>
@@ -43,6 +55,7 @@
     <div>
         <label>Theatre:</label><br>
         <select th:field="*{theatre.id}">
+            <option value="">Choose theatre</option>
             <option th:each="t : ${theatres}"
                     th:value="${t.id}"
                     th:text="${t.name + ' (' + t.city + ')'}">
