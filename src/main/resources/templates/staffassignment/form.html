@@ -13,25 +13,29 @@
       method="post">
 
     <div>
-        <label>ID</label><br>
-        <input th:field="*{id}" placeholder="A1" required>
+        <label for="id">ID</label><br>
+        <input th:field="*{id}" id="id" placeholder="A1" required>
+        <div th:if="${#fields.hasErrors('id')}"
+             th:errors="*{id}"
+             style="color:red"></div>
     </div>
 
     <div>
-        <label>Screening ID</label><br>
-        <input th:field="*{screeningId}" placeholder="SCR1">
+        <label for="screeningId">Screening ID</label><br>
+        <input th:field="*{screeningId}" id="screeningId" placeholder="SCR1">
         <div th:if="${#fields.hasErrors('screeningId')}"
              th:errors="*{screeningId}"
              style="color:red"></div>
     </div>
 
     <div>
-        <label>Staff ID</label><br>
-        <input th:field="*{staffId}" placeholder="TO1 / SST1">
+        <label for="staffId">Staff ID</label><br>
+        <input th:field="*{staffId}" id="staffId" placeholder="TO1 / SST1">
         <div th:if="${#fields.hasErrors('staffId')}"
              th:errors="*{staffId}"
              style="color:red"></div>
     </div>
+
 
     <div th:if="${#fields.hasGlobalErrors()}" style="color:red">
         <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
