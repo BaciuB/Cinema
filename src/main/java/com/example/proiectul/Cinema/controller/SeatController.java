@@ -36,22 +36,16 @@ public class SeatController {
     }
 
     @PostMapping
-    public String create(@Valid @ModelAttribute("seat") Seat seat,
-                         BindingResult bindingResult,
-                         Model model) {
+    public String create(
+            @Valid @ModelAttribute("seat") Seat seat,
+            BindingResult bindingResult,
+            Model model,
+            RedirectAttributes ra) {
 
-        String hallId = (seat.getHall() != null ? seat.getHall().getId() : null);
+        String hallId = seat.getHall() != null ? seat.getHall().getId() : null;
 
-        // BUSINESS VALIDATION: hall obligatoriu și existent
         if (hallId == null || hallId.isBlank()) {
             bindingResult.rejectValue("hall", "hall.required", "Hall is required");
-        } else {
-            var hallOpt = hallService.findById(hallId);
-            if (hallOpt.isEmpty()) {
-                bindingResult.rejectValue("hall", "hall.notfound", "Selected hall does not exist");
-            } else {
-                seat.setHall(hallOpt.get());
-            }
         }
 
         if (bindingResult.hasErrors()) {
@@ -59,7 +53,9 @@ public class SeatController {
             return "seat/form";
         }
 
+        seat.setHall(hallService.findById(hallId).orElseThrow());
         seatService.save(seat);
+        ra.addFlashAttribute("successMessage", "Seat created successfully.");
         return "redirect:/seats";
     }
 
@@ -91,24 +87,17 @@ public class SeatController {
     }
 
     @PostMapping("/{id}")
-    public String update(@PathVariable String id,
-                         @Valid @ModelAttribute("seat") Seat seat,
-                         BindingResult bindingResult,
-                         Model model) {
+    public String update(
+            @PathVariable String id,
+            @Valid @ModelAttribute("seat") Seat seat,
+            BindingResult bindingResult,
+            Model model,
+            RedirectAttributes ra) {
 
-        seat.setId(id);
-        String hallId = (seat.getHall() != null ? seat.getHall().getId() : null);
+        String hallId = seat.getHall() != null ? seat.getHall().getId() : null;
 
-        // BUSINESS VALIDATION: hall obligatoriu și existent
         if (hallId == null || hallId.isBlank()) {
             bindingResult.rejectValue("hall", "hall.required", "Hall is required");
-        } else {
-            var hallOpt = hallService.findById(hallId);
-            if (hallOpt.isEmpty()) {
-                bindingResult.rejectValue("hall", "hall.notfound", "Selected hall does not exist");
-            } else {
-                seat.setHall(hallOpt.get());
-            }
         }
 
         if (bindingResult.hasErrors()) {
@@ -116,7 +105,10 @@ public class SeatController {
             return "seat/edit";
         }
 
+        seat.setId(id);
+        seat.setHall(hallService.findById(hallId).orElseThrow());
         seatService.save(seat);
+        ra.addFlashAttribute("successMessage", "Seat updated successfully.");
         return "redirect:/seats";
     }
 

@@ -17,27 +17,17 @@
 
 <h1>Edit Ticket</h1>
 
-<form th:action="@{'/tickets/' + ${ticket.id}}" th:object="${ticket}" method="post" novalidate>
-
-    <!-- 🔥🔴 IMPORTANT: MESAJ GLOBAL DE ERORI -->
-    <div th:if="${#fields.hasErrors()}" class="field-error" style="margin-bottom:12px;">
-        <p>Please correct the following errors:</p>
-        <ul>
-            <li th:each="err : ${#fields.errors('*')}"
-                th:text="${err}">Error</li>
-        </ul>
-    </div>
+<form th:action="@{'/tickets/' + ${ticket.id}}" th:object="${ticket}" method="post">
 
     <div>
         <label>ID:</label><br>
         <input th:field="*{id}" readonly>
-        <!-- ID nu se validează aici, dar îl lăsăm -->
     </div>
 
     <div>
         <label>Screening:</label><br>
         <select th:field="*{screening.id}">
-            <option value="">Choose screening</option>
+            <option value="" disabled>Choose screening</option>
             <option th:each="s : ${screenings}"
                     th:value="${s.id}"
                     th:text="${s.id}">
@@ -51,7 +41,7 @@
     <div>
         <label>Customer:</label><br>
         <select th:field="*{customer.id}">
-            <option value="">Choose customer</option>
+            <option value="" disabled>Choose customer</option>
             <option th:each="c : ${customers}"
                     th:value="${c.id}"
                     th:text="${c.id}">
@@ -65,7 +55,7 @@
     <div>
         <label>Seat:</label><br>
         <select th:field="*{seat.id}">
-            <option value="">Choose seat</option>
+            <option value="" disabled>Choose seat</option>
             <option th:each="s : ${seats}"
                     th:value="${s.id}"
                     th:text="${s.id}">

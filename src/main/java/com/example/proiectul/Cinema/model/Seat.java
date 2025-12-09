@@ -4,9 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 @Entity
-@Table(
-        name = "seats"
-)
+@Table(name = "seats")
 public class Seat {
 
     @Id
@@ -21,19 +19,21 @@ public class Seat {
     private Hall hall;
 
     @Column(name = "number_row", nullable = false)
+    @NotNull(message = "Row number is required")
     @Min(value = 1, message = "Row number must be at least 1")
     @Max(value = 100, message = "Row number must be at most 100")
-    private int rowNumber;
+    private Integer rowNumber;   // <- era int
 
     @Column(name = "number_column", nullable = false)
+    @NotNull(message = "Column number is required")
     @Min(value = 1, message = "Column number must be at least 1")
     @Max(value = 100, message = "Column number must be at most 100")
-    private int columnNumber;
+    private Integer columnNumber;   // <- era int
 
     public Seat() {
     }
 
-    public Seat(String id, Hall hall, int rowNumber, int columnNumber) {
+    public Seat(String id, Hall hall, Integer rowNumber, Integer columnNumber) {
         this.id = id;
         this.hall = hall;
         this.rowNumber = rowNumber;
@@ -46,9 +46,9 @@ public class Seat {
     public Hall getHall() { return hall; }
     public void setHall(Hall hall) { this.hall = hall; }
 
-    public int getRowNumber() { return rowNumber; }
-    public void setRowNumber(int rowNumber) { this.rowNumber = rowNumber; }
+    public Integer getRowNumber() { return rowNumber; }
+    public void setRowNumber(Integer rowNumber) { this.rowNumber = rowNumber; }
 
-    public int getColumnNumber() { return columnNumber; }
-    public void setColumnNumber(int columnNumber) { this.columnNumber = columnNumber; }
+    public Integer getColumnNumber() { return columnNumber; }
+    public void setColumnNumber(Integer columnNumber) { this.columnNumber = columnNumber; }
 }

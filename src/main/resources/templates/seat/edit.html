@@ -19,7 +19,6 @@
 
 <form th:action="@{'/seats/' + ${seat.id}}" th:object="${seat}" method="post" novalidate>
 
-    <!-- REZUMAT GLOBAL AL ERORILOR -->
     <div th:if="${#fields.hasErrors()}" class="field-error" style="margin-bottom: 12px;">
         <p>Please correct the following errors:</p>
         <ul>
@@ -30,17 +29,14 @@
 
     <div>
         <label>ID:</label><br>
-        <!-- de obicei ID-ul nu se schimbă la edit, îl lăsăm readonly -->
         <input th:field="*{id}" readonly>
         <div th:if="${#fields.hasErrors('id')}"
-             th:errors="*{id}"
-             class="field-error"></div>
+             th:errors="*{id}" class="field-error"></div>
     </div>
 
     <div>
         <label>Hall:</label><br>
         <select th:field="*{hall.id}">
-            <!-- placeholder dacă din binding vine null / gol -->
             <option value="">Choose hall</option>
             <option th:each="h : ${halls}"
                     th:value="${h.id}"
@@ -48,24 +44,21 @@
             </option>
         </select>
         <div th:if="${#fields.hasErrors('hall')}"
-             th:errors="*{hall}"
-             class="field-error"></div>
+             th:errors="*{hall}" class="field-error"></div>
     </div>
 
     <div>
         <label>Row:</label><br>
         <input type="number" th:field="*{rowNumber}">
         <div th:if="${#fields.hasErrors('rowNumber')}"
-             th:errors="*{rowNumber}"
-             class="field-error"></div>
+             th:errors="*{rowNumber}" class="field-error"></div>
     </div>
 
     <div>
         <label>Column:</label><br>
         <input type="number" th:field="*{columnNumber}">
         <div th:if="${#fields.hasErrors('columnNumber')}"
-             th:errors="*{columnNumber}"
-             class="field-error"></div>
+             th:errors="*{columnNumber}" class="field-error"></div>
     </div>
 
     <p>

@@ -1,8 +1,7 @@
 package com.example.proiectul.Cinema.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "tickets")
@@ -10,6 +9,7 @@ public class Ticket {
 
     @Id
     @Column(length = 50)
+    @NotBlank(message = "ID is required")
     private String id;
 
     @ManyToOne
@@ -27,13 +27,13 @@ public class Ticket {
     @NotNull(message = "Seat is required")
     private Seat seat;
 
-    @Column(nullable = false)
-    @Min(value = 1, message = "Price must be >= 1")
-    private double price;
+    @NotNull(message = "Price is required")
+    @Positive(message = "Price must be positive")
+    private Double price;
 
     public Ticket() {}
 
-    public Ticket(String id, Screening screening, Customer customer, Seat seat, double price) {
+    public Ticket(String id, Screening screening, Customer customer, Seat seat, Double price) {
         this.id = id;
         this.screening = screening;
         this.customer = customer;
@@ -53,6 +53,6 @@ public class Ticket {
     public Seat getSeat() { return seat; }
     public void setSeat(Seat seat) { this.seat = seat; }
 
-    public double getPrice() { return price; }
-    public void setPrice(double price) { this.price = price; }
+    public Double getPrice() { return price; }
+    public void setPrice(Double price) { this.price = price; }
 }

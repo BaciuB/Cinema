@@ -19,7 +19,6 @@
 
 <form th:action="@{/halls}" th:object="${hall}" method="post" novalidate>
 
-    <!-- REZUMAT GLOBAL AL ERORILOR -->
     <div th:if="${#fields.hasErrors()}" class="field-error" style="margin-bottom: 12px;">
         <p>Please correct the following errors:</p>
         <ul>
@@ -32,41 +31,34 @@
         <label>ID:</label><br>
         <input th:field="*{id}" placeholder="H1">
         <div th:if="${#fields.hasErrors('id')}"
-             th:errors="*{id}"
-             class="field-error"></div>
+             th:errors="*{id}" class="field-error"></div>
     </div>
 
     <div>
         <label>Name:</label><br>
         <input th:field="*{name}">
         <div th:if="${#fields.hasErrors('name')}"
-             th:errors="*{name}"
-             class="field-error"></div>
+             th:errors="*{name}" class="field-error"></div>
     </div>
 
     <div>
         <label>Capacity:</label><br>
         <input type="number" th:field="*{capacity}">
         <div th:if="${#fields.hasErrors('capacity')}"
-             th:errors="*{capacity}"
-             class="field-error"></div>
+             th:errors="*{capacity}" class="field-error"></div>
     </div>
 
     <div>
         <label>Theatre:</label><br>
         <select th:field="*{theatre.id}">
-            <!-- Placeholder selectat când hall.theatre este null sau id gol -->
             <option value="">Choose theatre</option>
-
             <option th:each="t : ${theatres}"
                     th:value="${t.id}"
                     th:text="${t.name + ' (' + t.city + ')'}">
             </option>
         </select>
-
         <div th:if="${#fields.hasErrors('theatre')}"
-             th:errors="*{theatre}"
-             class="field-error"></div>
+             th:errors="*{theatre}" class="field-error"></div>
     </div>
 
     <p>

@@ -1,11 +1,7 @@
 package com.example.proiectul.Cinema.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-
+import jakarta.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,22 +12,23 @@ public class Hall {
     @Id
     @Column(length = 50)
     @NotBlank(message = "ID is required")
-    @Size(max = 50, message = "ID must be at most 50 characters")
     private String id;
 
     @ManyToOne
     @JoinColumn(name = "theatre_id", nullable = false)
+    @NotNull(message = "Theatre is required")
     private Theatre theatre;
 
-    @NotBlank(message = "Name is required")
     @Size(max = 100, message = "Name must be at most 100 characters")
+    @NotBlank(message = "Name is required")
     @Column(nullable = false, length = 100)
     private String name;
 
+    @NotNull(message = "Capacity is required")
     @Min(value = 1, message = "Capacity must be at least 1")
     @Max(value = 250, message = "Capacity must be at most 250")
     @Column(nullable = false)
-    private int capacity;
+    private Integer capacity;   // ← era int, acum e Integer
 
     @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL)
     private List<Seat> seats = new ArrayList<>();
@@ -41,28 +38,24 @@ public class Hall {
 
     public Hall() {}
 
-    public Hall(String id, Theatre theatre, String name, int capacity) {
-        this.setId(id);
+    public Hall(String id, Theatre theatre, String name, Integer capacity) {
+        this.id = id;
         this.theatre = theatre;
-        this.setName(name);
+        this.name = name;
         this.capacity = capacity;
     }
 
     public String getId() { return id; }
-    public void setId(String id) {
-        this.id = (id != null ? id.trim() : null);
-    }
+    public void setId(String id) { this.id = id; }
 
     public Theatre getTheatre() { return theatre; }
     public void setTheatre(Theatre theatre) { this.theatre = theatre; }
 
     public String getName() { return name; }
-    public void setName(String name) {
-        this.name = (name != null ? name.trim() : null);
-    }
+    public void setName(String name) { this.name = name; }
 
-    public int getCapacity() { return capacity; }
-    public void setCapacity(int capacity) { this.capacity = capacity; }
+    public Integer getCapacity() { return capacity; }
+    public void setCapacity(Integer capacity) { this.capacity = capacity; }
 
     public List<Seat> getSeats() { return seats; }
     public void setSeats(List<Seat> seats) { this.seats = seats; }

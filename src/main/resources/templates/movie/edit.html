@@ -17,39 +17,50 @@
 
 <h1>Edit Movie</h1>
 
-<form th:action="@{'/movies/' + ${movie.id}}" th:object="${movie}" method="post">
+<form th:action="@{'/movies/' + ${movie.id}}" th:object="${movie}" method="post" novalidate>
+
+    <div th:if="${#fields.hasErrors()}" class="field-error" style="margin-bottom: 12px;">
+        <p>Please correct the following errors:</p>
+        <ul>
+            <li th:each="err : ${#fields.errors('*')}"
+                th:text="${err}">Error</li>
+        </ul>
+    </div>
 
     <div>
         <label>ID:</label><br>
         <input th:field="*{id}" readonly>
+        <div th:if="${#fields.hasErrors('id')}"
+             th:errors="*{id}"
+             class="field-error"></div>
     </div>
 
     <div>
-        <label>Title:</label><br>
-        <input th:field="*{title}">
+        <label>Title</label><br>
+        <input type="text" th:field="*{title}">
         <div th:if="${#fields.hasErrors('title')}"
              th:errors="*{title}"
              class="field-error"></div>
     </div>
 
     <div>
-        <label>Duration (minutes):</label><br>
-        <input th:field="*{durationMinutes}" type="number">
+        <label>Duration (minutes)</label><br>
+        <input type="number" th:field="*{durationMinutes}">
         <div th:if="${#fields.hasErrors('durationMinutes')}"
              th:errors="*{durationMinutes}"
              class="field-error"></div>
     </div>
 
     <div>
-        <label>Release date:</label><br>
-        <input th:field="*{release_date}" type="date">
+        <label>Release date</label><br>
+        <input type="date" th:field="*{release_date}">
         <div th:if="${#fields.hasErrors('release_date')}"
              th:errors="*{release_date}"
              class="field-error"></div>
     </div>
 
     <p>
-        <button type="submit">Save Changes</button>
+        <button type="submit">Save changes</button>
         <a th:href="@{/movies}">Cancel</a>
     </p>
 

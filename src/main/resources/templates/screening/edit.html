@@ -19,7 +19,6 @@
 
 <form th:action="@{'/screenings/' + ${screening.id}}" th:object="${screening}" method="post" novalidate>
 
-    <!-- REZUMAT GLOBAL AL ERORILOR -->
     <div th:if="${#fields.hasErrors()}" class="field-error" style="margin-bottom: 12px;">
         <p>Please correct the following errors:</p>
         <ul>
@@ -32,8 +31,7 @@
         <label>ID:</label><br>
         <input th:field="*{id}" readonly>
         <div th:if="${#fields.hasErrors('id')}"
-             th:errors="*{id}"
-             class="field-error"></div>
+             th:errors="*{id}" class="field-error"></div>
     </div>
 
     <div>
@@ -46,8 +44,7 @@
             </option>
         </select>
         <div th:if="${#fields.hasErrors('hall')}"
-             th:errors="*{hall}"
-             class="field-error"></div>
+             th:errors="*{hall}" class="field-error"></div>
     </div>
 
     <div>
@@ -60,16 +57,14 @@
             </option>
         </select>
         <div th:if="${#fields.hasErrors('movie')}"
-             th:errors="*{movie}"
-             class="field-error"></div>
+             th:errors="*{movie}" class="field-error"></div>
     </div>
 
     <div>
         <label>Date:</label><br>
         <input type="date" th:field="*{dateTime}">
         <div th:if="${#fields.hasErrors('dateTime')}"
-             th:errors="*{dateTime}"
-             class="field-error"></div>
+             th:errors="*{dateTime}" class="field-error"></div>
     </div>
 
     <p>

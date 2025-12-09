@@ -35,10 +35,14 @@ public class MovieController {
     public String create(
             @Valid @ModelAttribute("movie") Movie movie,
             BindingResult bindingResult,
-            Model model) {
+            Model model,
+            RedirectAttributes ra) {
 
-        if (movieService.existsByTitle(movie.getTitle())) {
-            bindingResult.rejectValue("title", "duplicate", "A movie with this title already exists");
+        // business rule: titlu unic
+        if (!bindingResult.hasFieldErrors("title")
+                && movieService.existsByTitle(movie.getTitle())) {
+            bindingResult.rejectValue("title", "duplicate",
+                    "A movie with this title already exists");
         }
 
         if (bindingResult.hasErrors()) {
@@ -46,6 +50,7 @@ public class MovieController {
         }
 
         movieService.save(movie);
+        ra.addFlashAttribute("successMessage", "Movie created successfully.");
         return "redirect:/movies";
     }
 
@@ -92,10 +97,14 @@ public class MovieController {
             @PathVariable String id,
             @Valid @ModelAttribute("movie") Movie movie,
             BindingResult bindingResult,
-            Model model) {
+            Model model,
+            RedirectAttributes ra) {
 
-        if (movieService.existsAnotherWithTitle(id, movie.getTitle())) {
-            bindingResult.rejectValue("title", "duplicate", "Another movie with this title already exists");
+        // business rule: titlu unic la alt film
+        if (!bindingResult.hasFieldErrors("title")
+                && movieService.existsAnotherWithTitle(id, movie.getTitle())) {
+            bindingResult.rejectValue("title", "duplicate",
+                    "Another movie with this title already exists");
         }
 
         if (bindingResult.hasErrors()) {
@@ -104,6 +113,7 @@ public class MovieController {
 
         movie.setId(id);
         movieService.save(movie);
+        ra.addFlashAttribute("successMessage", "Movie updated successfully.");
         return "redirect:/movies";
     }
 }

@@ -19,7 +19,6 @@
 
 <form th:action="@{/screenings}" th:object="${screening}" method="post" novalidate>
 
-    <!-- REZUMAT GLOBAL AL ERORILOR -->
     <div th:if="${#fields.hasErrors()}" class="field-error" style="margin-bottom: 12px;">
         <p>Please correct the following errors:</p>
         <ul>
@@ -32,14 +31,12 @@
         <label>ID:</label><br>
         <input th:field="*{id}" placeholder="SC1">
         <div th:if="${#fields.hasErrors('id')}"
-             th:errors="*{id}"
-             class="field-error"></div>
+             th:errors="*{id}" class="field-error"></div>
     </div>
 
     <div>
         <label>Hall:</label><br>
         <select th:field="*{hall.id}">
-            <!-- placeholder, selectat când screening.hall este null -->
             <option value="">Choose hall</option>
             <option th:each="h : ${halls}"
                     th:value="${h.id}"
@@ -47,14 +44,12 @@
             </option>
         </select>
         <div th:if="${#fields.hasErrors('hall')}"
-             th:errors="*{hall}"
-             class="field-error"></div>
+             th:errors="*{hall}" class="field-error"></div>
     </div>
 
     <div>
         <label>Movie:</label><br>
         <select th:field="*{movie.id}">
-            <!-- placeholder, selectat când screening.movie este null -->
             <option value="">Choose movie</option>
             <option th:each="m : ${movies}"
                     th:value="${m.id}"
@@ -62,16 +57,14 @@
             </option>
         </select>
         <div th:if="${#fields.hasErrors('movie')}"
-             th:errors="*{movie}"
-             class="field-error"></div>
+             th:errors="*{movie}" class="field-error"></div>
     </div>
 
     <div>
         <label>Date:</label><br>
         <input type="date" th:field="*{dateTime}">
         <div th:if="${#fields.hasErrors('dateTime')}"
-             th:errors="*{dateTime}"
-             class="field-error"></div>
+             th:errors="*{dateTime}" class="field-error"></div>
     </div>
 
     <p>
