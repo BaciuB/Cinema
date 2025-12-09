@@ -32,11 +32,15 @@ public class HallService {
         hallRepo.deleteById(id);
     }
 
+    /**
+     * Găsește Hall + relații (lazy sau eager, depinde de mapping),
+     * dar NU mai aruncă orElseThrow -> evităm Whitelabel.
+     */
     public Hall findHallWithRelations(String id) {
-        return hallRepo.findById(id).orElseThrow();
+        return hallRepo.findById(id).orElse(null);
     }
 
-    public List<Hall> findByTheatreId( String theatreId) {
+    public List<Hall> findByTheatreId(String theatreId) {
         return hallRepo.findByTheatre_Id(theatreId);
     }
 }

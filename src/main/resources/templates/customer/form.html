@@ -7,18 +7,39 @@
 <body>
 <h1>New Customer</h1>
 
-<form th:action="@{/customers}" th:object="${customer}" method="post">
+<form th:action="@{/customers}" th:object="${customer}" method="post" novalidate>
+
+    <!-- REZUMAT GLOBAL AL ERORILOR - ACUM ÎN INTERIORUL FORM-ULUI -->
+    <div th:if="${#fields.hasErrors()}" style="color:red; margin-bottom: 1rem;">
+        <p>Please correct the following errors:</p>
+        <ul>
+            <li th:each="err : ${#fields.errors('*')}"
+                th:text="${err}">Error</li>
+        </ul>
+    </div>
+
     <div>
         <label>ID</label><br>
-        <input th:field="*{id}" placeholder="C1" required>
+        <input th:field="*{id}" placeholder="C1">
+        <div th:if="${#fields.hasErrors('id')}"
+             th:errors="*{id}"
+             style="color:red;"></div>
     </div>
+
     <div>
         <label>Name</label><br>
-        <input th:field="*{name}" placeholder="Full name" required>
+        <input th:field="*{name}" placeholder="Full name">
+        <div th:if="${#fields.hasErrors('name')}"
+             th:errors="*{name}"
+             style="color:red;"></div>
     </div>
+
     <div>
         <label>Email</label><br>
-        <input th:field="*{email}" type="email" placeholder="name@example.com" required>
+        <input th:field="*{email}" type="email" placeholder="name@example.com">
+        <div th:if="${#fields.hasErrors('email')}"
+             th:errors="*{email}"
+             style="color:red;"></div>
     </div>
 
     <p>

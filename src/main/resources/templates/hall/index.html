@@ -23,8 +23,15 @@
 
 <h1>Halls</h1>
 
-<div th:if="${globalError}" class="field-error" th:text="${globalError}"></div>
-<div th:if="${successMessage}" class="success-message" th:text="${successMessage}"></div>
+<!-- MESAJ GLOBAL DE EROARE -->
+<div th:if="${globalError}"
+     class="field-error"
+     th:text="${globalError}"></div>
+
+<!-- MESAJ GLOBAL DE SUCCES -->
+<div th:if="${successMessage}"
+     class="success-message"
+     th:text="${successMessage}"></div>
 
 <p><a th:href="@{/halls/new}">Add new Hall</a></p>
 
@@ -39,6 +46,12 @@
     </tr>
     </thead>
     <tbody>
+
+    <!-- Dacă nu sunt halls -->
+    <tr th:if="${#lists.isEmpty(halls)}">
+        <td colspan="5" style="text-align:center; color:gray;">No halls found.</td>
+    </tr>
+
     <tr th:each="h : ${halls}">
         <td th:text="${h.id}"></td>
         <td th:text="${h.name}"></td>
@@ -54,6 +67,7 @@
             </form>
         </td>
     </tr>
+
     </tbody>
 </table>
 
