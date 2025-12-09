@@ -2,8 +2,10 @@ package com.example.proiectul.Cinema.controller;
 
 import com.example.proiectul.Cinema.model.TechnicalOperator;
 import com.example.proiectul.Cinema.service.TechnicalOperatorService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller @RequestMapping("/technicaloperators")
@@ -24,7 +26,13 @@ public class TechnicalOperatorController {
     }
 
     @PostMapping
-    public String create(@ModelAttribute TechnicalOperator o){
+    public String create(@Valid @ModelAttribute("technicaloperator") TechnicalOperator o,
+                         BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "technicaloperator/form";
+        }
+
         service.save(o);
         return "redirect:/technicaloperators";
     }
@@ -41,9 +49,16 @@ public class TechnicalOperatorController {
         return "technicaloperator/edit";
     }
 
-    @PostMapping("/{id}")
-    public String update(@PathVariable String id, @ModelAttribute TechnicalOperator o){
-        o.setId(id); service.save(o);
+    public String update(@PathVariable String id,
+                         @Valid @ModelAttribute("technicaloperator") TechnicalOperator o,
+                         BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "technicaloperator/edit";
+        }
+
+        o.setId(id);
+        service.save(o);
         return "redirect:/technicaloperators";
     }
 

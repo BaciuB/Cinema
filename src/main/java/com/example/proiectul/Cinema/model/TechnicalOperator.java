@@ -1,12 +1,14 @@
 package com.example.proiectul.Cinema.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "technical_operators")
 public class TechnicalOperator extends Staff {
     @Enumerated(EnumType.STRING)
     @Column(length = 50, nullable = false)
+    @NotNull(message = "Specialization is required")
     private Specialization specialization;
 
     public TechnicalOperator() { }

@@ -7,4 +7,5 @@ import java.nio.file.*;
 
 @Repository
 public interface StaffAssignmentRepository extends JpaRepository<StaffAssignment, String> {
+    boolean existsByScreening_IdAndStaff_Id(String screeningId, String staffId);
 }

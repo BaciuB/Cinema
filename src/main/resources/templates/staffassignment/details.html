@@ -1,8 +1,27 @@
-<!doctype html><html xmlns:th="http://www.thymeleaf.org"><head>
-    <meta charset="utf-8"><title>Assignment Details</title></head><body>
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Assignment Details</title>
+</head>
+<body>
+
 <h1>Assignment Details</h1>
+
 <p><b>ID:</b> <span th:text="${assignment.id}">A1</span></p>
-<p><b>Screening ID:</b> <span th:text="${assignment.screening.id}">SC1</span></p>
-<p><b>Staff ID:</b> <span th:text="${assignment.staff.name}">TO1</span></p>
-<p><a th:href="@{'/assignments/' + ${assignment.id} + '/edit'}">Edit</a> | <a th:href="@{/assignments}">Back</a></p>
-</body></html>
+
+<p><b>Screening ID:</b>
+    <span th:text="${assignment.screening.id}">SC1</span>
+</p>
+
+<p><b>Staff ID:</b>
+    <span th:text="${assignment.staff.id}">TO1</span>
+</p>
+
+<p>
+    <a th:href="@{'/assignments/' + ${assignment.id} + '/edit'}">Edit</a> |
+    <a th:href="@{/assignments}">Back</a>
+</p>
+
+</body>
+</html>

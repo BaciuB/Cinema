@@ -1,6 +1,8 @@
 package com.example.proiectul.Cinema.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 
 @Entity
 @Table(name = "staff")
@@ -10,12 +12,15 @@ public abstract class Staff {
 
     @Id
     @Column(length = 50)
+    @NotBlank(message = "ID is required")
     private String id;
 
     @Column(length = 100, nullable = false)
+    @NotBlank(message = "Name is required")
     private String name;
 
     @Column(length = 20, nullable = false)
+    @Positive(message = "Salary must be positive")
     private int salary;
 
     public Staff() { }

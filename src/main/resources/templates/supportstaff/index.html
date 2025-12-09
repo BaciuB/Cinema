@@ -1,21 +1,44 @@
-<!doctype html><html xmlns:th="http://www.thymeleaf.org"><head>
-    <meta charset="utf-8"><title>Support Staff</title></head><body>
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Support Staff</title>
+</head>
+<body>
+
 <h1>Support Staff</h1>
+
 <p><a th:href="@{/supportstaff/new}">Add Support Staff</a></p>
+
 <table border="1" cellpadding="5">
-    <tr><th>ID</th><th>Name</th><th>Salary</th><th>Role</th><th>Actions</th></tr>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Salary</th>
+        <th>Role</th>
+        <th>Actions</th>
+    </tr>
+
     <tr th:each="s : ${supportstaff}">
         <td th:text="${s.id}">SS1</td>
-        <td th:text="${s.name}">Alex</td>
-        <td th:text="${s.salary}">3500</td>
-        <td th:text="${s.role}">Usher</td>
+        <td th:text="${s.name}">John</td>
+        <td th:text="${s.salary}">3000</td>
+        <td th:text="${s.role}">SECURITY</td>
+
         <td>
             <a th:href="@{'/supportstaff/' + ${s.id}}">Details</a> |
             <a th:href="@{'/supportstaff/' + ${s.id} + '/edit'}">Edit</a>
-            <form th:action="@{'/supportstaff/' + ${s.id} + '/delete'}" method="post" style="display:inline">
+
+            <form th:action="@{'/supportstaff/' + ${s.id} + '/delete'}"
+                  method="post"
+                  style="display:inline">
                 <button type="submit">Delete</button>
             </form>
         </td>
-    </tr></table>
+    </tr>
+</table>
+
 <p><a th:href="@{/}">Back home</a></p>
-</body></html>
+
+</body>
+</html>

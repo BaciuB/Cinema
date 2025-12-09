@@ -75,35 +75,55 @@ INSERT INTO screenings (id, hall_id, movie_id, date_time) VALUES
                                                               ('SCR10', 'H4', 'M5', '2025-01-19');
 
 
+
 INSERT INTO staff (id, name, salary) VALUES
-                                         ('ST1',  'Robert Security',        2500),
-                                         ('ST2',  'Mihai Cleaner',          2300),
-                                         ('ST3',  'Laura Usher',            2100),
-                                         ('ST4',  'Ovidiu Projectionist',   3000),
-                                         ('ST5',  'Alex Sound Operator',    3200),
-                                         ('ST6',  'Daria Projectionist',    2900),
-                                         ('ST7',  'Tudor Sound Operator',   3100),
-                                         ('ST8',  'Silvia Cleaner',         2200),
-                                         ('ST9',  'Rares Security',         2400),
-                                         ('ST10', 'Bianca Usher',           2150);
+                                         ('SST1', 'Robert Security',   2500),
+                                         ('SST2', 'Mihai Cleaner',     2300),
+                                         ('SST3', 'Laura Usher',       2100),
+                                         ('SST4', 'Ana Security',      2600),
+                                         ('SST5', 'Cristina Cleaner',  2250),
+                                         ('SST6', 'Daniel Usher',      2050),
+                                         ('SST7', 'Ioana Security',    2550),
+                                         ('SST8', 'Silvia Cleaner',    2200),
+                                         ('SST9', 'Rares Security',    2400),
+                                         ('SST10','Bianca Usher',      2150),
 
-
+                                         ('TO1',  'Andrei Tech',       3000),
+                                         ('TO2',  'Maria Tech',        3200),
+                                         ('TO3',  'Alex Tech',         3100),
+                                         ('TO4',  'Bianca Tech',       3300),
+                                         ('TO5',  'George Tech',       3400),
+                                         ('TO6',  'Ioana Tech',        3000),
+                                         ('TO7',  'Radu Tech',         3500),
+                                         ('TO8',  'Cristina Tech',     3600),
+                                         ('TO9',  'Darius Tech',       3700),
+                                         ('TO10', 'Elena Tech',        3800);
 
 INSERT INTO support_staff (id, role) VALUES
-                                         ('ST1',  'SECURITY'),
-                                         ('ST2',  'CLEANING'),
-                                         ('ST3',  'USHER'),
-                                         ('ST8',  'CLEANING'),
-                                         ('ST9',  'SECURITY'),
-                                         ('ST10', 'USHER');
-
-
+                                         ('SST1',  'SECURITY'),
+                                         ('SST2',  'CLEANING'),
+                                         ('SST3',  'USHER'),
+                                         ('SST4',  'SECURITY'),
+                                         ('SST5',  'CLEANING'),
+                                         ('SST6',  'USHER'),
+                                         ('SST7',  'SECURITY'),
+                                         ('SST8',  'CLEANING'),
+                                         ('SST9',  'SECURITY'),
+                                         ('SST10', 'USHER');
 
 INSERT INTO technical_operators (id, specialization) VALUES
-  ('ST4', 'PROJECTION'),
-  ('ST5', 'SOUND'),
-  ('ST6', 'PROJECTION'),
-  ('ST7', 'SOUND');
+                                                         ('TO1',  'SOUND'),
+                                                         ('TO2',  'SOUND'),
+                                                         ('TO3',  'PROJECTION'),
+                                                         ('TO4',  'SOUND'),
+                                                         ('TO5',  'PROJECTION'),
+                                                         ('TO6',  'PROJECTION'),
+                                                         ('TO7',  'SOUND'),
+                                                         ('TO8',  'PROJECTION'),
+                                                         ('TO9',  'PROJECTION'),
+                                                         ('TO10', 'SOUND');
+
+
 
 
 
@@ -121,13 +141,13 @@ INSERT INTO tickets (id, screening_id, customer_id, seat_id, price) VALUES
 
 
 INSERT INTO staff_assignments (id, screening_id, staff_id) VALUES
-  ('A1',  'SCR1',  'ST1'),
-  ('A2',  'SCR2',  'ST2'),
-  ('A3',  'SCR3',  'ST3'),
-  ('A4',  'SCR4',  'ST4'),
-  ('A5',  'SCR5',  'ST5'),
-  ('A6',  'SCR6',  'ST6'),
-  ('A7',  'SCR7',  'ST7'),
-  ('A8',  'SCR8',  'ST8'),
-  ('A9',  'SCR9',  'ST9'),
-  ('A10', 'SCR10', 'ST10');
+                                                               ('A1',  'SCR1',  'TO1'),
+                                                               ('A2',  'SCR2',  'TO2'),
+                                                               ('A3',  'SCR3',  'TO3'),
+                                                               ('A4',  'SCR4',  'TO4'),
+                                                               ('A5',  'SCR5',  'TO5'),
+                                                               ('A6',  'SCR6',  'SST6'),
+                                                               ('A7',  'SCR7',  'SST7'),
+                                                               ('A8',  'SCR8',  'SST8'),
+                                                               ('A9',  'SCR9',  'SST9'),
+                                                               ('A10', 'SCR10', 'SST10');

@@ -1,9 +1,22 @@
-<!doctype html><html xmlns:th="http://www.thymeleaf.org"><head>
-    <meta charset="utf-8"><title>Support Staff Details</title></head><body>
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Support Staff Details</title>
+</head>
+<body>
+
 <h1>Support Staff Details</h1>
-<p><b>ID:</b> <span th:text="${support.id}">SS1</span></p>
-<p><b>Name:</b> <span th:text="${support.name}">Alex</span></p>
-<p><b>Salary:</b> <span th:text="${support.salary}">3500</span></p>
-<p><b>Role:</b> <span th:text="${support.role}">Usher</span></p>
-<p><a th:href="@{'/supportstaff/' + ${support.id} + '/edit'}">Edit</a> | <a th:href="@{/supportstaff}">Back</a></p>
-</body></html>
+
+<p><b>ID:</b> <span th:text="${supportstaff.id}">SS1</span></p>
+<p><b>Name:</b> <span th:text="${supportstaff.name}">John</span></p>
+<p><b>Salary:</b> <span th:text="${supportstaff.salary}">3000</span></p>
+<p><b>Role:</b> <span th:text="${supportstaff.role}">SECURITY</span></p>
+
+<p>
+    <a th:href="@{'/supportstaff/' + ${supportstaff.id} + '/edit'}">Edit</a> |
+    <a th:href="@{/supportstaff}">Back</a>
+</p>
+
+</body>
+</html>

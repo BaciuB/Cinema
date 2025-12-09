@@ -25,4 +25,8 @@ public class StaffAssignmentService {
                 .filter(sa -> sa.getScreening().getId().equals(screeningId))
                 .toList();
     }
+    public boolean existsByScreeningIdAndStaffId(String screeningId, String staffId) {
+        return repo.existsByScreening_IdAndStaff_Id(screeningId, staffId);
+    }
+
 }

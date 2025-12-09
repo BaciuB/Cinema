@@ -14,34 +14,46 @@
 
     <div>
         <label>ID</label><br>
-        <input th:field="*{id}" placeholder="TO1" required>
+        <input th:field="*{id}" placeholder="TO1">
+        <div th:if="${#fields.hasErrors('id')}"
+             th:errors="*{id}"
+             style="color:red"></div>
     </div>
 
     <div>
         <label>Name</label><br>
-        <input th:field="*{name}" required>
+        <input th:field="*{name}">
+        <div th:if="${#fields.hasErrors('name')}"
+             th:errors="*{name}"
+             style="color:red"></div>
     </div>
 
     <div>
         <label>Salary</label><br>
-        <input th:field="*{salary}" type="number" min="0" required>
+        <input th:field="*{salary}" type="number" min="0">
+        <div th:if="${#fields.hasErrors('salary')}"
+             th:errors="*{salary}"
+             style="color:red"></div>
     </div>
 
     <div>
         <label>Specialization</label><br>
-        <select th:field="*{specialization}" required>
+        <select th:field="*{specialization}">
             <option value="">-- select --</option>
             <option value="SOUND">Sound</option>
             <option value="PROJECTION">Projection</option>
         </select>
+        <div th:if="${#fields.hasErrors('specialization')}"
+             th:errors="*{specialization}"
+             style="color:red"></div>
     </div>
 
     <p>
         <button type="submit">Save</button>
         <a th:href="@{/technicaloperators}">Cancel</a>
     </p>
-
 </form>
+
 
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.example.proiectul.Cinema.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -9,6 +10,7 @@ public class StaffAssignment {
 
     @Id
     @Column(length = 50)
+    @NotBlank(message = "ID is required")
     private String id;
 
     @ManyToOne
@@ -21,8 +23,15 @@ public class StaffAssignment {
     @NotNull(message = "Staff is required")
     private Staff staff;
 
-    public StaffAssignment() {
-    }
+    @Transient
+    @NotBlank(message = "Screening ID is required")
+    private String screeningId;
+
+    @Transient
+    @NotBlank(message = "Staff ID is required")
+    private String staffId;
+
+    public StaffAssignment() {}
 
     public StaffAssignment(String id, Screening screening, Staff staff) {
         this.id = id;
@@ -38,4 +47,10 @@ public class StaffAssignment {
 
     public Staff getStaff() { return staff; }
     public void setStaff(Staff staff) { this.staff = staff; }
+
+    public String getScreeningId() { return screeningId; }
+    public void setScreeningId(String screeningId) { this.screeningId = screeningId; }
+
+    public String getStaffId() { return staffId; }
+    public void setStaffId(String staffId) { this.staffId = staffId; }
 }
