@@ -1,7 +1,5 @@
 package com.example.proiectul.Cinema.controller;
 
-import com.example.proiectul.Cinema.model.Screening;
-import com.example.proiectul.Cinema.model.Staff;
 import com.example.proiectul.Cinema.model.StaffAssignment;
 import com.example.proiectul.Cinema.service.ScreeningService;
 import com.example.proiectul.Cinema.service.StaffAssignmentService;
@@ -47,47 +45,47 @@ public class StaffAssignmentController {
 
     @PostMapping
     public String create(@Valid @ModelAttribute("assignment") StaffAssignment a,
-                         BindingResult bindingResult,
+                         BindingResult br,
                          Model model) {
 
-        if (bindingResult.hasErrors()) {
-            return "staffassignment/form";
-        }
+        if (br.hasErrors()) return "staffassignment/form";
 
-        Screening screening = screeningService.findById(a.getScreeningId())
-                .orElse(null);
+        var screening = screeningService.findById(a.getScreeningId()).orElse(null);
         if (screening == null) {
-            bindingResult.rejectValue("screeningId", "screening.notFound", "Screening not found");
-        }
-
-        Staff staff = technicalOperatorService.findById(a.getStaffId())
-                .map(t -> (Staff) t)
-                .orElseGet(() ->
-                        supportStaffService.findById(a.getStaffId())
-                                .map(s -> (Staff) s)
-                                .orElse(null)
-                );
-        if (staff == null) {
-            bindingResult.rejectValue("staffId", "staff.notFound", "Staff not found (TO/SST)");
-        }
-
-        if (bindingResult.hasErrors()) {
+            br.rejectValue("screeningId", "screening.notFound", "Screening not found");
             return "staffassignment/form";
         }
 
         a.setScreening(screening);
-        a.setStaff(staff);
+        a.setTechnicalOperator(null);
+        a.setSupportStaff(null);
+
+        var toOpt = technicalOperatorService.findById(a.getStaffId());
+        if (toOpt.isPresent()) {
+            a.setTechnicalOperator(toOpt.get());
+        } else {
+            var ssOpt = supportStaffService.findById(a.getStaffId());
+            if (ssOpt.isPresent()) {
+                a.setSupportStaff(ssOpt.get());
+            } else {
+                br.rejectValue("staffId", "staff.notFound", "Staff not found (TO/SST)");
+                return "staffassignment/form";
+            }
+        }
 
         assignmentService.save(a);
         return "redirect:/assignments";
     }
 
     @GetMapping("/{id}")
-    public String details(@PathVariable String id, Model model, RedirectAttributes ra) {
+    public String details(@PathVariable String id,
+                          Model model,
+                          RedirectAttributes ra) {
+
         return assignmentService.findById(id)
                 .map(a -> {
                     a.setScreeningId(a.getScreening().getId());
-                    a.setStaffId(a.getStaff().getId());
+                    a.setStaffId(a.getAssignedStaffId());
                     model.addAttribute("assignment", a);
                     return "staffassignment/details";
                 })
@@ -98,11 +96,14 @@ public class StaffAssignmentController {
     }
 
     @GetMapping("/{id}/edit")
-    public String showEditForm(@PathVariable String id, Model model, RedirectAttributes ra) {
+    public String showEditForm(@PathVariable String id,
+                               Model model,
+                               RedirectAttributes ra) {
+
         return assignmentService.findById(id)
                 .map(a -> {
                     a.setScreeningId(a.getScreening().getId());
-                    a.setStaffId(a.getStaff().getId());
+                    a.setStaffId(a.getAssignedStaffId());
                     model.addAttribute("assignment", a);
                     return "staffassignment/edit";
                 })
@@ -112,54 +113,45 @@ public class StaffAssignmentController {
                 });
     }
 
-
     @PostMapping("/{id}")
     public String update(@PathVariable String id,
                          @Valid @ModelAttribute("assignment") StaffAssignment a,
-                         BindingResult bindingResult,
+                         BindingResult br,
                          Model model) {
 
-        if (bindingResult.hasErrors()) {
-            return "staffassignment/edit";
-        }
+        if (br.hasErrors()) return "staffassignment/edit";
 
-        Screening screening = screeningService.findById(a.getScreeningId())
-                .orElse(null);
+        var screening = screeningService.findById(a.getScreeningId()).orElse(null);
         if (screening == null) {
-            bindingResult.rejectValue("screeningId", "screening.notFound", "Screening not found");
-        }
-
-        Staff staff = technicalOperatorService.findById(a.getStaffId())
-                .map(t -> (Staff) t)
-                .orElseGet(() ->
-                        supportStaffService.findById(a.getStaffId())
-                                .map(s -> (Staff) s)
-                                .orElse(null)
-                );
-        if (staff == null) {
-            bindingResult.rejectValue("staffId", "staff.notFound", "Staff not found (TO/SST)");
-        }
-
-        if (bindingResult.hasErrors()) {
+            br.rejectValue("screeningId", "screening.notFound", "Screening not found");
             return "staffassignment/edit";
         }
 
         a.setId(id);
         a.setScreening(screening);
-        a.setStaff(staff);
+        a.setTechnicalOperator(null);
+        a.setSupportStaff(null);
+
+        var toOpt = technicalOperatorService.findById(a.getStaffId());
+        if (toOpt.isPresent()) {
+            a.setTechnicalOperator(toOpt.get());
+        } else {
+            var ssOpt = supportStaffService.findById(a.getStaffId());
+            if (ssOpt.isPresent()) {
+                a.setSupportStaff(ssOpt.get());
+            } else {
+                br.rejectValue("staffId", "staff.notFound", "Staff not found (TO/SST)");
+                return "staffassignment/edit";
+            }
+        }
 
         assignmentService.save(a);
         return "redirect:/assignments";
     }
 
     @PostMapping("/{id}/delete")
-    public String delete(@PathVariable String id, RedirectAttributes ra) {
-        try {
-            assignmentService.deleteById(id);
-            ra.addFlashAttribute("successMessage", "Assignment deleted.");
-        } catch (Exception e) {
-            ra.addFlashAttribute("globalError", "Could not delete assignment.");
-        }
+    public String delete(@PathVariable String id) {
+        assignmentService.deleteById(id);
         return "redirect:/assignments";
     }
 }

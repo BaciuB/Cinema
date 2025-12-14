@@ -20,8 +20,13 @@
 
     <tr th:each="a : ${assignments}">
         <td th:text="${a.id}">A1</td>
-        <td th:text="${a.screening.id}">SC1</td>
-        <td th:text="${a.staff.id}">TO1</td>
+        <td th:text="${a.screening.id}">SCR1</td>
+
+        <td th:text="${a.technicalOperator != null
+                      ? a.technicalOperator.id
+                      : a.supportStaff.id}">
+            TO1
+        </td>
 
         <td>
             <a th:href="@{'/assignments/' + ${a.id}}">Details</a> |
@@ -34,7 +39,6 @@
             </form>
         </td>
     </tr>
-
 </table>
 
 <p><a th:href="@{/}">Back home</a></p>

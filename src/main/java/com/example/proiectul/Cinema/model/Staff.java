@@ -1,14 +1,13 @@
 package com.example.proiectul.Cinema.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
-@Entity
-@Table(name = "staff")
-@Inheritance(strategy = InheritanceType.JOINED)
-// Poate trebe DiscriminatorColumn dar nu sunt sigur (uita-te la seminarul 8)
+@MappedSuperclass
 public abstract class Staff {
 
     @Id
@@ -20,12 +19,12 @@ public abstract class Staff {
     @NotBlank(message = "Name is required")
     private String name;
 
-    @Column(length = 20, nullable = false)
+    @Column(nullable = false)
     @NotNull(message = "Salary is required")
     @Positive(message = "Salary must be positive")
-    private Integer salary;   // <--- schimbat din int în Integer
+    private Integer salary;
 
-    public Staff() { }
+    public Staff() {}
 
     public Staff(String id, String name, Integer salary) {
         this.id = id;

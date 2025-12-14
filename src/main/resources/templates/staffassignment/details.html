@@ -8,14 +8,30 @@
 
 <h1>Assignment Details</h1>
 
-<p><b>ID:</b> <span th:text="${assignment.id}">A1</span></p>
-
-<p><b>Screening ID:</b>
-    <span th:text="${assignment.screening.id}">SC1</span>
+<p>
+    <b>ID:</b>
+    <span th:text="${assignment.id}">A1</span>
 </p>
 
-<p><b>Staff ID:</b>
-    <span th:text="${assignment.staff.id}">TO1</span>
+<p>
+    <b>Screening ID:</b>
+    <span th:text="${assignment.screening.id}">SCR1</span>
+</p>
+
+<p>
+    <b>Staff ID:</b>
+
+    <!-- Technical Operator -->
+    <span th:if="${assignment.technicalOperator != null}"
+          th:text="${assignment.technicalOperator.id}">
+        TO1
+    </span>
+
+    <!-- Support Staff -->
+    <span th:if="${assignment.supportStaff != null}"
+          th:text="${assignment.supportStaff.id}">
+        SST1
+    </span>
 </p>
 
 <p>
