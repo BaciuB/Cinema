@@ -20,10 +20,35 @@ public class SupportStaffController {
     }
 
     @GetMapping
-    public String index(Model model) {
-        model.addAttribute("supportstaff", service.findAll());
+    public String index(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) com.example.proiectul.Cinema.model.Role role,
+            @RequestParam(required = false) Integer minSalary,
+            @RequestParam(required = false) Integer maxSalary,
+            @RequestParam(defaultValue = "id") String sortField,
+            @RequestParam(defaultValue = "asc") String sortDir,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model
+    ) {
+        var result = service.search(name, role, minSalary, maxSalary, sortField, sortDir, page, size);
+
+        model.addAttribute("page", result);
+        model.addAttribute("supportstaff", result.getContent());
+
+        model.addAttribute("name", name);
+        model.addAttribute("role", role);
+        model.addAttribute("minSalary", minSalary);
+        model.addAttribute("maxSalary", maxSalary);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("size", size);
+
+        model.addAttribute("roles", com.example.proiectul.Cinema.model.Role.values());
+
         return "supportstaff/index";
     }
+
 
     @GetMapping("/new")
     public String newForm(Model model) {

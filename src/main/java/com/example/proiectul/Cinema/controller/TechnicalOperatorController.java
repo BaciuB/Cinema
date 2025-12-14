@@ -20,10 +20,35 @@ public class TechnicalOperatorController {
     }
 
     @GetMapping
-    public String index(Model m) {
-        m.addAttribute("technicaloperators", service.findAll());
+    public String index(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) com.example.proiectul.Cinema.model.Specialization specialization,
+            @RequestParam(required = false) Integer minSalary,
+            @RequestParam(required = false) Integer maxSalary,
+            @RequestParam(defaultValue = "id") String sortField,
+            @RequestParam(defaultValue = "asc") String sortDir,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model m
+    ) {
+        var result = service.search(name, specialization, minSalary, maxSalary, sortField, sortDir, page, size);
+
+        m.addAttribute("page", result);
+        m.addAttribute("technicaloperators", result.getContent());
+
+        m.addAttribute("name", name);
+        m.addAttribute("specialization", specialization);
+        m.addAttribute("minSalary", minSalary);
+        m.addAttribute("maxSalary", maxSalary);
+        m.addAttribute("sortField", sortField);
+        m.addAttribute("sortDir", sortDir);
+        m.addAttribute("size", size);
+
+        m.addAttribute("specializations", com.example.proiectul.Cinema.model.Specialization.values());
+
         return "technicaloperator/index";
     }
+
 
     @GetMapping("/new")
     public String newForm(Model m) {

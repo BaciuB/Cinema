@@ -13,7 +13,6 @@ public class TechnicalOperator extends Staff {
     private Specialization specialization;
 
     public TechnicalOperator() {
-        // constructor fără argumente pentru JPA
     }
 
     public TechnicalOperator(String id, String name, Integer salary, Specialization specialization) {
