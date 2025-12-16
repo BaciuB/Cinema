@@ -1,60 +1,60 @@
 package com.example.proiectul.Cinema.controller;
-import java.time.LocalDate;
+
 import com.example.proiectul.Cinema.model.Movie;
 import com.example.proiectul.Cinema.service.MovieService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
+
 @Controller
 @RequestMapping("/movies")
 public class MovieController {
 
-    private final MovieService movieService;
+    private final MovieService service;
 
-    public MovieController(MovieService movieService) {
-        this.movieService = movieService;
+    public MovieController(MovieService service) {
+        this.service = service;
     }
 
     @GetMapping
-    public String index(
-            @RequestParam(required = false) String title,
-            @RequestParam(required = false) Integer minDuration,
-            @RequestParam(required = false) Integer maxDuration,
-            @RequestParam(required = false) LocalDate releaseFrom,
-            @RequestParam(required = false) LocalDate releaseTo,
-            @RequestParam(defaultValue = "title") String sort,
-            @RequestParam(defaultValue = "asc") String dir,
-            Model model
-    ) {
+    public String index(Model model,
+                        @RequestParam(required = false) String title,
+                        @RequestParam(required = false) Integer minDuration,
+                        @RequestParam(required = false) Integer maxDuration,
+                        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate releaseFrom,
+                        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate releaseTo,
+                        @RequestParam(defaultValue = "id") String sortBy,
+                        @RequestParam(defaultValue = "ASC") String dir,
+                        @RequestParam(defaultValue = "10") int size,
+                        @RequestParam(defaultValue = "0") int page) {
 
-        model.addAttribute("movies",
-                movieService.findFilteredAndSorted(
-                        title,
-                        minDuration,
-                        maxDuration,
-                        releaseFrom,
-                        releaseTo,
-                        sort,
-                        dir
-                )
-        );
+        Sort sort = Sort.by(Sort.Direction.fromString(dir), sortBy);
+        var pageable = PageRequest.of(page, size, sort);
 
-        /* păstrează valorile în formular */
+        var moviesPage = service.findWithFilters(title, minDuration, maxDuration, releaseFrom, releaseTo, pageable);
+
+        model.addAttribute("moviesPage", moviesPage);
+
         model.addAttribute("title", title);
         model.addAttribute("minDuration", minDuration);
         model.addAttribute("maxDuration", maxDuration);
         model.addAttribute("releaseFrom", releaseFrom);
         model.addAttribute("releaseTo", releaseTo);
-        model.addAttribute("sort", sort);
+
+        model.addAttribute("sortBy", sortBy);
         model.addAttribute("dir", dir);
+        model.addAttribute("size", size);
 
         return "movie/index";
     }
-
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
@@ -63,88 +63,70 @@ public class MovieController {
     }
 
     @PostMapping
-    public String create(
-            @Valid @ModelAttribute("movie") Movie movie,
-            BindingResult bindingResult,
-            Model model,
-            RedirectAttributes ra) {
+    public String create(@Valid @ModelAttribute("movie") Movie movie,
+                         BindingResult br) {
 
-        // business rule: titlu unic
-        if (!bindingResult.hasFieldErrors("title")
-                && movieService.existsByTitle(movie.getTitle())) {
-            bindingResult.rejectValue("title", "duplicate",
-                    "A movie with this title already exists");
+        if (service.existsByTitle(movie.getTitle())) {
+            br.rejectValue("title", "duplicate", "A movie with this title already exists");
         }
 
-        if (bindingResult.hasErrors()) {
-            return "movie/form";
-        }
+        if (br.hasErrors()) return "movie/form";
 
-        movieService.save(movie);
-        ra.addFlashAttribute("successMessage", "Movie created successfully.");
+        service.save(movie);
         return "redirect:/movies";
     }
 
     @PostMapping("/{id}/delete")
-    public String delete(@PathVariable String id, RedirectAttributes redirectAttributes) {
+    public String delete(@PathVariable String id, RedirectAttributes ra) {
         try {
-            movieService.deleteById(id);
-            redirectAttributes.addFlashAttribute("successMessage", "Movie deleted successfully.");
+            service.deleteById(id);
+            ra.addFlashAttribute("successMessage", "Movie deleted successfully.");
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("globalError", "Could not delete movie.");
+            ra.addFlashAttribute("globalError", "Could not delete movie.");
         }
         return "redirect:/movies";
     }
 
     @GetMapping("/{id}")
-    public String details(@PathVariable String id, Model model, RedirectAttributes redirectAttributes) {
-        return movieService.findById(id)
+    public String details(@PathVariable String id, Model model, RedirectAttributes ra) {
+        return service.findById(id)
                 .map(movie -> {
                     model.addAttribute("movie", movie);
                     model.addAttribute("screenings", movie.getScreenings());
                     return "movie/details";
                 })
                 .orElseGet(() -> {
-                    redirectAttributes.addFlashAttribute("globalError", "Movie not found.");
+                    ra.addFlashAttribute("globalError", "Movie not found.");
                     return "redirect:/movies";
                 });
     }
 
     @GetMapping("/{id}/edit")
-    public String editForm(@PathVariable String id, Model model, RedirectAttributes redirectAttributes) {
-        return movieService.findById(id)
+    public String editForm(@PathVariable String id, Model model, RedirectAttributes ra) {
+        return service.findById(id)
                 .map(movie -> {
                     model.addAttribute("movie", movie);
                     return "movie/edit";
                 })
                 .orElseGet(() -> {
-                    redirectAttributes.addFlashAttribute("globalError", "Movie not found.");
+                    ra.addFlashAttribute("globalError", "Movie not found.");
                     return "redirect:/movies";
                 });
     }
 
     @PostMapping("/{id}")
-    public String update(
-            @PathVariable String id,
-            @Valid @ModelAttribute("movie") Movie movie,
-            BindingResult bindingResult,
-            Model model,
-            RedirectAttributes ra) {
+    public String update(@PathVariable String id,
+                         @Valid @ModelAttribute("movie") Movie movie,
+                         BindingResult br) {
 
-        // business rule: titlu unic la alt film
-        if (!bindingResult.hasFieldErrors("title")
-                && movieService.existsAnotherWithTitle(id, movie.getTitle())) {
-            bindingResult.rejectValue("title", "duplicate",
-                    "Another movie with this title already exists");
+        if (service.existsAnotherWithTitle(id, movie.getTitle())) {
+            br.rejectValue("title", "duplicate", "Another movie with this title already exists");
         }
 
-        if (bindingResult.hasErrors()) {
-            return "movie/edit";
-        }
+        if (br.hasErrors()) return "movie/edit";
 
         movie.setId(id);
-        movieService.save(movie);
-        ra.addFlashAttribute("successMessage", "Movie updated successfully.");
+        service.save(movie);
         return "redirect:/movies";
     }
 }

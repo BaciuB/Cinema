@@ -4,6 +4,8 @@ import com.example.proiectul.Cinema.model.Hall;
 import com.example.proiectul.Cinema.service.HallService;
 import com.example.proiectul.Cinema.service.TheatreService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,8 +25,35 @@ public class HallController {
     }
 
     @GetMapping
-    public String index(Model model) {
-        model.addAttribute("halls", hallService.findAll());
+    public String index(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) Integer minCapacity,
+            @RequestParam(required = false) Integer maxCapacity,
+            @RequestParam(required = false) String theatreId,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "ASC") String dir,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model
+    ) {
+        Sort sort = "DESC".equalsIgnoreCase(dir) ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        var pageable = PageRequest.of(page, size, sort);
+
+        var hallsPage = hallService.findWithFilters(name, minCapacity, maxCapacity, theatreId, pageable);
+
+        model.addAttribute("hallsPage", hallsPage);
+        model.addAttribute("halls", hallsPage.getContent());
+
+        model.addAttribute("name", name);
+        model.addAttribute("minCapacity", minCapacity);
+        model.addAttribute("maxCapacity", maxCapacity);
+        model.addAttribute("theatreId", theatreId);
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("dir", dir);
+        model.addAttribute("size", size);
+
+        model.addAttribute("theatres", theatreService.findAll());
+
         return "hall/index";
     }
 
@@ -63,6 +92,10 @@ public class HallController {
     public String details(@PathVariable String id, Model model, RedirectAttributes ra) {
         try {
             Hall hall = hallService.findHallWithRelations(id);
+            if (hall == null) {
+                ra.addFlashAttribute("globalError", "Hall not found");
+                return "redirect:/halls";
+            }
             model.addAttribute("hall", hall);
             model.addAttribute("seats", hall.getSeats());
             model.addAttribute("screenings", hall.getScreenings());

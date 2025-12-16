@@ -1,17 +1,76 @@
+<!-- src/main/resources/templates/customer/index.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Customers</title>
+    <style>
+        .field-error { color: red; font-weight: bold; margin-bottom: 10px; display: block; }
+        .success-message { color: green; font-weight: bold; margin-bottom: 10px; display: block; }
+        .box { border:1px solid #999; padding:12px; width:380px; }
+    </style>
 </head>
 <body>
+
 <h1>Customers</h1>
 
-<!-- Mesaje globale -->
-<div th:if="${errorMessage}" style="color:red;" th:text="${errorMessage}"></div>
-<div th:if="${successMessage}" style="color:green;" th:text="${successMessage}"></div>
+<div th:if="${errorMessage}" class="field-error" th:text="${errorMessage}"></div>
+<div th:if="${successMessage}" class="success-message" th:text="${successMessage}"></div>
 
-<p><a th:href="@{/customers/new}">Add Customer</a></p>
+<div class="box">
+    <h3>Filter + Sort</h3>
+
+    <form th:action="@{/customers}" method="get">
+        <div>
+            <label>Name contains</label><br>
+            <input type="text" name="name" th:value="${name}">
+        </div>
+
+        <div>
+            <label>Email contains</label><br>
+            <input type="text" name="email" th:value="${email}">
+        </div>
+
+        <hr>
+
+        <div>
+            <label>Sort by</label><br>
+            <select name="sortBy">
+                <option value="id" th:selected="${sortBy == 'id'}">ID</option>
+                <option value="name" th:selected="${sortBy == 'name'}">Name</option>
+                <option value="email" th:selected="${sortBy == 'email'}">Email</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Direction</label><br>
+            <select name="dir">
+                <option value="ASC" th:selected="${dir == 'ASC'}">ASC</option>
+                <option value="DESC" th:selected="${dir == 'DESC'}">DESC</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Page size</label><br>
+            <select name="size">
+                <option value="5" th:selected="${size == 5}">5</option>
+                <option value="10" th:selected="${size == 10}">10</option>
+                <option value="20" th:selected="${size == 20}">20</option>
+            </select>
+        </div>
+
+        <input type="hidden" name="page" value="0">
+
+        <p>
+            <button type="submit">Apply</button>
+            <a th:href="@{/customers}">Reset</a>
+        </p>
+    </form>
+
+    <p><a th:href="@{/customers/new}">Add Customer</a></p>
+</div>
+
+<br>
 
 <table border="1" cellpadding="5" cellspacing="0">
     <thead>
@@ -24,6 +83,9 @@
     </tr>
     </thead>
     <tbody>
+    <tr th:if="${#lists.isEmpty(customers)}">
+        <td colspan="5" style="text-align:center;color:gray;">No customers found.</td>
+    </tr>
     <tr th:each="c : ${customers}">
         <td th:text="${c.id}">C1</td>
         <td th:text="${c.name}">Alice</td>
@@ -32,8 +94,7 @@
         <td>
             <a th:href="@{'/customers/' + ${c.id}}">Details</a> |
             <a th:href="@{'/customers/' + ${c.id} + '/edit'}">Edit</a>
-            <form th:action="@{'/customers/' + ${c.id} + '/delete'}"
-                  method="post" style="display:inline">
+            <form th:action="@{'/customers/' + ${c.id} + '/delete'}" method="post" style="display:inline">
                 <button type="submit">Delete</button>
             </form>
         </td>
@@ -41,6 +102,19 @@
     </tbody>
 </table>
 
+<p th:if="${customersPage != null and customersPage.totalPages > 1}">
+    Page <span th:text="${customersPage.number + 1}">1</span> / <span th:text="${customersPage.totalPages}">1</span>
+</p>
+
+<p th:if="${customersPage != null and customersPage.totalPages > 1}">
+    <a th:if="${customersPage.hasPrevious()}"
+       th:href="@{/customers(name=${name},email=${email},sortBy=${sortBy},dir=${dir},size=${size},page=${customersPage.number - 1})}">Prev</a>
+
+    <a th:if="${customersPage.hasNext()}"
+       th:href="@{/customers(name=${name},email=${email},sortBy=${sortBy},dir=${dir},size=${size},page=${customersPage.number + 1})}">Next</a>
+</p>
+
 <p><a th:href="@{/}">Back home</a></p>
+
 </body>
 </html>

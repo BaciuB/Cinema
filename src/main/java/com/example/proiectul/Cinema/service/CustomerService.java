@@ -1,8 +1,13 @@
+// src/main/java/com/example/proiectul/Cinema/service/CustomerService.java
 package com.example.proiectul.Cinema.service;
 
 import com.example.proiectul.Cinema.model.Customer;
 import com.example.proiectul.Cinema.model.Ticket;
 import com.example.proiectul.Cinema.repository.CustomerRepository;
+import com.example.proiectul.Cinema.repository.spec.CustomerSpecs;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,8 +18,7 @@ public class CustomerService {
     private final CustomerRepository customerRepo;
     private final TicketService ticketService;
 
-    public CustomerService(CustomerRepository customerRepo,
-                           TicketService ticketService) {
+    public CustomerService(CustomerRepository customerRepo, TicketService ticketService) {
         this.customerRepo = customerRepo;
         this.ticketService = ticketService;
     }
@@ -23,11 +27,17 @@ public class CustomerService {
         return customerRepo.findAll();
     }
 
+    public Page<Customer> findWithFilters(String name, String email, Pageable pageable) {
+        Specification<Customer> spec = Specification
+                .allOf(CustomerSpecs.nameContains(name))
+                .and(CustomerSpecs.emailContains(email));
+        return customerRepo.findAll(spec, pageable);
+    }
+
     public Optional<Customer> findById(String id) {
         return customerRepo.findById(id);
     }
 
-    // 🔹 nou – folosit în controller pentru validarea de business (email unic)
     public Optional<Customer> findByEmail(String email) {
         return customerRepo.findByEmail(email);
     }

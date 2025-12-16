@@ -1,22 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Seats</title>
 
     <style>
-        .field-error {
-            color: red;
-            font-weight: bold;
-            margin-bottom: 10px;
-            display: block;
-        }
-        .success-message {
-            color: green;
-            font-weight: bold;
-            margin-bottom: 10px;
-            display: block;
-        }
+        .field-error { color: red; font-weight: bold; margin-bottom: 10px; display: block; }
+        .success-message { color: green; font-weight: bold; margin-bottom: 10px; display: block; }
+        fieldset { padding: 10px; max-width: 520px; }
+        label { display:block; margin-top:8px; }
     </style>
 </head>
 <body>
@@ -25,6 +17,55 @@
 
 <div th:if="${globalError}" class="field-error" th:text="${globalError}"></div>
 <div th:if="${successMessage}" class="success-message" th:text="${successMessage}"></div>
+
+<fieldset>
+    <legend>Filter + Sort</legend>
+
+    <form th:action="@{/seats}" method="get">
+        <label>Hall</label>
+        <select name="hallId">
+            <option value="">-- any --</option>
+            <option th:each="h : ${halls}"
+                    th:value="${h.id}"
+                    th:text="${h.name}"
+                    th:selected="${hallId != null and hallId == h.id}">
+            </option>
+        </select>
+
+        <label>Row</label>
+        <input type="number" name="rowNumber" min="1" th:value="${rowNumber}">
+
+        <label>Column</label>
+        <input type="number" name="columnNumber" min="1" th:value="${columnNumber}">
+
+        <hr>
+
+        <label>Sort by</label>
+        <select name="sortBy">
+            <option value="id" th:selected="${sortBy == 'id'}">ID</option>
+            <option value="rowNumber" th:selected="${sortBy == 'rowNumber'}">Row</option>
+            <option value="columnNumber" th:selected="${sortBy == 'columnNumber'}">Column</option>
+        </select>
+
+        <label>Direction</label>
+        <select name="dir">
+            <option value="ASC" th:selected="${dir == 'ASC'}">ASC</option>
+            <option value="DESC" th:selected="${dir == 'DESC'}">DESC</option>
+        </select>
+
+        <label>Page size</label>
+        <select name="size">
+            <option value="5" th:selected="${size == 5}">5</option>
+            <option value="10" th:selected="${size == 10}">10</option>
+            <option value="20" th:selected="${size == 20}">20</option>
+        </select>
+
+        <p style="margin-top:10px;">
+            <button type="submit">Apply</button>
+            <a th:href="@{/seats}">Reset</a>
+        </p>
+    </form>
+</fieldset>
 
 <p><a th:href="@{/seats/new}">Add new Seat</a></p>
 
@@ -39,7 +80,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="s : ${seats}">
+    <tr th:each="s : ${seatsPage.content}">
         <td th:text="${s.id}"></td>
         <td th:text="${s.hall != null ? s.hall.name : 'N/A'}"></td>
         <td th:text="${s.rowNumber}"></td>
@@ -47,15 +88,27 @@
         <td>
             <a th:href="@{'/seats/' + ${s.id}}">Details</a> |
             <a th:href="@{'/seats/' + ${s.id} + '/edit'}">Edit</a>
-            <form th:action="@{'/seats/' + ${s.id} + '/delete'}"
-                  method="post"
-                  style="display:inline">
+            <form th:action="@{'/seats/' + ${s.id} + '/delete'}" method="post" style="display:inline">
                 <button type="submit">Delete</button>
             </form>
         </td>
     </tr>
     </tbody>
 </table>
+
+<p th:if="${seatsPage.totalPages > 1}">
+    <span th:text="${seatsPage.number + 1}"></span>/<span th:text="${seatsPage.totalPages}"></span>
+
+    <a th:if="${seatsPage.hasPrevious()}"
+       th:href="@{/seats(hallId=${hallId},rowNumber=${rowNumber},columnNumber=${columnNumber},sortBy=${sortBy},dir=${dir},size=${size},page=${seatsPage.number - 1})}">
+        Prev
+    </a>
+
+    <a th:if="${seatsPage.hasNext()}"
+       th:href="@{/seats(hallId=${hallId},rowNumber=${rowNumber},columnNumber=${columnNumber},sortBy=${sortBy},dir=${dir},size=${size},page=${seatsPage.number + 1})}">
+        Next
+    </a>
+</p>
 
 <p><a th:href="@{/}">Back home</a></p>
 

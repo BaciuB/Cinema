@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Theatres</title>
@@ -17,6 +17,13 @@
             margin-bottom: 10px;
             display: block;
         }
+        table {
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 6px 10px;
+            border: 1px solid black;
+        }
     </style>
 </head>
 <body>
@@ -26,9 +33,59 @@
 <div th:if="${globalError}" class="field-error" th:text="${globalError}"></div>
 <div th:if="${successMessage}" class="success-message" th:text="${successMessage}"></div>
 
+<!-- FILTER + SORT -->
+<form method="get" th:action="@{/theatres}">
+    <fieldset>
+        <legend>Filter + Sort</legend>
+
+        <label>
+            Name contains:
+            <input type="text" name="name" th:value="${name}">
+        </label>
+
+        <label>
+            City contains:
+            <input type="text" name="city" th:value="${city}">
+        </label>
+
+        <br><br>
+
+        <label>
+            Sort by:
+            <select name="sortBy">
+                <option value="id" th:selected="${sortBy == 'id'}">ID</option>
+                <option value="name" th:selected="${sortBy == 'name'}">Name</option>
+                <option value="city" th:selected="${sortBy == 'city'}">City</option>
+            </select>
+        </label>
+
+        <label>
+            Direction:
+            <select name="dir">
+                <option value="asc" th:selected="${dir == 'asc'}">ASC</option>
+                <option value="desc" th:selected="${dir == 'desc'}">DESC</option>
+            </select>
+        </label>
+
+        <label>
+            Page size:
+            <select name="size">
+                <option value="5" th:selected="${size == 5}">5</option>
+                <option value="10" th:selected="${size == 10}">10</option>
+                <option value="20" th:selected="${size == 20}">20</option>
+            </select>
+        </label>
+
+        <button type="submit">Apply</button>
+        <a th:href="@{/theatres}">Reset</a>
+    </fieldset>
+</form>
+
+<br>
+
 <p><a th:href="@{/theatres/new}">Add new Theatre</a></p>
 
-<table border="1" cellpadding="5" cellspacing="0">
+<table>
     <thead>
     <tr>
         <th>ID</th>
@@ -38,7 +95,12 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="t : ${theatres}">
+
+    <tr th:if="${theatresPage.content.isEmpty()}">
+        <td colspan="4" style="text-align:center;color:gray;">No theatres found</td>
+    </tr>
+
+    <tr th:each="t : ${theatresPage.content}">
         <td th:text="${t.id}"></td>
         <td th:text="${t.name}"></td>
         <td th:text="${t.city}"></td>
@@ -52,8 +114,26 @@
             </form>
         </td>
     </tr>
+
     </tbody>
 </table>
+
+<!-- PAGINATION -->
+<p th:if="${theatresPage.totalPages > 1}">
+    <a th:if="${theatresPage.hasPrevious()}"
+       th:href="@{/theatres(name=${name},city=${city},sortBy=${sortBy},dir=${dir},size=${size},page=${theatresPage.number - 1})}">
+        Prev
+    </a>
+
+    <span th:text="${theatresPage.number + 1}"></span>
+    /
+    <span th:text="${theatresPage.totalPages}"></span>
+
+    <a th:if="${theatresPage.hasNext()}"
+       th:href="@{/theatres(name=${name},city=${city},sortBy=${sortBy},dir=${dir},size=${size},page=${theatresPage.number + 1})}">
+        Next
+    </a>
+</p>
 
 <p><a th:href="@{/}">Back home</a></p>
 

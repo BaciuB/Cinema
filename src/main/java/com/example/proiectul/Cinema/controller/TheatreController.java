@@ -23,10 +23,35 @@ public class TheatreController {
     }
 
     @GetMapping
-    public String index(Model model) {
-        model.addAttribute("theatres", theatreService.findAll());
+    public String index(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String city,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "ASC") String dir,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model
+    ) {
+        var sort = "DESC".equalsIgnoreCase(dir)
+                ? org.springframework.data.domain.Sort.by(sortBy).descending()
+                : org.springframework.data.domain.Sort.by(sortBy).ascending();
+
+        var pageable = org.springframework.data.domain.PageRequest.of(page, size, sort);
+
+        var theatresPage = theatreService.findWithFilters(name, city, pageable);
+
+        model.addAttribute("theatresPage", theatresPage);
+        model.addAttribute("theatres", theatresPage.getContent());
+
+        model.addAttribute("name", name);
+        model.addAttribute("city", city);
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("dir", dir);
+        model.addAttribute("size", size);
+
         return "theatre/index";
     }
+
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {

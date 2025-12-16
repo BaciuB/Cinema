@@ -2,6 +2,10 @@ package com.example.proiectul.Cinema.service;
 
 import com.example.proiectul.Cinema.model.Hall;
 import com.example.proiectul.Cinema.repository.HallRepository;
+import com.example.proiectul.Cinema.repository.spec.HallSpecs;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +24,15 @@ public class HallService {
         return hallRepo.findAll();
     }
 
+    public Page<Hall> findWithFilters(String name, Integer minCapacity, Integer maxCapacity, String theatreId, Pageable pageable) {
+        Specification<Hall> spec = Specification
+                .allOf(HallSpecs.nameContains(name))
+                .and(HallSpecs.capacityGte(minCapacity))
+                .and(HallSpecs.capacityLte(maxCapacity))
+                .and(HallSpecs.theatreIdEquals(theatreId));
+        return hallRepo.findAll(spec, pageable);
+    }
+
     public Optional<Hall> findById(String id) {
         return hallRepo.findById(id);
     }
@@ -32,10 +45,6 @@ public class HallService {
         hallRepo.deleteById(id);
     }
 
-    /**
-     * Găsește Hall + relații (lazy sau eager, depinde de mapping),
-     * dar NU mai aruncă orElseThrow -> evităm Whitelabel.
-     */
     public Hall findHallWithRelations(String id) {
         return hallRepo.findById(id).orElse(null);
     }
