@@ -1,45 +1,129 @@
+<!-- src/main/resources/templates/staffassignment/index.html -->
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title>Staff Assignments</title>
+
+    <style>
+        .field-error { color: red; font-weight: bold; margin-bottom: 10px; display: block; }
+        .success-message { color: green; font-weight: bold; margin-bottom: 10px; display: block; }
+        fieldset { padding: 10px; }
+        table { margin-top: 10px; }
+    </style>
 </head>
 <body>
 
 <h1>Staff Assignments</h1>
 
-<p><a th:href="@{/assignments/new}">Add Assignment</a></p>
+<div th:if="${globalError}" class="field-error" th:text="${globalError}"></div>
+<div th:if="${successMessage}" class="success-message" th:text="${successMessage}"></div>
 
-<table border="1" cellpadding="5">
+<fieldset>
+    <legend>Filter + Sort</legend>
+
+    <form th:action="@{/assignments}" method="get">
+        <div>
+            <label>Staff ID</label><br>
+            <input type="text" name="staffId" th:value="${staffId}">
+        </div>
+
+        <div>
+            <label>Screening ID</label><br>
+            <input type="text" name="screeningId" th:value="${screeningId}">
+        </div>
+
+        <hr>
+
+        <div>
+            <label>Sort by</label><br>
+            <select name="sortBy">
+                <option value="id" th:selected="${sortBy == 'id'}">ID</option>
+                <option value="screening" th:selected="${sortBy == 'screening'}">Screening</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Direction</label><br>
+            <select name="dir">
+                <option value="ASC" th:selected="${dir == 'ASC'}">ASC</option>
+                <option value="DESC" th:selected="${dir == 'DESC'}">DESC</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Page size</label><br>
+            <select name="size">
+                <option value="5" th:selected="${size == 5}">5</option>
+                <option value="10" th:selected="${size == 10}">10</option>
+                <option value="20" th:selected="${size == 20}">20</option>
+                <option value="50" th:selected="${size == 50}">50</option>
+            </select>
+        </div>
+
+        <input type="hidden" name="page" value="0">
+
+        <p>
+            <button type="submit">Apply</button>
+            <a th:href="@{/assignments}">Reset</a>
+        </p>
+    </form>
+</fieldset>
+
+<p>
+    <a th:href="@{/assignments/new}">Add new Assignment</a>
+</p>
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
     <tr>
         <th>ID</th>
-        <th>Screening ID</th>
-        <th>Staff ID</th>
+        <th>Screening</th>
+        <th>Staff</th>
+        <th>Type</th>
         <th>Actions</th>
     </tr>
+    </thead>
 
+    <tbody>
     <tr th:each="a : ${assignments}">
         <td th:text="${a.id}">A1</td>
         <td th:text="${a.screening.id}">SCR1</td>
 
-        <td th:text="${a.technicalOperator != null
-                      ? a.technicalOperator.id
-                      : a.supportStaff.id}">
-            TO1
-        </td>
+        <td th:text="${a.technicalOperator != null ? a.technicalOperator.id : a.supportStaff.id}">TO1</td>
+
+        <td th:text="${a.technicalOperator != null ? 'Technical Operator' : 'Support Staff'}"></td>
 
         <td>
             <a th:href="@{'/assignments/' + ${a.id}}">Details</a> |
             <a th:href="@{'/assignments/' + ${a.id} + '/edit'}">Edit</a>
-
-            <form th:action="@{'/assignments/' + ${a.id} + '/delete'}"
-                  method="post"
-                  style="display:inline">
+            <form th:action="@{'/assignments/' + ${a.id} + '/delete'}" method="post" style="display:inline">
                 <button type="submit">Delete</button>
             </form>
         </td>
     </tr>
+    </tbody>
 </table>
+
+<div th:if="${assignmentsPage != null}">
+    <p>
+        <span th:text="${assignmentsPage.number + 1}">1</span> /
+        <span th:text="${assignmentsPage.totalPages}">1</span>
+    </p>
+
+    <p>
+        <a th:if="${assignmentsPage.hasPrevious()}"
+           th:href="@{/assignments(staffId=${staffId},screeningId=${screeningId},sortBy=${sortBy},dir=${dir},size=${size},page=${assignmentsPage.number - 1})}">
+            Prev
+        </a>
+
+        <a th:if="${assignmentsPage.hasNext()}"
+           th:href="@{/assignments(staffId=${staffId},screeningId=${screeningId},sortBy=${sortBy},dir=${dir},size=${size},page=${assignmentsPage.number + 1})}">
+            Next
+        </a>
+    </p>
+
+</div>
 
 <p><a th:href="@{/}">Back home</a></p>
 

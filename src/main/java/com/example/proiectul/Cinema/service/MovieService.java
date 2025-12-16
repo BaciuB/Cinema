@@ -2,8 +2,10 @@ package com.example.proiectul.Cinema.service;
 
 import com.example.proiectul.Cinema.model.Movie;
 import com.example.proiectul.Cinema.repository.MovieRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +17,8 @@ public class MovieService {
     public MovieService(MovieRepository movieRepo) {
         this.movieRepo = movieRepo;
     }
+
+    /* ===== EXISTENTE ===== */
 
     public List<Movie> findAll() {
         return movieRepo.findAll();
@@ -39,7 +43,31 @@ public class MovieService {
     public boolean existsAnotherWithTitle(String id, String title) {
         return movieRepo.existsByTitleAndIdNot(title, id);
     }
+
+    /* ===== NOU – ITERATION 5 ===== */
+
+    public List<Movie> findFilteredAndSorted(
+            String title,
+            Integer minDuration,
+            Integer maxDuration,
+            LocalDate releaseFrom,
+            LocalDate releaseTo,
+            String sortField,
+            String sortDir
+    ) {
+        Sort sort = "desc".equalsIgnoreCase(sortDir)
+                ? Sort.by(sortField).descending()
+                : Sort.by(sortField).ascending();
+
+        String t = (title == null || title.isBlank()) ? null : title;
+
+        return movieRepo.filterMovies(
+                t,
+                minDuration,
+                maxDuration,
+                releaseFrom,
+                releaseTo,
+                sort
+        );
+    }
 }
-
-
-//pe backend sa facem si validari pentru a verifica daca exista un anumit seat sau asa mai departe

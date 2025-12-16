@@ -5,17 +5,10 @@
     <title>Movies</title>
 
     <style>
-        .field-error {
-            color: red;
-            font-weight: bold;
-            margin-bottom: 10px;
-            display: block;
-        }
-        .success-message {
-            color: green;
-            font-weight: bold;
-            margin-bottom: 10px;
-            display: block;
+        .filter-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 15px;
         }
     </style>
 </head>
@@ -23,43 +16,57 @@
 
 <h1>Movies</h1>
 
-<div th:if="${globalError}" class="field-error" th:text="${globalError}"></div>
-<div th:if="${successMessage}" class="success-message" th:text="${successMessage}"></div>
+<div class="filter-box">
+    <form method="get">
 
-<p><a th:href="@{/movies/new}">Add new Movie</a></p>
+        <label>Title:</label>
+        <input type="text" name="title" th:value="${title}">
 
-<table border="1" cellpadding="5" cellspacing="0">
+        <label>Min duration:</label>
+        <input type="number" name="minDuration" th:value="${minDuration}">
+
+        <label>Max duration:</label>
+        <input type="number" name="maxDuration" th:value="${maxDuration}">
+
+        <label>Sort by:</label>
+        <select name="sort">
+            <option value="title" th:selected="${sort == 'title'}">Title</option>
+            <option value="durationMinutes" th:selected="${sort == 'durationMinutes'}">Duration</option>
+        </select>
+
+        <select name="dir">
+            <option value="asc" th:selected="${dir == 'asc'}">ASC</option>
+            <option value="desc" th:selected="${dir == 'desc'}">DESC</option>
+        </select>
+
+        <button type="submit">Apply</button>
+    </form>
+</div>
+
+<table border="1" cellpadding="5">
     <thead>
     <tr>
-        <th>ID</th>
         <th>Title</th>
-        <th>Duration (min)</th>
+        <th>Duration</th>
         <th>Release Date</th>
-        <th># Screenings</th>
         <th>Actions</th>
     </tr>
     </thead>
+
     <tbody>
     <tr th:each="m : ${movies}">
-        <td th:text="${m.id}"></td>
         <td th:text="${m.title}"></td>
         <td th:text="${m.durationMinutes}"></td>
         <td th:text="${m.release_date}"></td>
-        <td th:text="${m.screenings != null ? #lists.size(m.screenings) : 0}"></td>
         <td>
             <a th:href="@{'/movies/' + ${m.id}}">Details</a> |
             <a th:href="@{'/movies/' + ${m.id} + '/edit'}">Edit</a>
-
-            <form th:action="@{'/movies/' + ${m.id} + '/delete'}"
-                  method="post"
-                  style="display:inline">
-                <button type="submit">Delete</button>
-            </form>
         </td>
     </tr>
     </tbody>
 </table>
 
+<p><a th:href="@{/movies/new}">Add Movie</a></p>
 <p><a th:href="@{/}">Back home</a></p>
 
 </body>

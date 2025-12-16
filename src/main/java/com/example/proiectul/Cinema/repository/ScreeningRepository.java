@@ -2,12 +2,13 @@ package com.example.proiectul.Cinema.repository;
 
 import com.example.proiectul.Cinema.model.Screening;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface ScreeningRepository extends JpaRepository<Screening, String> {
+public interface ScreeningRepository extends JpaRepository<Screening, String>, JpaSpecificationExecutor<Screening> {
 
     List<Screening> findByHall_Id(String hallId);
 

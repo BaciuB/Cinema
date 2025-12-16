@@ -10,7 +10,15 @@
 
 <form th:action="@{'/assignments/' + ${assignment.id}}"
       th:object="${assignment}"
-      method="post">
+      method="post"
+      novalidate>
+
+    <div th:if="${#fields.hasErrors()}" style="color:red; font-weight:bold; margin-bottom:10px;">
+        <p>Please correct the following errors:</p>
+        <ul>
+            <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Error</li>
+        </ul>
+    </div>
 
     <div>
         <label>ID</label><br>
@@ -20,11 +28,21 @@
     <div>
         <label>Screening ID</label><br>
         <input th:field="*{screeningId}" required>
+        <div th:if="${#fields.hasErrors('screeningId')}"
+             th:errors="*{screeningId}"
+             style="color:red;font-weight:bold;"></div>
     </div>
 
     <div>
         <label>Staff ID</label><br>
         <input th:field="*{staffId}" required>
+        <div th:if="${#fields.hasErrors('staffId')}"
+             th:errors="*{staffId}"
+             style="color:red;font-weight:bold;"></div>
+    </div>
+
+    <div th:if="${#fields.hasGlobalErrors()}" style="color:red; font-weight:bold;">
+        <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
     </div>
 
     <p>

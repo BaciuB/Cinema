@@ -1,7 +1,12 @@
+// src/main/java/com/example/proiectul/Cinema/service/TicketService.java
 package com.example.proiectul.Cinema.service;
 
 import com.example.proiectul.Cinema.model.Ticket;
 import com.example.proiectul.Cinema.repository.TicketRepository;
+import com.example.proiectul.Cinema.repository.spec.TicketSpecs;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,5 +47,22 @@ public class TicketService {
 
     public boolean seatAlreadyBookedForScreening(String screeningId, String seatId) {
         return ticketRepo.existsByScreening_IdAndSeat_Id(screeningId, seatId);
+    }
+
+    public Page<Ticket> findWithFilters(String screeningId,
+                                        String seatId,
+                                        String customerName,
+                                        Double minPrice,
+                                        Double maxPrice,
+                                        Pageable pageable) {
+
+        Specification<Ticket> spec = Specification
+                .allOf(TicketSpecs.screeningIdEquals(screeningId))
+                .and(TicketSpecs.seatIdEquals(seatId))
+                .and(TicketSpecs.customerNameContains(customerName))
+                .and(TicketSpecs.priceGte(minPrice))
+                .and(TicketSpecs.priceLte(maxPrice));
+
+        return ticketRepo.findAll(spec, pageable);
     }
 }

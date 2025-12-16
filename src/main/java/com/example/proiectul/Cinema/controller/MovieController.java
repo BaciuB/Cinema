@@ -1,5 +1,5 @@
 package com.example.proiectul.Cinema.controller;
-
+import java.time.LocalDate;
 import com.example.proiectul.Cinema.model.Movie;
 import com.example.proiectul.Cinema.service.MovieService;
 import jakarta.validation.Valid;
@@ -20,10 +20,41 @@ public class MovieController {
     }
 
     @GetMapping
-    public String index(Model model) {
-        model.addAttribute("movies", movieService.findAll());
+    public String index(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) Integer minDuration,
+            @RequestParam(required = false) Integer maxDuration,
+            @RequestParam(required = false) LocalDate releaseFrom,
+            @RequestParam(required = false) LocalDate releaseTo,
+            @RequestParam(defaultValue = "title") String sort,
+            @RequestParam(defaultValue = "asc") String dir,
+            Model model
+    ) {
+
+        model.addAttribute("movies",
+                movieService.findFilteredAndSorted(
+                        title,
+                        minDuration,
+                        maxDuration,
+                        releaseFrom,
+                        releaseTo,
+                        sort,
+                        dir
+                )
+        );
+
+        /* păstrează valorile în formular */
+        model.addAttribute("title", title);
+        model.addAttribute("minDuration", minDuration);
+        model.addAttribute("maxDuration", maxDuration);
+        model.addAttribute("releaseFrom", releaseFrom);
+        model.addAttribute("releaseTo", releaseTo);
+        model.addAttribute("sort", sort);
+        model.addAttribute("dir", dir);
+
         return "movie/index";
     }
+
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {

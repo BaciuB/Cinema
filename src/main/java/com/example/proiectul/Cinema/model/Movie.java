@@ -23,7 +23,7 @@ public class Movie {
     @NotNull(message = "Duration is required")
     @Positive(message = "Duration must be positive")
     @Column(name = "duration_minutes", nullable = false)
-    private Integer durationMinutes;   // <- era int
+    private Integer durationMinutes;
 
     @PastOrPresent(message = "Release date cannot be in the future")
     @Column(name = "release_date")
@@ -41,9 +41,6 @@ public class Movie {
         this.release_date = release_date;
     }
 
-    public LocalDate getRelease_date() { return release_date; }
-    public void setRelease_date(LocalDate release_date) { this.release_date = release_date; }
-
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
 
@@ -52,6 +49,9 @@ public class Movie {
 
     public Integer getDurationMinutes() { return durationMinutes; }
     public void setDurationMinutes(Integer durationMinutes) { this.durationMinutes = durationMinutes; }
+
+    public LocalDate getRelease_date() { return release_date; }
+    public void setRelease_date(LocalDate release_date) { this.release_date = release_date; }
 
     public List<Screening> getScreenings() { return screenings; }
     public void setScreenings(List<Screening> screenings) { this.screenings = screenings; }

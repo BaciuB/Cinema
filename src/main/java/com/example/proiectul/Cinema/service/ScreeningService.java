@@ -2,8 +2,13 @@ package com.example.proiectul.Cinema.service;
 
 import com.example.proiectul.Cinema.model.Screening;
 import com.example.proiectul.Cinema.repository.ScreeningRepository;
+import com.example.proiectul.Cinema.repository.spec.ScreeningSpecs;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +23,14 @@ public class ScreeningService {
 
     public List<Screening> findAll() {
         return repo.findAll();
+    }
+
+    public Page<Screening> findWithFilters(String hallId, String movieId, LocalDate dateFrom, LocalDate dateTo, Pageable pageable) {
+        Specification<Screening> spec = ScreeningSpecs.hallIdEquals(hallId)
+                .and(ScreeningSpecs.movieIdEquals(movieId))
+                .and(ScreeningSpecs.dateFrom(dateFrom))
+                .and(ScreeningSpecs.dateTo(dateTo));
+        return repo.findAll(spec, pageable);
     }
 
     public Optional<Screening> findById(String id) {

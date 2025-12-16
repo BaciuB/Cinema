@@ -5,18 +5,11 @@
     <title>Screenings</title>
 
     <style>
-        .field-error {
-            color: red;
-            font-weight: bold;
-            margin-bottom: 10px;
-            display: block;
-        }
-        .success-message {
-            color: green;
-            font-weight: bold;
-            margin-bottom: 10px;
-            display: block;
-        }
+        .field-error { color: red; font-weight: bold; margin-bottom: 10px; display: block; }
+        .success-message { color: green; font-weight: bold; margin-bottom: 10px; display: block; }
+        .box { border: 1px solid #999; padding: 12px; display: inline-block; }
+        .row { margin-bottom: 8px; }
+        label { display: inline-block; min-width: 130px; }
     </style>
 </head>
 <body>
@@ -25,6 +18,72 @@
 
 <div th:if="${globalError}" class="field-error" th:text="${globalError}"></div>
 <div th:if="${successMessage}" class="success-message" th:text="${successMessage}"></div>
+
+<div class="box">
+    <h3 style="margin-top:0">Filter + Sort</h3>
+
+    <form th:action="@{/screenings}" method="get">
+        <div class="row">
+            <label>Hall</label>
+            <select name="hallId">
+                <option value="" th:selected="${hallId == null || hallId == ''}">-- any --</option>
+                <option th:each="h : ${halls}" th:value="${h.id}" th:text="${h.name}" th:selected="${hallId == h.id}"></option>
+            </select>
+        </div>
+
+        <div class="row">
+            <label>Movie</label>
+            <select name="movieId">
+                <option value="" th:selected="${movieId == null || movieId == ''}">-- any --</option>
+                <option th:each="m : ${movies}" th:value="${m.id}" th:text="${m.title}" th:selected="${movieId == m.id}"></option>
+            </select>
+        </div>
+
+        <div class="row">
+            <label>Date from</label>
+            <input type="date" name="dateFrom" th:value="${dateFrom}">
+        </div>
+
+        <div class="row">
+            <label>Date to</label>
+            <input type="date" name="dateTo" th:value="${dateTo}">
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <label>Sort by</label>
+            <select name="sortBy">
+                <option value="id" th:selected="${sortBy == 'id'}">ID</option>
+                <option value="dateTime" th:selected="${sortBy == 'dateTime'}">Date</option>
+            </select>
+        </div>
+
+        <div class="row">
+            <label>Direction</label>
+            <select name="dir">
+                <option value="ASC" th:selected="${dir == 'ASC'}">ASC</option>
+                <option value="DESC" th:selected="${dir == 'DESC'}">DESC</option>
+            </select>
+        </div>
+
+        <div class="row">
+            <label>Page size</label>
+            <select name="size">
+                <option value="5" th:selected="${size == 5}">5</option>
+                <option value="10" th:selected="${size == 10}">10</option>
+                <option value="20" th:selected="${size == 20}">20</option>
+            </select>
+        </div>
+
+        <input type="hidden" name="page" value="0">
+
+        <div class="row">
+            <button type="submit">Apply</button>
+            <a th:href="@{/screenings}">Reset</a>
+        </div>
+    </form>
+</div>
 
 <p><a th:href="@{/screenings/new}">Add new Screening</a></p>
 
@@ -39,7 +98,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="s : ${screenings}">
+    <tr th:each="s : ${screeningsPage.content}">
         <td th:text="${s.id}"></td>
         <td th:text="${s.hall != null ? s.hall.name : 'N/A'}"></td>
         <td th:text="${s.movie != null ? s.movie.title : 'N/A'}"></td>
@@ -47,15 +106,28 @@
         <td>
             <a th:href="@{'/screenings/' + ${s.id}}">Details</a> |
             <a th:href="@{'/screenings/' + ${s.id} + '/edit'}">Edit</a>
-            <form th:action="@{'/screenings/' + ${s.id} + '/delete'}"
-                  method="post"
-                  style="display:inline">
+            <form th:action="@{'/screenings/' + ${s.id} + '/delete'}" method="post" style="display:inline">
                 <button type="submit">Delete</button>
             </form>
         </td>
     </tr>
     </tbody>
 </table>
+
+<p th:if="${screeningsPage.totalPages > 1}">
+    <a th:if="${screeningsPage.hasPrevious()}"
+       th:href="@{/screenings(hallId=${hallId},movieId=${movieId},dateFrom=${dateFrom},dateTo=${dateTo},sortBy=${sortBy},dir=${dir},size=${size},page=${screeningsPage.number - 1})}">
+        Prev
+    </a>
+
+    <span th:text="${screeningsPage.number + 1}">1</span> /
+    <span th:text="${screeningsPage.totalPages}">1</span>
+
+    <a th:if="${screeningsPage.hasNext()}"
+       th:href="@{/screenings(hallId=${hallId},movieId=${movieId},dateFrom=${dateFrom},dateTo=${dateTo},sortBy=${sortBy},dir=${dir},size=${size},page=${screeningsPage.number + 1})}">
+        Next
+    </a>
+</p>
 
 <p><a th:href="@{/}">Back home</a></p>
 

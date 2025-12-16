@@ -2,6 +2,7 @@ package com.example.proiectul.Cinema.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "staff_assignments")
@@ -10,6 +11,7 @@ public class StaffAssignment {
     @Id
     @Column(length = 50)
     @NotBlank(message = "ID is required")
+    @Size(max = 50, message = "ID must be at most 50 characters")
     private String id;
 
     @ManyToOne(optional = false)
@@ -25,11 +27,9 @@ public class StaffAssignment {
     private SupportStaff supportStaff;
 
     @Transient
-//    @NotBlank(message = "Screening ID is required")
     private String screeningId;
 
     @Transient
-//    @NotBlank(message = "Staff ID is required")
     private String staffId;
 
     public StaffAssignment() {}
